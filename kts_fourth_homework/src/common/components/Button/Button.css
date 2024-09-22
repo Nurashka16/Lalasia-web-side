@@ -1,0 +1,30 @@
+.btn {
+   padding: 16px 32px;
+   border: none;
+   background-color: var(--accent);
+   color: var(--white);
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   column-gap: 8px;
+   min-height: 52px;
+   transition: background-color 0.3s ease;
+   cursor: pointer;
+   font-size: 18px;
+   line-height: 100%;
+   text-wrap: nowrap;
+}
+.btn:hover {
+   background-color: var(--accent_hover);
+}
+.btn:active {
+   background-color: var(--accent_active);
+}
+.btn:disabled {
+   background-color: var(--light_grey);
+   pointer-events: none;
+   cursor: default;
+}
+.btn_loader {
+   flex-shrink: 0;
+}

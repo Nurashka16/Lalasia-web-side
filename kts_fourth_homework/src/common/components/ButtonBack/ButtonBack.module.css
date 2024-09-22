@@ -1,0 +1,22 @@
+.btn_back {
+   height: 48px;
+   margin-bottom: 32px;
+   display: flex;
+   align-items: center;
+   justify-content: start;
+   column-gap: 12px;
+}
+.btn_icon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.btn_back svg {
+   height: 32px;
+   width: 32px;
+}
+.btn_back div {
+   color: black
+   /* padding: 24px 10px; */
+
+}

@@ -1,0 +1,37 @@
+.home {
+   background-color: #fafafa;
+   width: 100%;
+   height: 100%;
+   padding: 100px 100px 48px;
+}
+
+.home_description {
+   height: 128px;
+   display: flex;
+   align-items: center;
+   text-align: center;
+   flex-direction: column;
+   gap: 24px;
+   margin-bottom: 48px;
+}
+.home_title {
+   height: 48px;
+   font-family: "Roboto", sans-serif;
+   font-weight: 700;
+   font-size: 44px;
+   line-height: 109%;
+   color: black;
+}
+.home_text {
+   font-family: "Roboto", sans-serif;
+   font-weight: 400;
+   font-size: 20px;
+   line-height: 120%;
+   text-align: center;
+   color: #afadb5;
+}
+.home_main {
+   display: flex;
+   flex-direction: column;
+   min-height: 100%;
+}

@@ -1,0 +1,53 @@
+.aboutUs {
+   min-height: 90.25vb;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+
+}
+.aboutUs_frame {
+   min-height: 15vb;
+   background-color: #487773;
+}
+.main {
+   position: absolute;
+   top: 20%;
+   right: 24%;
+   height: 70%;
+   background-color: rgb(255, 255, 255);
+   padding: 36px 50px;
+   width: 1000px;
+   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+}
+.main_header {
+   border-bottom: 2px solid rgb(0, 0, 0, 0.2);
+   padding-bottom: 10px;
+}
+.main_title {
+   text-align: end;
+   padding-bottom: 5px;
+}
+.main_content {
+   padding: 15px 0;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   height: 80%;
+}
+.main_desc {
+   margin-top: 15px;
+   flex: 0 1 70%;
+   width: 100%;
+   line-height: 37px;
+}
+.main_img {
+   margin: 30px 0 0 0;
+   flex: 0 1 30%;
+   padding: 0 0 10px 0;
+   height: 80%;
+}
+.main_footer {
+   display: flex;
+   justify-content: space-between;
+   margin: -10px 50px 0;
+}

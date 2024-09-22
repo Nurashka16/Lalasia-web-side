@@ -1,0 +1,12 @@
+.empty {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   margin-top: 10px;
+   row-gap: 15px;
+}
+.color_red {
+   color: red;
+}

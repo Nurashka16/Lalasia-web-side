@@ -1,0 +1,13 @@
+.icon {
+   display: inline-block;
+   color: currentColor;
+}
+.icon_primary {
+   color: var(--black);
+}
+.icon_secondary {
+   color: var(--dark_gray);
+}
+.icon_accent {
+   color: var(--accent);
+}
