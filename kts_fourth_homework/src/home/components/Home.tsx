@@ -2,7 +2,7 @@ import style from "./Home.module.css";
 import Catalog from "../../common/Catalog";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
-import Filter from "./Filter/Search";
+import Filter from "./ProductsFilters/ProductsFilters";
 import productsStore from "../stores/products-store";
 
 const Home = observer(() => {

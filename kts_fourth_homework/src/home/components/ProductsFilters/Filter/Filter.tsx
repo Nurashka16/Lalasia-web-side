@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useEffect } from "react";
-import style from "./ProductsFilter.module.css";
+import style from "./Filter.module.css";
 import MultiDropdown, {
   Option,
 } from "../../../../common/components/MultiDropdown";
@@ -11,8 +11,10 @@ interface IFilter {
   selectedFilters: IProductsFilter;
   addFilter: (key: number) => Promise<void>;
 }
+//получше продумать и сделать его переиспользуемым компонентом как card
+//продумать зависимости  === а нужно ли
 
-const Filters = observer(
+const Filter = observer(
   ({ selectedFilters, addFilter }: IFilter) => {
     const { categoriesData, setCategories } = categoriesStore;
 
@@ -37,4 +39,4 @@ const Filters = observer(
     );
   }
 );
-export default Filters;
+export default Filter;
