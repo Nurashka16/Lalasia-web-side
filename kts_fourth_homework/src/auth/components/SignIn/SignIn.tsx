@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "../Auth.module.css";
 import { Link } from "react-router-dom";
-import FormFill from "../../../common/components/FormToFill/FormFill";
+import FormFill from "../../../common/components/FormToFill/FormToFill";
 import Layout from "../Layout";
 import { observer } from "mobx-react-lite";
 import usePopUp from "../../../common/hooks/usePopUp";

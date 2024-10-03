@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Input, { InputProps } from "../Input/Input";
+import style from "./ValidationInput.module.css";
 
-type ValidationInputProps = InputProps & IValidation;
+type ValidationInputProps = InputProps & IValidation<string>;
 
 const ValidationInput = (props: ValidationInputProps) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -16,10 +17,14 @@ const ValidationInput = (props: ValidationInputProps) => {
     props.onChange(value);
   };
   return (
-    <>
+    <div className={style.input}>
       <Input {...(props as InputProps)} onChange={(e) => onChangeHandler(e)} />
-      <div style={{ color: "red" }}>{errorMessage}</div>
-    </>
+      <div className={style.errorMessage}
+
+      >
+        {errorMessage}
+      </div>
+    </div>
   );
 };
 

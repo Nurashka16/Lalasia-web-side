@@ -1,8 +1,8 @@
-interface IValidation {
-  rules?: IRule[];
+interface IValidation<T> {
+  rules?: IRule<T>[];
   setIsValid?: (value: boolean) => void;
 }
-interface IRule {
+interface IRule<T> {
   errorMessage: string;
-  validate: (value: string) => boolean;
+  validate: (value: T) => boolean;
 }

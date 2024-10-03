@@ -7,8 +7,6 @@ interface IButtonBack {
   link: string;
 }
 
-//убрала род.комп. с классом - проверить нужен ли был
-
 const ButtonBack = ({ link }: IButtonBack) => {
   return (
     <Link className={style.btn_back} to={link}>
@@ -33,12 +31,6 @@ const ButtonBack = ({ link }: IButtonBack) => {
       <Text view="p-20" weight="normal">
         Назад
       </Text>
-      {/*
-       <div className={style.btn_text}>
-     <Text view="p-20" weight="normal">
-       Назад
-     </Text>
-   </div> */}
     </Link>
   );
 };

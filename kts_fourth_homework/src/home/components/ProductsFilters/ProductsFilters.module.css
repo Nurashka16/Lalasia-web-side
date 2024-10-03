@@ -1,15 +1,13 @@
 .filters {
    display: flex;
+
    justify-content: space-between;
-}.filter {
-   max-width: 300px;
-}
-.price{
-   font-size: 21px;
-}
-.range{
-   display: flex;
-   width: 290px;
-   column-gap: 10px;
 }
 
+.price {
+   font-size: 21px;
+}
+
+.range {
+   flex: 0 1 30%;
+}

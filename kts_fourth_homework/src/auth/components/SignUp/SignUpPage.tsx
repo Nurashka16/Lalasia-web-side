@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import style from "../Auth.module.css";
-import FormFill from "../../../common/components/FormToFill/FormFill";
+import FormFill from "../../../common/components/FormToFill/FormToFill";
 import Layout from "../Layout";
 import { observer } from "mobx-react-lite";
 import AuthStore from "../../stores/auth-store";

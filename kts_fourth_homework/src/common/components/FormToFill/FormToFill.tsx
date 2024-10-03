@@ -1,7 +1,6 @@
 import Text from "../Text";
 import ValidationInput from "../ValidationInput/ValidationInput";
-
-//в папку общее
+import style from './FormToFill.module.css'
 
 interface IFormFill {
   className?: string;
@@ -9,16 +8,20 @@ interface IFormFill {
   onChange: (value: string) => void;
   rules: IRule[];
   setIsValid: (value: boolean) => void;
-  text: string;
+  text?: string;
+  placeholder?: string;
+  afterSlot?: React.ReactNode;
 }
 
-const FormFill = ({
+const FormToFill = ({
   className,
   value,
   onChange,
   rules,
   setIsValid,
   text,
+  placeholder,
+  afterSlot
 }: IFormFill) => {
   return (
     <div className={className}>
@@ -26,13 +29,16 @@ const FormFill = ({
         {text}
       </Text>
       <ValidationInput
+      className={style.input}
+      placeholder={placeholder}
         value={value}
         onChange={onChange}
         rules={rules}
         setIsValid={setIsValid}
+        afterSlot={afterSlot}
       />
     </div>
   );
 };
 
-export default FormFill;
+export default FormToFill;

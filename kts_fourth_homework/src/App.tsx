@@ -24,6 +24,7 @@ import Categories from "./categories/components/categoriesCatalog/Categories";
 import SignUp from "./auth/components/SignUp";
 import ProductsCategory from "./categories/components/productsCategory";
 import InfoCard from "./product/components/InfoCard";
+import Product from "./product/components/Product";
 
 const App = observer(() => {
   const { isAuth } = authStore;
@@ -35,7 +36,7 @@ const App = observer(() => {
         {isAuth ? (
           <Routes>
             <Route path={HOME} element={<Home />} />
-            <Route path={PRODUCT} element={<InfoCard />}>
+            <Route path={PRODUCT} element={<Product/>}>
               <Route path=":id" element={<InfoCard />} />
             </Route>
             <Route path={ABOUT_US} element={<AboutUs />}></Route>
