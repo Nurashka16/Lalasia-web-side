@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Product } from "../store/products-store";
+import { IProduct } from "../interface/IProduct";
 
 export const getProduct = async (id: string) =>
-  (await axios.get<Product>("https://api.escuelajs.co/api/v1/products/" + id))
+  (await axios.get<IProduct>("https://api.escuelajs.co/api/v1/products/" + id))
     .data;

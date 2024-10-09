@@ -10,6 +10,21 @@ import Button from "../../../common/components/Button";
 import { HOME } from "../../../utils/const";
 import Text from "../../../common/components/Text";
 
+interface Array<T> {
+  getBy<P extends keyof T>(prop: P, value: T[P]): T | null;
+}
+
+// Array.prototype.getBy = function <T, P extends keyof T>(
+//    this: T[],
+//    prop: P,
+//    value: T[P]
+// ): T | null {
+//  return this.filter(item => item[prop] === value)[0] || null;
+// };
+
+// const numbers = [1,2,3,4];
+// numbers.get
+
 const SignUpPage = observer(() => {
   const { signUp } = AuthStore;
   const { decoratedAction: signUpWithPopUp } = usePopUp(
@@ -32,14 +47,14 @@ const SignUpPage = observer(() => {
   const [avatarIsValid, setAvatarIsValid] = useState(false);
 
   const minLetters = 5;
-  const rules: IRule[] = [
+  const rules: IRule<string>[] = [
     {
       errorMessage: "Empty line",
-      validate: (value: string) => !!value,
+      validate: (value) => !!value,
     },
     {
       errorMessage: "Minimum length: 5 letters",
-      validate: (value: string) => value.length >= minLetters,
+      validate: (value) => value.length >= minLetters,
     },
   ];
 

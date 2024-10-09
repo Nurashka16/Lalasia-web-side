@@ -1,20 +1,21 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { IProductsFilter } from "../interface/IProductsFilter";
 import { iDiapason } from "../interface/IDiapason";
-import { searchProducts } from "../../api/searchProducts";
-import { getAllProducts } from "../../api/getAllProducts";
 import { IProduct } from "../../product/interface/IProduct";
+import { ICategory } from "../interface/ICategory";
+import { getAll } from "../api/getAll";
+import { getCategories } from "../api/getCategories";
+import {getProductsSameCategory} from '../api/getProductsSameCategory'
+import { searchProducts } from "../api/searchProducts";
 
 class ProductsFilter implements IProductsFilter {
   categoryIds: number[] = [];
   diapason?: iDiapason = undefined;
-  price?: number = undefined;
   title?: string = undefined;
 
   public Clear(): void {
     this.categoryIds = [];
     this.diapason = undefined;
-    this.price = undefined;
     this.title = undefined;
   }
 }
@@ -44,8 +45,7 @@ class Pagination {
 class ProductsStore {
   private _selectedFilters: ProductsFilter = new ProductsFilter();
 
-  // categoriesData: ICategory[] = [];
-
+  categoriesData: ICategory[] = [];
   partProducts: IProduct[] = [];
   allProducts: IProduct[] = [];
   pagination: Pagination = new Pagination(9);
@@ -64,27 +64,36 @@ class ProductsStore {
       this.pagination.getEndIndex()
     );
   };
+  search = async (data: IProductsFilter) => {
 
-  search = async (value: string) => {
-    const categoriesLength = this.selectedFilters.categoryIds.length;
-    this.allProducts = [];
+    // const categoriesLength = this.selectedFilters.categoryIds.length;
+    // this.allProducts = [];//подумать
+    // this.pagination.numberAllProducts = 0;
 
     try {
-      if (categoriesLength !== 0) {
-        for (let i = 0; i < categoriesLength; i++) {
+      if (data.categoryIds.length !== 0) {
+        for (let i = 0; i < data.categoryIds.length; i++) {
           const response: IProduct[] = await searchProducts({
-            title: value,
+            title: data.title,
             categoryId: this.selectedFilters.categoryIds[i],
+            diapason: {
+              priceMin: data.diapason?.priceMin,
+              priceMax: data.diapason?.priceMin,
+            },
           });
           runInAction(() => {
-            this.pagination.numberAllProducts = response.length;
+            this.pagination.numberAllProducts += response.length;
             this.allProducts = { ...this.allProducts, ...response };
             this.setPage();
           });
         }
       } else {
         const response: IProduct[] = await searchProducts({
-          title: value,
+          title: data.title,
+          diapason: {
+            priceMin: data.diapason?.priceMin,
+            priceMax: data.diapason?.priceMin,
+          },
         });
         runInAction(() => {
           this.pagination.numberAllProducts = response.length;
@@ -93,13 +102,12 @@ class ProductsStore {
         });
       }
     } catch {
-      throw new Error("Ошибка в получении отфильтрованный элементов");
+      throw new Error("Ошибка в поиске элементов");
     }
   };
-
-  getAllProducts = async () => {
+  getAll = async () => {
     try {
-      const response = await getAllProducts();
+      const response = await getAll();
       runInAction(() => {
         this.pagination.numberAllProducts = response.length;
         this.allProducts = response;
@@ -110,7 +118,30 @@ class ProductsStore {
       throw new Error("Ошибка в получении всех элементов каталога");
     }
   };
-
+  getCategories = async () => {
+    try {
+      const response = await getCategories();
+      runInAction(() => {
+        this.categoriesData =
+          response.length > 5 ? response.slice(0, 5) : response;
+      });
+    } catch {
+      throw new Error("Ошибка в получении категорий");
+    }
+  };
+  getProductsSameCategories = async (id: number) => {
+    try {
+      const response = await searchProducts( categoryId:id);
+      runInAction(() => {
+        this.allProducts = response;
+        // this.setPage();
+        // this.pagination.numberAllProducts = response.length;
+        // console.log(this.allProducts);
+      });
+    } catch {
+      throw new Error("Ошибка в получении продуктов одной категории");
+    }
+  };
   addFilter = async (id: number) => {
     this._selectedFilters.categoryIds.push(id);
   };

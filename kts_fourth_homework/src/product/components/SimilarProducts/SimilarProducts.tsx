@@ -1,10 +1,9 @@
 import React from "react";
 import "./SimilarProducts.css";
 import { observer } from "mobx-react-lite";
-import productsStore from "../../../home/stores/products-store";
+import productsStore from "../../../home/store/products-store";
 import Card from "../../../common/components/Card";
 import Text from "../../../common/components/Text";
-
 
 const SimilarProducts = observer(() => {
   const { partProducts } = productsStore;

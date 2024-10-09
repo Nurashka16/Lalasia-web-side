@@ -11,8 +11,9 @@ interface IFilter {
   selectedFilters: IProductsFilter;
   addFilter: (key: number) => Promise<void>;
 }
-//получше продумать и сделать его переиспользуемым компонентом как card
+
 //продумать зависимости  === а нужно ли
+//переписать все
 
 const Filter = observer(
   ({ selectedFilters, addFilter }: IFilter) => {

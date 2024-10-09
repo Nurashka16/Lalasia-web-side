@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import style from "./ProductsCategory.module.css";
 import Catalog from "../../../common/Catalog";
 import categoriesStore from "../../store/categories-store";
-import productsStore from "../../../home/stores/products-store";
+import productsStore from "../../../home/store/products-store";
 
 const ProductsCategory = observer(() => {
   const { productsData, setProductsSameCategories } = categoriesStore;

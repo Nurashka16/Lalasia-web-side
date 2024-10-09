@@ -3,7 +3,7 @@ import Catalog from "../../common/Catalog";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import Filter from "./ProductsFilters/ProductsFilters";
-import productsStore from "../stores/products-store";
+import productsStore from "../store/products-store";
 
 const Home = observer(() => {
   const { partProducts, pagination, setPage, getAllProducts } = productsStore;

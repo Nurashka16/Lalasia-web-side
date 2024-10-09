@@ -27,14 +27,14 @@ const SignIn = observer(() => {
   const [passwordIsValid, setPasswordIsValid] = useState(false);
 
   const minLetters = 5;
-  const rules: IRule[] = [
+  const rules: IRule<string>[] = [
     {
       errorMessage: "Empty line",
-      validate: (value: string) => !!value,
+      validate: (value) => !!value,
     },
     {
       errorMessage: "Minimum length:" + minLetters + " letters",
-      validate: (value: string) => value.length >= minLetters,
+      validate: (value) => value.length >= minLetters,
     },
   ];
   return (

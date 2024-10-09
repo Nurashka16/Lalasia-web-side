@@ -2,11 +2,11 @@ import Text from "../Text";
 import ValidationInput from "../ValidationInput/ValidationInput";
 import style from './FormToFill.module.css'
 
-interface IFormFill {
+interface IFormFill<T> {
   className?: string;
   value: string;
   onChange: (value: string) => void;
-  rules: IRule[];
+  rules: IRule<T>[];
   setIsValid: (value: boolean) => void;
   text?: string;
   placeholder?: string;
@@ -22,7 +22,7 @@ const FormToFill = ({
   text,
   placeholder,
   afterSlot
-}: IFormFill) => {
+}: IFormFill<T>) => {
   return (
     <div className={className}>
       <Text tag="h3" color="secondary" weight="medium">
