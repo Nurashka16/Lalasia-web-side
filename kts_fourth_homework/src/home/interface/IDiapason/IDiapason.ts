@@ -1,4 +1,4 @@
-export interface iDiapason {
-   priceMin: number;
-   priceMax: number;
- }
+export interface IDiapason {
+  min: number;
+  max: number;
+}

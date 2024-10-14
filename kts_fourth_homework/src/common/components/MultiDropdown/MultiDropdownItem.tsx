@@ -2,48 +2,66 @@ import React, { useEffect, useState } from "react";
 import { Option } from "./MultiDropdown";
 import "./MultiDropdown.css";
 import classNames from "classnames";
+import Button from "../Button";
+import Text from "../Text";
 
 interface MultiDropdownItemProps {
   onClick: (value: Option[]) => void;
   item: Option;
   onChange: (value: Option[]) => void;
   isValue: Option[];
+  deleteValue: (value: Option[]) => void;
 }
-//переписать isActive на true
+
 const MultiDropdownItem: React.FC<MultiDropdownItemProps> = ({
   onClick,
   item,
   onChange,
   isValue,
+  deleteValue,
 }) => {
   const arrValues = isValue.map((option) => option.value);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
-    pressedOption();
-  }, [isValue]);
-  
-  const pressedOption = () => {
     if (arrValues.includes(item.value)) {
-      setIsActive(true);
+      setIsActive(false);
     }
-  };
+  }, [isValue]);
 
-  const disabledOption = (item: Option[]) => {
-    setIsActive(true);
+  const addOption = (item: Option[]) => {
+    setIsActive(false);
     onClick(item);
     onChange(item);
   };
+
+  const deleteOption = (item: Option[]) => {
+    setIsActive(true);
+    deleteValue(item)
+    // onClick(item);
+    // onChange(item);
+  };
+
   return (
-    <div
-      style={{
-        fontSize: "16px",
-        lineHeight: "20px",
-      }}
-      className={classNames("list", isActive && "active")}
-      onClick={() => !isActive && disabledOption([item])}
-    >
-      {item.value}
+    <div className="multiDropdownItem">
+      <div
+        style={{
+          fontSize: "16px",
+          lineHeight: "20px",
+        }}
+        className={classNames("list", !isActive && "disabled")}
+        onClick={() => isActive && addOption([item])}
+      >
+        {item.value}
+      </div>
+      {!isActive && (
+        <Button
+          onClick={() => deleteOption([item])}
+          className="multiDropdownItem_btn"
+        >
+          ×
+        </Button>
+      )}
     </div>
   );
 };

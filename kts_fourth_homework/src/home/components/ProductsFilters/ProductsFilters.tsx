@@ -1,40 +1,33 @@
 import Search from "../../../common/components/Search/Search";
-import Filter from "./Filter";
+import Filter from "./CategoryFilter";
 import productsStore from "../../store/products-store";
 import style from "./ProductsFilters.module.css";
-import { useState } from "react";
-import PriceDiapasonFilter from "./Filter/PriceDiapasonFilter/PriceDiapasonFilter";
+import PriceDiapasonFilter from "./PriceDiapasonFilter/PriceDiapasonFilter";
+import { observer } from "mobx-react-lite";
 
 export interface IRange {
   min: number;
   max: number;
 }
 
-const ProductsFilters = () => {
-  const { search, selectedFilters, addFilter } = productsStore;
-
-  const [searchValue, setSearchValue] = useState("");
-  const [rangeValues, setRangeValues] = useState<IRange>({ min: 0, max: 1000 });
-  const onClick = () => {
-    console.log(rangeValues, selectedFilters.categoryIds, searchValue);
-    // search()
-  };
-
+const ProductsFilters = observer(() => {
+  const { search, filter } = productsStore;
   return (
     <>
-      <Search onClick={onClick} value={searchValue} onChange={setSearchValue} />
+      <Search
+        onClick={search}
+        value={filter.title}
+        onChange={filter.setTitle}
+        placeholder="Search product"
+      />
       <div className={style.filters}>
-        <Filter selectedFilters={selectedFilters} addFilter={addFilter} />
+        <Filter />
         <div className={style.range}>
-          <PriceDiapasonFilter
-            onChange={setRangeValues}
-            defaultMaxValue={rangeValues.max}
-            defaultMinValue={rangeValues.min}
-          />
+          <PriceDiapasonFilter />
         </div>
       </div>
     </>
   );
-};
+});
 
 export default ProductsFilters;

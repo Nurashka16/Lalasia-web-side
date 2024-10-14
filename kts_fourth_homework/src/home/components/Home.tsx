@@ -2,14 +2,14 @@ import style from "./Home.module.css";
 import Catalog from "../../common/Catalog";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
-import Filter from "./ProductsFilters/ProductsFilters";
+import ProductsFilters from "./ProductsFilters/ProductsFilters";
 import productsStore from "../store/products-store";
 
 const Home = observer(() => {
-  const { partProducts, pagination, setPage, getAllProducts } = productsStore;
+  const { partProducts, pagination, setPage, getAll } = productsStore;
 
   useEffect(() => {
-    getAllProducts();
+    getAll();
   }, []);
 
   return (
@@ -22,7 +22,7 @@ const Home = observer(() => {
         </div>
       </div>
       <div className={style.home_main}>
-        <Filter />
+        <ProductsFilters />
         <Catalog
           partProducts={partProducts}
           lengthProductsPage={pagination.limitPage}

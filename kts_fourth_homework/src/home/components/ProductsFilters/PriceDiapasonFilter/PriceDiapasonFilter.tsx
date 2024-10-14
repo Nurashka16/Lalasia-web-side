@@ -1,22 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import style from "./PriceDiapasonFilter.module.css";
-import { IRange } from "../../ProductsFilters";
-import Text from "../../../../../common/components/Text";
-import RangeSlider from "../../../../../common/components/RangeSlider/RangeSlider";
+import Text from "../../../../common/components/Text";
+import RangeSlider from "../../../../common/components/RangeSlider/RangeSlider";
+import { observer } from "mobx-react-lite";
+import productsStore from "../../../store/products-store";
 
-interface IPriceDiapasonFilter {
-  defaultMinValue: number;
-  defaultMaxValue: number;
-  onChange: React.Dispatch<React.SetStateAction<IRange>>;
-}
+const PriceDiapasonFilter = observer(() => {
+  const { filter } = productsStore;
 
-const PriceDiapasonFilter = ({
-  defaultMaxValue,
-  defaultMinValue,
-  onChange,
-}: IPriceDiapasonFilter) => {
-  const [minPrice, setMinPrice] = useState<number>(defaultMinValue);
-  const [maxPrice, setMaxPrice] = useState<number>(defaultMaxValue);
+  const [minPrice, setMinPrice] = useState<number>(filter.diapason.min);
+  const [maxPrice, setMaxPrice] = useState<number>(filter.diapason.max);
 
   const limitRange = { min: 0, max: 1000 };
   const difference = 10;
@@ -24,14 +17,14 @@ const PriceDiapasonFilter = ({
   const onChangeMinPriceInput = (value: number) => {
     if (value <= maxPrice - difference && value >= limitRange.min) {
       setMinPrice(value);
-      onChange({ min: value, max: maxPrice });
+      filter.setDiapason({ min: value, max: maxPrice });
     }
   };
 
   const onChangeMaxPriceInput = (value: number) => {
     if (value - minPrice >= difference && value <= limitRange.max) {
       setMaxPrice(value);
-      onChange({ min: minPrice, max: value });
+      filter.setDiapason({ min: minPrice, max: value });
     }
   };
   return (
@@ -92,6 +85,6 @@ const PriceDiapasonFilter = ({
       />
     </div>
   );
-};
+});
 
 export default PriceDiapasonFilter;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 import Input from "../Input";
 import MultiDropdownItem from "./MultiDropdownItem";
 import { useClickOutside } from "../../hooks/useClickOutside";
@@ -43,7 +43,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isOptions, setOptions] = useState(options);
   const { ref: menuRef, isShow, onShow } = useClickOutside();
-  const [isValue, setIsValue] = useState(value);
+  const [selectedValues, setSelectedValues] = useState(value);
 
   useEffect(() => {
     setIsLoading(true);
@@ -51,8 +51,14 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
     setIsLoading(false);
   }, [options]);
 
-  const newValue = (arr: Option[]) => {
-    setIsValue((isValue) => [...isValue, arr[0]]);
+  const addValue = (arr: Option[]) => {
+    setSelectedValues((selectedValues) => [...selectedValues, arr[0]]);
+  };
+  const deleteValue = (arr: Option[]) => {
+    let result: Option[] = [];
+    result = selectedValues.filter((item) => item.value !== arr[0].value);
+    setSelectedValues(result);
+    onChange(arr);
   };
 
   const findMatches = (value: any) => {
@@ -63,12 +69,14 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
     });
     setOptions(result);
   };
+
   const lists = isOptions.map((list) => (
     <MultiDropdownItem
-      isValue={isValue}
-      onClick={newValue}
+      isValue={selectedValues}
+      onClick={addValue}
       onChange={onChange}
       item={list}
+      deleteValue={deleteValue}
     />
   ));
 
@@ -76,18 +84,18 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
     <div className={classNames(className, "wrap")} ref={menuRef}>
       <Input
         disabled={disabled}
-        value={isValue?.length ? getTitle(isValue) : ""}
+        value={selectedValues?.length ? getTitle(selectedValues) : ""}
         onClick={() => onShow()}
         onChange={(e: any) => findMatches(e)}
         className={classNames(
-          isValue?.length > 0 ? "isNotEmpty" : "isEmpty",
+          selectedValues?.length > 0 ? "isNotEmpty" : "isEmpty",
           options?.length > 0 ? "isNotEmpty" : "isEmpty"
         )}
         afterSlot={<ArrowDownIcon color="secondary" />}
         placeholder={
-          isValue?.length > 0
-            ? isValue?.map(({ value }) => value).join(", ")
-            : getTitle(isValue)
+          selectedValues?.length > 0
+            ? selectedValues?.map(({ value }) => value).join(", ")
+            : getTitle(selectedValues)
         }
       />
       {isShow && (

@@ -2,25 +2,32 @@ import React, { useState } from "react";
 import style from "./Search.module.css";
 import Input from "../Input";
 import Button from "../Button";
+import { IProductsFilter } from "../../../home/interface/IProductsFilter";
 
 interface ISearch {
-  onClick: () => void;
-  onChange? :React.Dispatch<React.SetStateAction<string>>;
+  onClick: () => Promise<void>;
+  onChange: (value: string)=> void;
   disabled?: boolean;
-  value: string
+  value: string;
+  placeholder?: string;
 }
 
-const Search = ({ onClick, onChange, disabled, value }: ISearch) => {
-  // const [value, setValue] = useState("");
+const Search = ({
+  onClick,
+  onChange,
+  disabled,
+  value,
+  placeholder,
+}: ISearch) => {
   return (
     <div className={style.search}>
       <Input
-        placeholder="Search product"
+        placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange ? onChange(e) : ""}
+        onChange={(e) => onChange(e)}
       />
       <Button
-        onClick={() => onClick()} //searchProducts({categoryId:1})
+        onClick={() => onClick()}
         className={style.search_btn}
         disabled={disabled}
       >
