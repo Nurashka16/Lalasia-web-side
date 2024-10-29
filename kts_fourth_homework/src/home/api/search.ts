@@ -1,5 +1,4 @@
 import axios from "axios";
-import { IProduct } from "../../product/interface/IProduct";
 import { ParamQueryCollection } from "../../common/api/ParamQueryCollection";
 
 export interface ISearchProductsRequest {

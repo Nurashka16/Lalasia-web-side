@@ -38,6 +38,7 @@
 .main_content:hover {
    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
    border-bottom: 2px solid rgb(0, 0, 0, 0.2);
+   outline: none;
    /* opacity: 0.8;
    margin-top: -5px;
    margin-left: -5px; */

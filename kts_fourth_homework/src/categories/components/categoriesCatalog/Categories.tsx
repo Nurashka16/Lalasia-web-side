@@ -7,10 +7,11 @@ import Text from "../../../common/components/Text";
 import categoriesStore from "../../store/categories-store";
 
 const Categories = observer(() => {
-  const { setCategories, categoriesData } =
+  const { getCategories, categoriesData } =
     categoriesStore;
+
   useEffect(() => {
-    setCategories();
+    getCategories();
   }, []);
 
   const categories = categoriesData.map((category) => (

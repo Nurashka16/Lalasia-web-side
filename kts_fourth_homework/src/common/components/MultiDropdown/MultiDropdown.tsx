@@ -23,7 +23,7 @@ export type MultiDropdownProps = {
   /** Текущие выбранные значения поля, может быть пустым */
   value: Option[];
   /** Callback, вызываемый при выборе варианта */
-  onChange: (value: Option[]) => void;
+  onChange: (value: Option) => void;
   /** Заблокирован ли дропдаун */
   disabled?: boolean;
   /** Возвращает строку которая будет выводится в инпуте.
@@ -51,17 +51,17 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
     setIsLoading(false);
   }, [options]);
 
-  const addValue = (arr: Option[]) => {
-    setSelectedValues((selectedValues) => [...selectedValues, arr[0]]);
+  const addValue = (value: Option) => {
+    setSelectedValues((selectedValues) => [...selectedValues, value]);
   };
-  const deleteValue = (arr: Option[]) => {
-    let result: Option[] = [];
-    result = selectedValues.filter((item) => item.value !== arr[0].value);
-    setSelectedValues(result);
-    onChange(arr);
+  const deleteValue = (value: Option) => {
+    setSelectedValues(
+      selectedValues.filter((item) => item.value !== value.value)
+    );
+    onChange(value);
   };
 
-  const findMatches = (value: any) => {
+  const findMatches = (value: string) => {
     const result = options.filter((option) => {
       return (
         option.value.slice(0, value.length).toUpperCase() == value.toUpperCase()

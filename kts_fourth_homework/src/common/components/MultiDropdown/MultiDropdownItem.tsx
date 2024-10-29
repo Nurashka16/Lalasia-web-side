@@ -6,11 +6,11 @@ import Button from "../Button";
 import Text from "../Text";
 
 interface MultiDropdownItemProps {
-  onClick: (value: Option[]) => void;
+  onClick: (value: Option) => void;
   item: Option;
-  onChange: (value: Option[]) => void;
+  onChange: (value: Option) => void;
   isValue: Option[];
-  deleteValue: (value: Option[]) => void;
+  deleteValue: (value: Option) => void;
 }
 
 const MultiDropdownItem: React.FC<MultiDropdownItemProps> = ({
@@ -29,17 +29,15 @@ const MultiDropdownItem: React.FC<MultiDropdownItemProps> = ({
     }
   }, [isValue]);
 
-  const addOption = (item: Option[]) => {
+  const addOption = (value:Option) => {
     setIsActive(false);
-    onClick(item);
-    onChange(item);
+    onClick(value);
+    onChange(value);
   };
 
-  const deleteOption = (item: Option[]) => {
+  const deleteOption = (value:Option) => {
     setIsActive(true);
-    deleteValue(item)
-    // onClick(item);
-    // onChange(item);
+    deleteValue(value)
   };
 
   return (
@@ -50,13 +48,13 @@ const MultiDropdownItem: React.FC<MultiDropdownItemProps> = ({
           lineHeight: "20px",
         }}
         className={classNames("list", !isActive && "disabled")}
-        onClick={() => isActive && addOption([item])}
+        onClick={() => isActive && addOption(item)}
       >
         {item.value}
       </div>
       {!isActive && (
         <Button
-          onClick={() => deleteOption([item])}
+          onClick={() => deleteOption(item)}
           className="multiDropdownItem_btn"
         >
           ×

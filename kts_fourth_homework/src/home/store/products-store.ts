@@ -32,7 +32,7 @@ class ProductsStore {
     try {
       if (this.filter.categoryIds.length !== 0) {
         for (let i = 0; i < this.filter.categoryIds.length; i++) {
-          const response: IProduct[] = await productsApi.search({
+          let response: IProduct[] = await productsApi.search({
             title: this.filter.title,
             categoryId: this.filter.categoryIds[i],
             diapason: {
@@ -41,13 +41,16 @@ class ProductsStore {
             },
           });
           runInAction(() => {
+            if (response.length > 1000) {
+              response = response.slice(0, 1000);
+            }
             this.pagination.numberAllProducts += response.length;
             this.allProducts = { ...this.allProducts, ...response };
             this.setPage();
           });
         }
       } else {
-        const response: IProduct[] = await productsApi.search({
+        let response: IProduct[] = await productsApi.search({
           title: this.filter.title,
           diapason: {
             priceMin: this.filter.diapason.min,
@@ -55,8 +58,10 @@ class ProductsStore {
           },
         });
         runInAction(() => {
-          console.log(response.length);
-          
+          if (response.length > 1000) {
+            response = response.slice(0, 1000);
+          }
+
           // this.pagination.numberAllProducts = response.length;
           // this.allProducts = response;
           // this.setPage();
@@ -69,11 +74,11 @@ class ProductsStore {
   getAll = async () => {
     try {
       let response = await getAll();
-      let result: IProduct[] = [];
+      // let result: IProduct[] = [];
       runInAction(() => {
         if (response.length > 1000) {
           response = response.slice(0, 1000);
-        } 
+        }
         // else {
         //   result = response;
         // }

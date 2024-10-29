@@ -4,47 +4,29 @@ import { CATEGORIES } from "../../../utils/const";
 import { Link, useParams } from "react-router-dom";
 import style from "./ProductsCategory.module.css";
 import Catalog from "../../../common/Catalog";
-import categoriesStore from "../../store/categories-store";
 import productsStore from "../../../home/store/products-store";
+import ButtonBack from "../../../common/components/ButtonBack/ButtonBack";
 
 const ProductsCategory = observer(() => {
-  const { productsData, setProductsSameCategories } = categoriesStore;
-  const { pagination, setPage } = productsStore;
-  const params = useParams();
-  useEffect(() => {}, [setProductsSameCategories(Number(params))]);
-  // const products = productsData.map((product) => {
-  //   return (
-  //     <Link
-  //       to={"/product/" + product.id}
-  //       className="main_product"
-  //       id={product.id.toString()}
-  //     >
-  //       <Card
-  //         image={product.images[0]}
-  //         captionSlot={product.category.name}
-  //         title={product.title}
-  //         subtitle={product.description}
-  //         contentSlot={"$" + product.price}
-  //         actionSlot="Add to Cart"
-  //         onClick={() => console.log("куплен")}
-  //       />
-  //     </Link>
-  //   );
-  // });
+  const { partProducts, pagination, setPage, search, filter } = productsStore;
+  const param = useParams()
+
+    useEffect(() => {
+      filter.setCategoryIds(Number(param.id))
+      search()
+  }, []);
+
   return (
     <div className={style.products}>
+      <ButtonBack link={CATEGORIES} />
       <Catalog
-        partProducts={productsData}
+        partProducts={partProducts}
         currentPage={pagination.currentPage}
         lengthProductsPage={pagination.limitPage}
         lengthVisiblePages={5}
         setPage={setPage}
         numberAllProducts={pagination.numberAllProducts}
       />
-      {/* <ButtonBack link={CATEGORIES} />
-      <div className={style.catalog_main}>
-        {productsData && <div className={style.main_products}>{products}</div>}
-      </div> */}
     </div>
   );
 });

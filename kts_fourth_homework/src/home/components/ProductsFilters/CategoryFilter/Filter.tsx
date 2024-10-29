@@ -27,7 +27,7 @@ const Filter = observer(() => {
     <div className={style.filter}>
       <MultiDropdown
         value={[]}
-        onChange={(value: Option[]) => filter.setCategoryIds(Number(value[0].key))}
+        onChange={(value: Option) => filter.setCategoryIds(Number(value.key))}
         getTitle={() => "Filter by category"}
         options={categoriesData.length ? listCategories : []}
       />
