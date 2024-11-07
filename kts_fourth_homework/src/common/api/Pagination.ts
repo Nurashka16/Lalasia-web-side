@@ -1,5 +1,5 @@
 export class Pagination {
-   private _limitPage: number;
+   private _limitPage: number=9;
  
    public numberAllProducts: number = 0;
    public currentPage: number = 1;

@@ -22,9 +22,11 @@ import Basket from "./basket/components/Basket";
 import EmptyPage from "./empty/components/EmptyPage/EmptyPage";
 import Categories from "./categories/components/categoriesCatalog/Categories";
 import SignUp from "./auth/components/SignUp";
-import ProductsCategory from "./categories/components/productsCategory";
+import ProductsCategory from "./categories/components/productsSameCategory";
 import InfoCard from "./product/components/InfoCard";
 import Product from "./product/components/Product";
+import GoCheckout from "./basket/components/GoCheckout/GoCheckout";
+import Payment from "./payment/components/Payment";
 
 const App = observer(() => {
   const { isAuth } = authStore;
@@ -43,6 +45,8 @@ const App = observer(() => {
             <Route path={AUTH} element={<SignIn />}></Route>
             <Route path={BASKET} element={<Basket />}></Route>
             <Route path={EMPTY_PAGE} element={<EmptyPage />}></Route>
+            <Route path='/payment' element={<Payment />}></Route>
+            <Route path="/goCheckout" element={<GoCheckout />}></Route>
             <Route path={CATEGORIES} element={<Categories />}></Route>
             <Route path={PRODUCTS_CATEGORY} element={<ProductsCategory />}>
               <Route path=":id" element={<ProductsCategory />} />

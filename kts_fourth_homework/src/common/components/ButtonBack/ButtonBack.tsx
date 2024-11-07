@@ -4,12 +4,17 @@ import style from "./ButtonBack.module.css";
 import Text from "../Text";
 
 interface IButtonBack {
-  link: string;
+  link?: string;
+  onClick?: () => void;
 }
 
-const ButtonBack = ({ link }: IButtonBack) => {
+const ButtonBack = ({ link, onClick,  ...props }: IButtonBack) => {
   return (
-    <Link className={style.btn_back} to={link}>
+    <Link 
+      onClick={() => (onClick ? onClick() : "")}
+      className={style.btn_back}
+      to={link ? link : ""}
+    >
       <div className={style.btn_icon}>
         <svg
           width="32"

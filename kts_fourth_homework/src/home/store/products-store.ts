@@ -27,8 +27,8 @@ class ProductsStore {
     );
   };
   search = async () => {
-    this.allProducts = [];
     this.pagination.numberAllProducts = 0;
+    this.allProducts = []
     try {
       if (this.filter.categoryIds.length !== 0) {
         for (let i = 0; i < this.filter.categoryIds.length; i++) {
@@ -45,10 +45,10 @@ class ProductsStore {
               response = response.slice(0, 1000);
             }
             this.pagination.numberAllProducts += response.length;
-            this.allProducts = { ...this.allProducts, ...response };
-            this.setPage();
+            this.allProducts.push(...response);
           });
         }
+        this.setPage();
       } else {
         let response: IProduct[] = await productsApi.search({
           title: this.filter.title,
@@ -62,9 +62,9 @@ class ProductsStore {
             response = response.slice(0, 1000);
           }
 
-          // this.pagination.numberAllProducts = response.length;
-          // this.allProducts = response;
-          // this.setPage();
+          this.pagination.numberAllProducts = response.length;
+          this.allProducts = response;
+          this.setPage();
         });
       }
     } catch {

@@ -1,44 +1,52 @@
-import React from 'react';
-import './CheckBox.css';
-import classNames from 'classnames';
-import CheckIcon from '../icons/CheckIcon';
+import React from "react";
+import "./CheckBox.css";
+import classNames from "classnames";
+import CheckIcon from "../icons/CheckIcon";
 
 export type CheckBoxProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  'onChange'
+  "onChange"
 > & {
   /** Вызывается при клике на чекбокс */
   onChange: (checked: boolean) => void;
+  width?: number;
+  height?: number;
+  checked: boolean;
+  disabled?: boolean;
 };
 
-const CheckBox: React.FC<CheckBoxProps> = ({ checked, disabled, ...props }) => {
-  const [value, setValue] = React.useState<boolean | undefined>(checked);
+const CheckBox: React.FC<CheckBoxProps> = ({
+  checked,
+  disabled,
+  onChange,
+  ...props
+}) => {
   return (
-    <div
+    <form
       className={classNames(
-        'checkboxWrap',
-        disabled ? 'checkboxWrapDisabled' : 'checkboxWrapHover'
+        props.className,
+        "form",
+        disabled && "form_disabled"
       )}
+      onClick={() => !disabled && onChange(!checked)}
     >
       <input
-        className="checkbox"
+        {...props}
+        defaultChecked={checked}
         disabled={disabled}
-        onClick={(e) => setValue((value) => !value)}
-        type="button"
-
-        // style={{border:props.disabled ? 'secondary' : 'accent'}}
+        style={{ display: checked ? "none" : "" }}
+        className={"checkbox"}
+        type="checkbox"
       />
-      {value && (
-        <div onClick={() => (disabled ? '' : setValue((value) => !value))}>
-          <CheckIcon
-            className="checkBox_icon"
-            color={disabled ? 'secondary' : 'accent'}
-            width="40px"
-            height="40px"
-          />
-        </div>
+      {checked && (
+        <CheckIcon
+          className={classNames(
+            "checkbox_icon",
+            disabled && "checkbox_icon__disabled"
+          )}
+        />
       )}
-    </div>
+    </form>
   );
 };
 

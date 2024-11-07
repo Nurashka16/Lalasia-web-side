@@ -1,5 +1,5 @@
 import style from "./Home.module.css";
-import Catalog from "../../common/Catalog";
+import Catalog from "../../common/components/Catalog";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import ProductsFilters from "./ProductsFilters/ProductsFilters";

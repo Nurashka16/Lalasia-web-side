@@ -1,11 +1,12 @@
 import style from "./Catalog.module.css";
 import { Link } from "react-router-dom";
-import Card from "../components/Card";
-import Text from "../components/Text";
-import { ICard } from "../interfaces/ICard";
-import NotFound from "../components/NotFound";
-import Pagination from "../components/Pagination";
-import { IProduct } from "../../product/interface/IProduct";
+import Card from "../Card";
+import Text from "../Text";
+import { ICard } from "../../interfaces/ICard";
+import NotFound from "../NotFound";
+import Pagination from "../Pagination";
+import { IProduct } from "../../../product/interface/IProduct";
+import { useEffect } from "react";
 
 interface ICatalog {
   partProducts: IProduct[];

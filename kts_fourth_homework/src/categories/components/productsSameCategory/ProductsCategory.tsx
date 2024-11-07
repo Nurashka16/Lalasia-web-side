@@ -3,17 +3,18 @@ import React, { useEffect } from "react";
 import { CATEGORIES } from "../../../utils/const";
 import { Link, useParams } from "react-router-dom";
 import style from "./ProductsCategory.module.css";
-import Catalog from "../../../common/Catalog";
+import Catalog from "../../../common/components/Catalog";
 import productsStore from "../../../home/store/products-store";
 import ButtonBack from "../../../common/components/ButtonBack/ButtonBack";
 
 const ProductsCategory = observer(() => {
   const { partProducts, pagination, setPage, search, filter } = productsStore;
-  const param = useParams()
+  const param = useParams();
 
-    useEffect(() => {
-      filter.setCategoryIds(Number(param.id))
-      search()
+  useEffect(() => {
+    filter.clearAllCategory();
+    filter.setCategoryIds(Number(param.id));
+    search();
   }, []);
 
   return (

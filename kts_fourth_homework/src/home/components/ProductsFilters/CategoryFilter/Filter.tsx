@@ -21,6 +21,7 @@ const Filter = observer(() => {
     key: item.id.toString(),
     value: item.name,
   }));
+  console.log(filter.title);
   
 
   return (

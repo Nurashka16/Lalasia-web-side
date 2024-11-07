@@ -62,11 +62,11 @@ const SignIn = observer(() => {
           <div className={style.footer_btn}>
             <Button
               // userStore.signIn("john@mail.com", "changeme")
-              onClick={() =>
-                signInWithPopUp({
-                  email: "john@mail.com",
-                  password: "changeme",
-                })
+              onClick={() =>signIn({email:"john@mail.com", password:"changeme"})
+                // signInWithPopUp({
+                //   email: "john@mail.com",
+                //   password: "changeme",
+                // })
               }
               className={style.btn_logIn}
               disabled={!(emailIsValid && passwordIsValid)}

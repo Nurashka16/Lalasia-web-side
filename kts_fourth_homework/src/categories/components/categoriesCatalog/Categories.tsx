@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { PRODUCTS_CATEGORY } from "../../../utils/const";
 import Text from "../../../common/components/Text";
 import categoriesStore from "../../store/categories-store";
+import PopUpProvider from "../../../common/components/PopUpProvider/PopUpProvider";
 
 const Categories = observer(() => {
-  const { getCategories, categoriesData } =
-    categoriesStore;
+  const { getCategories, categoriesData } = categoriesStore;
 
   useEffect(() => {
     getCategories();
@@ -33,17 +33,17 @@ const Categories = observer(() => {
   ));
 
   return (
-    <div className={style.categories}>
-      <div className={style.header}>
-        <Text color="primary" weight="bold" tag="h1" maxLines={1}>
-          Product category
-        </Text>
-        <Text tag="h2" className={style.count} weight="bold" color="accent">
-          {categories.length}
-        </Text>
+      <div className={style.categories}>
+        <div className={style.header}>
+          <Text color="primary" weight="bold" tag="h1" maxLines={1}>
+            Product category
+          </Text>
+          <Text tag="h2" className={style.count} weight="bold" color="accent">
+            {categories.length}
+          </Text>
+        </div>
+        <div className={style.main}>{categories}</div>
       </div>
-      <div className={style.main}>{categories}</div>
-    </div>
   );
 });
 

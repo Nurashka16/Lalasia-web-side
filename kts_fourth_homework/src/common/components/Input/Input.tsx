@@ -12,10 +12,11 @@ export type InputProps = Omit<
   onChange: (value: string) => void;
   /** Слот для иконки справа */
   afterSlot?: React.ReactNode;
+  isActive?:boolean
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ value, onChange, afterSlot, disabled, ...props }) => {
+  ({ value, onChange, afterSlot, disabled,isActive, ...props }) => {
     const [newValue, setNewValue] = useState(value);
     const onChangeHandler = (value: string) => {
       setNewValue(value);
@@ -26,7 +27,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           {...props}
           disabled={disabled}
-          className="input"
+          className={classNames("input", isActive && "isActiveInput")}
           onChange={(e) => onChangeHandler(e.target.value)}
           type="text"
           placeholder={props.placeholder}

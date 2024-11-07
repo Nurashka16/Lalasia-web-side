@@ -2,7 +2,7 @@ import { useState } from "react";
 import style from "./Header.module.css";
 import Logo from "./Logo";
 import { Link } from "react-router-dom";
-import { ABOUT_US, CATEGORIES, HOME } from "../../../utils/const";
+import { ABOUT_US, BASKET, CATEGORIES, HOME } from "../../../utils/const";
 
 const Header = (props: any) => {
   const [activePage, setActivePage] = useState("Products");
@@ -41,7 +41,7 @@ const Header = (props: any) => {
             <ul className={style.menu}>{pages}</ul>
           </div>
           <div className={style.right}>
-            <button className={style.bag}>
+            <Link to={BASKET} className={style.bag}>
               <svg
                 width="30"
                 height="30"
@@ -80,7 +80,7 @@ const Header = (props: any) => {
                   stroke-linejoin="round"
                 />
               </svg>
-            </button>
+            </Link>
             <button className={style.auth}>
               <svg
                 width="30"

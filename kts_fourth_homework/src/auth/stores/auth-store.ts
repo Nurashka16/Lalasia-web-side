@@ -7,7 +7,7 @@ import { ISignUp } from "../interface/ISignUp";
 import ISignIn from "../interface/ISignIn/ISignIn";
 
 class AuthStore {
-  isAuth: boolean = false;
+  isAuth: boolean = true;
   isLoading: boolean = false;
   token: string = "";
   user: IUser = {

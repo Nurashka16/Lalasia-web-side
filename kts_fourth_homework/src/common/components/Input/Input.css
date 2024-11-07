@@ -48,3 +48,7 @@
 .input:disabled {
    color: var(--dark_gray);
 }
+.isActiveInput{
+   outline: 1px solid var(--accent);
+   color: var(--black);
+}

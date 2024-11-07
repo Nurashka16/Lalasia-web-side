@@ -11,15 +11,15 @@ export class ProductsFilter {
     this.diapason = { max: 1000, min: 0 };
     this.title = "";
   }
-  // public setTitle(value: string): void {
-  //   this.title = "d"
-  // }
   public setCategoryIds(id: number): void {
     if (this.categoryIds.includes(id)) {
       this.categoryIds = this.categoryIds.filter((category) => category !== id);
     } else {
       this.categoryIds.push(id);
     }
+  }
+  public clearAllCategory():void {
+    this.categoryIds =[]
   }
   public setDiapason(data: IDiapason): void {
     this.diapason = data;

@@ -1,3 +1,7 @@
+.products {
+   padding: 48px 100px 48px;
+}
+
 .catalog {
    display: flex;
    flex-direction: column;

@@ -1,19 +1,24 @@
 .aboutUs {
-   min-height: 90.25vb;
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
+   height: 100vh;
+   display: grid;
+   grid-template-rows: 0.8fr 0.2fr;
+   justify-content: stretch;
+}
+.wrap {
+   position: relative;
 
 }
 .aboutUs_frame {
-   min-height: 15vb;
    background-color: #487773;
+
 }
 .main {
+   margin: 72px 0;
    position: absolute;
-   top: 20%;
-   right: 24%;
-   height: 70%;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   height: 100%;
    background-color: rgb(255, 255, 255);
    padding: 36px 50px;
    width: 1000px;
