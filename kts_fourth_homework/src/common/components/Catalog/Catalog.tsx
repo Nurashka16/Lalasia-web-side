@@ -13,7 +13,7 @@ interface ICatalog {
   lengthProductsPage: number;
   numberAllProducts: number;
   currentPage?: number;
-  setPage: (page?: number) => Promise<void>;
+  setPage: (page?: number) => void;
   lengthVisiblePages?: number;
 }
 

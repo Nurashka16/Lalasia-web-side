@@ -1,5 +1,5 @@
 import { Outlet, Route, RouteProps, Routes } from "react-router-dom";
-import "./App.module.css";
+import "./App.css";
 import {
   ABOUT_US,
   AUTH,

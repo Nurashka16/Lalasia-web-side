@@ -24,7 +24,7 @@ const FormToFill = ({
   afterSlot
 }: IFormFill<T>) => {
   return (
-    <div className={className}>
+    <div className={style.input}>
       <Text tag="h3" color="secondary" weight="medium">
         {text}
       </Text>

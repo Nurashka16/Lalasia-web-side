@@ -1,4 +1,4 @@
-export class Pagination {
+export class PaginationClass {
    private _limitPage: number=9;
  
    public numberAllProducts: number = 0;

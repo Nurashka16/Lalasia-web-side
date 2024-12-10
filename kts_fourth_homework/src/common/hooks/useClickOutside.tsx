@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 export const useClickOutside = () => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLFormElement>(null!);
   const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {

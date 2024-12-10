@@ -1,25 +1,21 @@
-import { search } from "./../api/search";
 import { makeAutoObservable, runInAction } from "mobx";
-import { IProductsFilter } from "../interface/IProductsFilter";
-import { IDiapason } from "../interface/IDiapason";
 import { IProduct } from "../../product/interface/IProduct";
-import { ICategory } from "../../categories/interface/ICategory";
 import { getAll } from "../api/getAll";
 import * as productsApi from "../api/search";
-import { Pagination } from "../../common/api/Pagination";
+import { PaginationClass } from "../../common/api/Pagination";
 import { ProductsFilter } from "../../common/api/ProductsFilter";
 
 class ProductsStore {
   filter: ProductsFilter = new ProductsFilter();
-  categoriesData: ICategory[] = [];
+  // categoriesData: ICategory[] = [];
   partProducts: IProduct[] = [];
   allProducts: IProduct[] = [];
-  pagination: Pagination = new Pagination(9);
+  pagination: PaginationClass = new PaginationClass(9);
 
   constructor() {
     makeAutoObservable(this);
   }
-  setPage = async (page: number = 1) => {
+  setPage = (page: number = 1) => {
     this.pagination.currentPage = page;
     this.partProducts = this.allProducts.slice(
       this.pagination.getStartIndex(),
@@ -27,14 +23,16 @@ class ProductsStore {
     );
   };
   search = async () => {
+    console.log(5);
+    
     this.pagination.numberAllProducts = 0;
-    this.allProducts = []
+    this.allProducts = [];
     try {
-      if (this.filter.categoryIds.length !== 0) {
-        for (let i = 0; i < this.filter.categoryIds.length; i++) {
+      if (this.filter.selectedFilterIds.length !== 0) {
+        for (let i = 0; i < this.filter.selectedFilterIds.length; i++) {
           let response: IProduct[] = await productsApi.search({
             title: this.filter.title,
-            categoryId: this.filter.categoryIds[i],
+            categoryId: Number(this.filter.selectedFilterIds[i]),
             diapason: {
               priceMin: this.filter.diapason.min,
               priceMax: this.filter.diapason.max,

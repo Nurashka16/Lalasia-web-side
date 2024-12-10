@@ -8,13 +8,13 @@ import categoriesStore from "../../store/categories-store";
 import PopUpProvider from "../../../common/components/PopUpProvider/PopUpProvider";
 
 const Categories = observer(() => {
-  const { getCategories, categoriesData } = categoriesStore;
+  const { getCategories, allFilters} = categoriesStore;
 
   useEffect(() => {
     getCategories();
   }, []);
 
-  const categories = categoriesData.map((category) => (
+  const categories = allFilters.map((category) => (
     <Link
       to={PRODUCTS_CATEGORY + category.id}
       className={style.main_content}

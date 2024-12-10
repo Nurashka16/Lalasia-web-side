@@ -1,14 +1,15 @@
-
 import classNames from "classnames";
 import style from "./Pagination.module.css";
 import getPagination from "../../function/getPagination";
+import { Option } from "../MultiDropdown";
 
 interface IPagination {
-  currentPage: number;
-  setPage: (page: number) => Promise<void>;
+  currentPage: number;//() => void |
+  setPage: (page?: number) => void;
   lengthVisiblePages: number;
   lengthProductsPage: number;
-  numberAllProducts: number;
+  numberAllProducts: number ;
+  className?: string;
 }
 
 const Pagination = ({
@@ -17,6 +18,7 @@ const Pagination = ({
   lengthVisiblePages,
   lengthProductsPage,
   numberAllProducts,
+  className,
 }: IPagination) => {
   const totalPages = Math.ceil(numberAllProducts / lengthProductsPage);
 
@@ -37,7 +39,8 @@ const Pagination = ({
       <div
         className={classNames(
           style.pagination_count,
-          currentPage == Number(page) && style.active_page
+          currentPage == Number(page) && style.active_page,
+          page !== "..." && currentPage !== Number(page) && style.count
         )}
         onClick={() => page != "..." && setPage(Number(page))}
       >
@@ -47,9 +50,10 @@ const Pagination = ({
   };
 
   return (
-    <div className={style.main_pagination}>
+    <div className={classNames(style.main_pagination, className)}>
       {totalPages > 5 && (
         <svg
+          className={style.pagination_scroll}
           onClick={() => currentPage > 1 && setPage(currentPage - 1)}
           width="32"
           height="32"
@@ -68,8 +72,9 @@ const Pagination = ({
         </svg>
       )}
       <ul className={style.pagination_counter}>{getPages()}</ul>
-      {numberAllProducts > 5 && (
+      {totalPages > lengthVisiblePages && (
         <svg
+          className={style.pagination_scroll}
           onClick={() => setPage(currentPage + 1)}
           width="32"
           height="32"

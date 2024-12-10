@@ -13,7 +13,7 @@ const ProductsCategory = observer(() => {
 
   useEffect(() => {
     filter.clearAllCategory();
-    filter.setCategoryIds(Number(param.id));
+    filter.setCategory(Number(param.id));
     search();
   }, []);
 

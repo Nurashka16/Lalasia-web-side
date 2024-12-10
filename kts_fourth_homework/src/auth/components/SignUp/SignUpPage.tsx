@@ -60,7 +60,7 @@ const SignUpPage = observer(() => {
 
   return (
     <Layout>
-      <div className={style.auth_form}>
+      <div className={style.auth_form} style={{   marginBottom: "10%"}}>
         <div className={style.auth_inputs}>
           <FormFill
             text="Name"

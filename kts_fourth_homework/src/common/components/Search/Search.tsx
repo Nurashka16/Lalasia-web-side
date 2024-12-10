@@ -32,7 +32,7 @@ const Search = ({
         onChange={(e) => onChange && onChange(e)}
       />
       <Button
-        onClick={() => onClick && onClick}
+        onClick={() => onClick && onClick()}
         className={style.search_btn}
         disabled={disabled}
       >

@@ -9,6 +9,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean;
   /** Текст кнопки */
   children: React.ReactNode;
+  onClick:()=>void;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,10 +17,11 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   children,
   loading = false,
+  onClick,
   ...props
 }) => {
   return (
-    <button
+    <button onClick={()=>onClick()}
       disabled={disabled || loading}
       {...props}
       className={classNames(className, "btn")}

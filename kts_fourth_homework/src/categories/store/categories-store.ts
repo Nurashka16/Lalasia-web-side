@@ -3,8 +3,8 @@ import { getCategories } from "../api/getCategories";
 import { ICategory } from "../interface/ICategory";
 
 class CategoriesStore {
-  categoriesData: ICategory[] = [];
-
+  allFilters: ICategory[] = [];
+  
   constructor() {
     makeAutoObservable(this);
   }
@@ -12,9 +12,7 @@ class CategoriesStore {
     try {
       const response = await getCategories();
       runInAction(() => {
-        this.categoriesData =
-          response.length > 5 ? response.slice(0, 5) : response;
-        // console.log(response);
+        this.allFilters = response;
       });
     } catch {
       throw new Error("Ошибка в получении категорий");

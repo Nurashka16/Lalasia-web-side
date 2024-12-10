@@ -1,23 +1,26 @@
-.form {
+/* .form {
    width: 100%;
-   /* height: 100%; */
    display: flex;
-   flex-direction: row;
-   /* margin: 20px; */
-}
-
-.wrap_icon {
    position: relative;
+   flex-direction: row;
+   background-color: var(--white);
+} */
+.input_form {
+   width: 100%;
+}
+.wrap_icon {
+   position: absolute;
    height: 0px;
    width: 0px;
-   left: -34px;
-   bottom: -13.5px;
+   top: 15px;
+   right: 34px;
    color: var(--dark_gray);
 }
 .input {
    border: none;
    display: flex;
    align-items: center;
+   /* width: 300px; */
    width: 100%;
    height: 52px;
    position: relative;
@@ -48,7 +51,7 @@
 .input:disabled {
    color: var(--dark_gray);
 }
-.isActiveInput{
-   outline: 1px solid var(--accent);
+.isActiveInput {
+   border: 1px solid var(--accent);
    color: var(--black);
 }
