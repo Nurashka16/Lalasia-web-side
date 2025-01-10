@@ -32,12 +32,12 @@ import { useEffect, useState } from "react";
 
 const App = observer(() => {
   const { isAuth } = authStore;
-  const { numberAllProducts } = basketStore;
+  const { selectedProducts } = basketStore;
 
   return (
     <PopUpProvider>
       <div className="page">
-        <Header isAuth={isAuth} count={numberAllProducts} />
+        <Header isAuth={isAuth} count={selectedProducts.size} />
         <Outlet />
         {isAuth ? (
           <Routes>

@@ -10,7 +10,7 @@ export interface IBasketProduct {
 
 class BasketStore {
   productsData: IProduct[] = [];
-  numberAllProducts: number = 0;
+  countAllProducts: number = 0;
   selectedProducts = new Map<number, number>();
   totalPrice: number = 0;
 
@@ -36,11 +36,11 @@ class BasketStore {
     });
   };
   getTotalCount = (products: IProduct[] = this.productsData) => {
-    this.numberAllProducts = 0;
+    this.countAllProducts = 0;
     for (const count of this.selectedProducts.values()) {
       // console.log(count);
 
-      this.numberAllProducts += count;
+      this.countAllProducts += count;
     }
   };
   getProductsBasket = async () => {

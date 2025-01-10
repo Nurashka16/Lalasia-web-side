@@ -8,7 +8,7 @@ import { EmptyBasket } from "./EmptyBasket/EmptyBasket";
 import SelectedProducts from "./SelectedProducts/SelectedProducts";
 
 const Basket = () => {
-  const { getProductsBasket, numberAllProducts, totalPrice } = basketStore;
+  const { getProductsBasket, countAllProducts, totalPrice } = basketStore;
 
   useEffect(() => {
     getProductsBasket();
@@ -39,7 +39,7 @@ const Basket = () => {
           </div>
           <SelectedProducts />
         </div>
-        <Navbar goods={numberAllProducts} price={totalPrice} />
+        <Navbar goods={countAllProducts} price={totalPrice} />
       </div>
     </div>
   );

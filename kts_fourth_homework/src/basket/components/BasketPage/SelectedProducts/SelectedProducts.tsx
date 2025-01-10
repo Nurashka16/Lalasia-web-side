@@ -22,6 +22,9 @@ const SelectedProducts = () => {
       />
     );
   });
+  
+console.log(productsData);
+
   return (
     <div className={style.products}>
       {products.length ? products : <EmptyBasket />}
