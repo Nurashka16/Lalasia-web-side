@@ -18,34 +18,38 @@ import Header from "./header/components/Header";
 import Home from "./home/components/Home";
 import AboutUs from "./aboutUs/components/AboutUs/AboutUs";
 import SignIn from "./auth/components/SignIn";
-import Basket from "./basket/components/Basket";
+import Basket from "./basket/components/BasketPage/Basket";
 import EmptyPage from "./empty/components/EmptyPage/EmptyPage";
 import Categories from "./categories/components/categoriesCatalog/Categories";
 import SignUp from "./auth/components/SignUp";
 import ProductsCategory from "./categories/components/productsSameCategory";
 import InfoCard from "./product/components/InfoCard";
 import Product from "./product/components/Product";
-import GoCheckout from "./basket/components/GoCheckout/GoCheckout";
+import GoCheckout from "./basket/components/GoCheckoutPage/GoCheckout";
 import Payment from "./payment/components/Payment";
+import basketStore from "./basket/stores/basket-store";
+import { useEffect, useState } from "react";
 
 const App = observer(() => {
   const { isAuth } = authStore;
+  const { numberAllProducts } = basketStore;
+
   return (
     <PopUpProvider>
       <div className="page">
-        <Header isAuth={isAuth} />
+        <Header isAuth={isAuth} count={numberAllProducts} />
         <Outlet />
         {isAuth ? (
           <Routes>
             <Route path={HOME} element={<Home />} />
-            <Route path={PRODUCT} element={<Product/>}>
+            <Route path={PRODUCT} element={<Product />}>
               <Route path=":id" element={<InfoCard />} />
             </Route>
             <Route path={ABOUT_US} element={<AboutUs />}></Route>
             <Route path={AUTH} element={<SignIn />}></Route>
             <Route path={BASKET} element={<Basket />}></Route>
             <Route path={EMPTY_PAGE} element={<EmptyPage />}></Route>
-            <Route path='/payment' element={<Payment />}></Route>
+            <Route path="/payment" element={<Payment />}></Route>
             <Route path="/goCheckout" element={<GoCheckout />}></Route>
             <Route path={CATEGORIES} element={<Categories />}></Route>
             <Route path={PRODUCTS_CATEGORY} element={<ProductsCategory />}>
@@ -56,7 +60,7 @@ const App = observer(() => {
         ) : (
           <Routes>
             <Route path={HOME} element={<SignIn />}></Route>
-            <Route path={SIGN_UP} element={<SignUp/>}></Route>
+            <Route path={SIGN_UP} element={<SignUp />}></Route>
           </Routes>
         )}
       </div>

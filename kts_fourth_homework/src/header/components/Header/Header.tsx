@@ -1,47 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./Header.module.css";
 import Logo from "./Logo";
-import { Link } from "react-router-dom";
 import { ABOUT_US, BASKET, CATEGORIES, HOME } from "../../../utils/const";
+import { Tabs } from "../../../common/components/Tabs/Tabs";
+import LinkTab from "../../../common/components/Tabs/LinkTab";
+import Text from "../../../common/components/Text";
+import basketStore from "../../../basket/stores/basket-store";
 
 const Header = (props: any) => {
-  const [activePage, setActivePage] = useState("Products");
 
-  const listPageTitles = [
-    {
-      title: "Products",
-      link: HOME,
-    },
-    {
-      title: "Categories",
-      link: CATEGORIES,
-    },
-    {
-      title: "About us",
-      link: ABOUT_US,
-    },
-  ];
 
-  const pages = listPageTitles.map((page) => (
-    <Link
-      onClick={() => setActivePage(page.title)}
-      to={page.link}
-      className={activePage == page.title ? style.active_item : style.menu_item}
-    >
-      {page.title}
-      {activePage == page.title && <div className={style.menu_line}></div>}
-    </Link>
-  ));
   return (
     <div className={style.header}>
       <Logo />
       {props.isAuth && (
-        <>
-          <div className={style.menu_wrap}>
-            <ul className={style.menu}>{pages}</ul>
+        <Tabs className={style.main} value="products">
+          <div className={style.mainPages}>
+            <LinkTab
+              className={style.text}
+              to={HOME}
+              value="products"
+            >
+              Products
+            </LinkTab>
+            <LinkTab
+              className={style.text}
+              value="categories"
+              to={CATEGORIES}
+            >
+              Categories
+            </LinkTab>
+            <LinkTab
+              className={style.text}
+              value="aboutUs"
+              to={ABOUT_US}
+            >
+              About us
+            </LinkTab>
           </div>
-          <div className={style.right}>
-            <Link to={BASKET} className={style.bag}>
+          <div className={style.additionalPages}>
+            <LinkTab
+              className={style.icon}
+              value="basket"
+              to="/basket"
+            >
+              {/* <div className={style.icon_basket}> */}
               <svg
                 width="30"
                 height="30"
@@ -80,8 +83,21 @@ const Header = (props: any) => {
                   stroke-linejoin="round"
                 />
               </svg>
-            </Link>
-            <button className={style.auth}>
+              <Text
+                className={style.icon_text}
+                color="accent"
+                weight="bold"
+                tag="h6"
+              >
+                {props.count}
+              </Text>
+              {/* </div> */}
+            </LinkTab>
+            <LinkTab
+              className={style.icon}
+              to="*"
+              value="profile"
+            >
               <svg
                 width="30"
                 height="30"
@@ -104,9 +120,11 @@ const Header = (props: any) => {
                   stroke-linejoin="round"
                 />
               </svg>
-            </button>
+            </LinkTab>
+
+            {/* <Link to="/profile">Auth</Link> */}
           </div>
-        </>
+        </Tabs>
       )}
     </div>
   );

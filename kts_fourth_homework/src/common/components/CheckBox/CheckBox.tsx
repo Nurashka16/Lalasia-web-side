@@ -13,12 +13,15 @@ export type CheckBoxProps = Omit<
   height?: number;
   checked: boolean;
   disabled?: boolean;
+  className?: string;
 };
 
 const CheckBox: React.FC<CheckBoxProps> = ({
   checked,
   disabled,
   onChange,
+  width,
+  height,
   ...props
 }) => {
   return (
@@ -28,6 +31,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
         "form",
         disabled && "form_disabled"
       )}
+      style={{ width: width, height: height }}
       onClick={() => !disabled && onChange(!checked)}
     >
       <input
@@ -35,17 +39,17 @@ const CheckBox: React.FC<CheckBoxProps> = ({
         defaultChecked={checked}
         disabled={disabled}
         style={{ display: checked ? "none" : "" }}
-        className={"checkbox"}
+        className="checkbox"
         type="checkbox"
       />
-      {checked && (
-        <CheckIcon
-          className={classNames(
-            "checkbox_icon",
-            disabled && "checkbox_icon__disabled"
-          )}
-        />
-      )}
+
+      <CheckIcon
+        style={{ opacity: checked ? 0 : 1 }}
+        className={classNames(
+          "checkbox_icon",
+          disabled && "checkbox_icon__disabled"
+        )}
+      />
     </form>
   );
 };

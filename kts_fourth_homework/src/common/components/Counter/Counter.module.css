@@ -1,0 +1,40 @@
+
+.product_count {
+   margin: 0 0 0 24px;
+   display: flex;
+   /* align-items: center;
+   width: 100%; */
+   flex-direction: row;
+   column-gap: 10px;
+   height: 30px;
+   width: 100%;
+}
+
+.product_decrease {
+   padding: 0px 10px;
+   margin: 0;
+   height: 100%;
+   width: 30px;
+}
+
+.product_add {
+   padding: 0px 10px;
+   margin: 0;
+   height: 100%;
+   width: 30px;
+}
+.product_input:focus{
+   outline: 1px solid #518581;
+}
+.product_input {
+   width: 50px;
+   height: 30px;
+   outline: solid #d2d2d2 2px;
+   font-size: 16px;
+
+   text-align: center;
+   /* padding: 0;
+   margin: 0;
+   height: 20px;
+   width: 30px; */
+}

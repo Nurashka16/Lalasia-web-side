@@ -4,9 +4,11 @@ import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import ProductsFilters from "./ProductsFilters/ProductsFilters";
 import productsStore from "../store/products-store";
+import basketStore from "../../basket/stores/basket-store";
 
 const Home = observer(() => {
   const { partProducts, pagination, setPage, getAll } = productsStore;
+  const {addSelectedProducts}=basketStore
 
   useEffect(() => {
     getAll();
@@ -23,7 +25,7 @@ const Home = observer(() => {
       </div>
       <div className={style.home_main}>
         <ProductsFilters />
-        <Catalog
+        <Catalog addCard={addSelectedProducts}
           partProducts={partProducts}
           lengthProductsPage={pagination.limitPage}
           numberAllProducts={pagination.numberAllProducts}

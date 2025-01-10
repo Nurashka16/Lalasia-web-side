@@ -1,18 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./InfoCard.css";
 import { observer } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 import productStore from "../../stores/product-store";
 import Text from "../../../common/components/Text";
 import Button from "../../../common/components/Button";
+import basketStore from "../../../basket/stores/basket-store";
 
 const InfoCard = observer(() => {
   const { product, getProductAction } = productStore;
+  const { addSelectedProducts } = basketStore;
   const params = useParams();
+  const [count, setCount] = useState(1);
+
+  const addProduct = () => {
+    setCount(count + 1);
+    addSelectedProducts({ id: Number(params.id), count });
+
+
+  };
 
   useEffect(() => {
     getProductAction(params.id!);
-  }, []);
+  }, [params.id]);
   return (
     <div className="detailedCard">
       <div className="detailedCard_carousel">
@@ -37,7 +47,7 @@ const InfoCard = observer(() => {
         <img
           className="detailedCard_img"
           src={product?.images[0]}
-          alt="даня, пососи"
+          alt="незагрузилась картинка продукта"
         />
         <div className="detailedCard_icon_left">
           <svg
@@ -78,7 +88,10 @@ const InfoCard = observer(() => {
           </Text>
           <div className="detailedCard_buttons">
             <Button>Buy Now</Button>
-            <button className="detailedCard_btn">Add to Cart</button>
+            {/*переписать на button компоненту */}
+            <button className="detailedCard_btn" onClick={() => addProduct()}>
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>

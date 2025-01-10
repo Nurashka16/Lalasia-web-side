@@ -2,15 +2,17 @@ import React from "react";
 import style from "./NotFound.module.css";
 import Text from "../Text";
 import Button from "../Button";
+import classNames from "classnames";
 
 interface INotFound {
-  onClick?: () => Promise<void>;
   text: string;
+  subtitle?: React.ReactNode;
+  className?:string;
 }
 
-const NotFound = ({ onClick, text }: INotFound) => {
+const NotFound = ({ subtitle, text, className }: INotFound) => {
   return (
-    <div className={style.empty}>
+    <div className={classNames(style.empty, className)}>
       <Text
         color="primary"
         className="color_red"
@@ -20,7 +22,7 @@ const NotFound = ({ onClick, text }: INotFound) => {
       >
         {text}
       </Text>
-      {/* <Button onClick={()=>onClick()}>{text}</Button> */}
+      {subtitle && subtitle}
     </div>
   );
 };

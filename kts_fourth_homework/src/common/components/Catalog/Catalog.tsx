@@ -7,6 +7,7 @@ import NotFound from "../NotFound";
 import Pagination from "../Pagination";
 import { IProduct } from "../../../product/interface/IProduct";
 import { useEffect } from "react";
+import { IBasketProduct } from "../../../basket/stores/basket-store";
 
 interface ICatalog {
   partProducts: IProduct[];
@@ -15,6 +16,7 @@ interface ICatalog {
   currentPage?: number;
   setPage: (page?: number) => void;
   lengthVisiblePages?: number;
+  addCard: (product: IBasketProduct) => void;
 }
 
 const Catalog = ({
@@ -23,25 +25,23 @@ const Catalog = ({
   numberAllProducts,
   currentPage = 1,
   setPage,
+  addCard,
   lengthVisiblePages = 5,
 }: ICatalog) => {
   const cards = partProducts.map((item: ICard) => {
     return (
-      <Link
-        to={"/product/" + item.id}
-        className="main_product"
-        id={item.id.toString()}
-      >
+      // <Link to={"/product/" + item.id}>
         <Card
+          id={item.id}
           image={item.images[0]}
           captionSlot={item.category.name}
           title={item.title}
           subtitle={item.description}
           contentSlot={"$" + item.price}
           actionSlot="Add to Cart"
-          onClick={() => console.log("куплен")}
+          addCard={addCard}
         />
-      </Link>
+      // </Link>
     );
   });
 

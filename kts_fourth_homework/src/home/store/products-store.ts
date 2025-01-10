@@ -23,7 +23,6 @@ class ProductsStore {
     );
   };
   search = async () => {
-    console.log(5);
     
     this.pagination.numberAllProducts = 0;
     this.allProducts = [];

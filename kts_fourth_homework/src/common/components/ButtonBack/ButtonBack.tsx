@@ -11,7 +11,7 @@ interface IButtonBack {
 const ButtonBack = ({ link, onClick,  ...props }: IButtonBack) => {
   return (
     <Link 
-      onClick={() => (onClick ? onClick() : "")}
+      // onClick={() => (onClick ? onClick() : "")}
       className={style.btn_back}
       to={link ? link : ""}
     >
