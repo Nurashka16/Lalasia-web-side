@@ -1,12 +1,12 @@
-import { Outlet, Route, RouteProps, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
   ABOUT_US,
-  AUTH,
   BASKET,
   CATEGORIES,
   EMPTY_PAGE,
   HOME,
+  ORDER,
   PRODUCT,
   PRODUCTS_CATEGORY,
   SIGN_UP,
@@ -28,16 +28,16 @@ import Product from "./product/components/Product";
 import GoCheckout from "./basket/components/GoCheckoutPage/GoCheckout";
 import Payment from "./payment/components/Payment";
 import basketStore from "./basket/stores/basket-store";
-import { useEffect, useState } from "react";
 
 const App = observer(() => {
   const { isAuth } = authStore;
-  const { selectedProducts } = basketStore;
+  const { basketProductsIdToCount } = basketStore;
 
   return (
     <PopUpProvider>
-      <div className="page">
-        <Header isAuth={isAuth} count={selectedProducts.size} />
+      {/*Проверить почему не работает popup*/}
+      <div className="pages">
+        <Header isAuth={isAuth} countSelectedProducts={basketProductsIdToCount.size} />
         <Outlet />
         {isAuth ? (
           <Routes>
@@ -45,22 +45,26 @@ const App = observer(() => {
             <Route path={PRODUCT} element={<Product />}>
               <Route path=":id" element={<InfoCard />} />
             </Route>
-            <Route path={ABOUT_US} element={<AboutUs />}></Route>
-            <Route path={AUTH} element={<SignIn />}></Route>
-            <Route path={BASKET} element={<Basket />}></Route>
-            <Route path={EMPTY_PAGE} element={<EmptyPage />}></Route>
-            <Route path="/payment" element={<Payment />}></Route>
-            <Route path="/goCheckout" element={<GoCheckout />}></Route>
-            <Route path={CATEGORIES} element={<Categories />}></Route>
+            <Route path={CATEGORIES} element={<Categories />} />
             <Route path={PRODUCTS_CATEGORY} element={<ProductsCategory />}>
               <Route path=":id" element={<ProductsCategory />} />
             </Route>
-            {/* <Route path={PRODUCTS_CATEGORY} element={<ProductsCategory />}></Route> */}
+            <Route path={ABOUT_US} element={<AboutUs />} />
+            <Route path={BASKET} element={<Basket />} />
+            <Route path={ORDER} element={<GoCheckout />} />
+            {/* <Route path={AUTH} element={<SignIn />}></Route> */}
+            {/*Прописать роут для стр профиля*/}
+            <Route path={EMPTY_PAGE} element={<EmptyPage />} />
+
+            <Route path="/goCheckout" element={<GoCheckout />} />
+            {/*Проверить используются ли эти стр*/}
+            <Route path="/payment" element={<Payment />} />
+            {/*Проверить используются ли эти стр*/}
           </Routes>
         ) : (
           <Routes>
-            <Route path={HOME} element={<SignIn />}></Route>
-            <Route path={SIGN_UP} element={<SignUp />}></Route>
+            <Route path={HOME} element={<SignIn />} />
+            <Route path={SIGN_UP} element={<SignUp />} />
           </Routes>
         )}
       </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ParamQueryCollection } from "../../common/api/ParamQueryCollection";
+import { ParamQueryCollection } from "src/common/api/ParamQueryCollection";
 
 export interface ISearchProductsRequest {
   title?: string;

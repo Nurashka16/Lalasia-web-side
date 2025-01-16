@@ -3,7 +3,7 @@ import { getCategories } from "../api/getCategories";
 import { ICategory } from "../interface/ICategory";
 
 class CategoriesStore {
-  allFilters: ICategory[] = [];
+  allCategories: ICategory[] = [];
   
   constructor() {
     makeAutoObservable(this);
@@ -12,7 +12,7 @@ class CategoriesStore {
     try {
       const response = await getCategories();
       runInAction(() => {
-        this.allFilters = response;
+        this.allCategories = response;
       });
     } catch {
       throw new Error("Ошибка в получении категорий");

@@ -3,39 +3,37 @@ import style from "./SelectedProduct.module.css";
 import CheckBox from "../../../../common/components/CheckBox";
 import Text from "../../../../common/components/Text";
 import Counter from "../../../../common/components/Counter/Counter";
-import { IBasketProduct } from "../../../stores/basket-store";
+import basketStore, { ISelectedProduct } from "../../../stores/basket-store";
+import { Link } from "react-router-dom";
 
-interface ISelectedProduct {
-  product: {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: {
-      id: number;
-      name: string;
-      image: string;
-    };
-    images: string[];
-  };
+interface IItemProduct {
+  product: ISelectedProduct;
   updateCountProduct: (id: number, count: number) => void;
   defaultCount: number;
   deleteProduct: (id: number) => void;
+  toggleSelectedProduct: (id: number, isActive: boolean) => void;
 }
 
 const SelectedProduct = ({
   product,
   updateCountProduct,
-  defaultCount,deleteProduct
-}: ISelectedProduct) => {
-  const [isActive, setActive] = useState(true);
+  defaultCount,
+  deleteProduct,
+  toggleSelectedProduct,
+}: IItemProduct) => {
+  const [isActive, setActive] = useState(product.isActive);
   const [count, setCount] = useState(defaultCount);
 
-  const addProduct = (count: number) => {
+  const updateProduct = (count: number) => {
     setCount(count);
-    updateCountProduct(count, product.id);
+    updateCountProduct(count, product.data.id);
   };
-  // useEffect(()=>{}, )
+
+  const toggleProduct = (id: number, boolean: boolean) => {
+    toggleSelectedProduct(id, boolean);
+    setActive(boolean);
+  };
+
   return (
     <div className={style.product}>
       <div className={style.product_content}>
@@ -44,17 +42,17 @@ const SelectedProduct = ({
           width={30}
           height={30}
           checked={!isActive}
-          onChange={() => setActive(!isActive)}
+          onChange={() => toggleProduct(product.data.id, !isActive)}
         />
         <div className={style.product_item}>
           {/*добавить ссылку на товар Link по нажатию */}
-          <div className={style.product_frame}>
+          <Link className={style.product} to={"/product/" + product.data.id}>
             <img
               className={style.product_image}
               alt="здесь должно быть фото товара"
-              src={product.images[0]}
+              src={product.data.images[0]}
             />
-          </div>
+          </Link>
           <div className={style.product_description}>
             <Text
               className={style.product_name}
@@ -62,12 +60,12 @@ const SelectedProduct = ({
               view="p-16"
               weight="medium"
             >
-              {product.title}
+              {product.data.title}
             </Text>
             <div className={style.product_icons}>
               <div
                 className={style.product_icon__delete}
-                onClick={() => deleteProduct(product.id)}
+                onClick={() => deleteProduct(product.data.id)}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
                   <path
@@ -89,7 +87,9 @@ const SelectedProduct = ({
                   ></path>
                 </svg>
 
-                <Text weight="bold">Buy now</Text>
+                <Link to={"/order"}>
+                  <Text weight="bold">Buy now</Text>
+                </Link>
               </div>
             </div>
           </div>
@@ -97,10 +97,10 @@ const SelectedProduct = ({
       </div>
       <>
         <Text maxLines={1} className={style.product_price}>
-          {product.price} $
+          {product.data.price} $
         </Text>
         <div className={style.product_counter}>
-          <Counter defaultCount={count} onClick={addProduct} />
+          <Counter defaultCount={count} onClick={updateProduct} />
         </div>
       </>
     </div>

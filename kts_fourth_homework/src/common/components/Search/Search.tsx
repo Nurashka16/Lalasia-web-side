@@ -1,8 +1,6 @@
-import React, { useState } from "react";
 import style from "./Search.module.css";
 import Input from "../Input";
 import Button from "../Button";
-import { IProductsFilter } from "../../../home/interface/IProductsFilter";
 
 interface ISearch {
   onClick?: () => Promise<void>;
@@ -11,7 +9,8 @@ interface ISearch {
   value?: string;
   placeholder?: string;
   textBtn?: string;
-  isActiveInput?:boolean
+  isActiveInput?: boolean;
+  className?: string;
 }
 
 const Search = ({
@@ -21,12 +20,14 @@ const Search = ({
   value = "",
   placeholder,
   textBtn = "Find now",
-  isActiveInput
+  isActiveInput,
+  className,
 }: ISearch) => {
   return (
     <div className={style.search}>
       <Input
-      isActive={isActiveInput}
+        className={className}
+        isActive={isActiveInput}
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange && onChange(e)}

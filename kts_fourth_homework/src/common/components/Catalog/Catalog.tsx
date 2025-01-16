@@ -7,7 +7,8 @@ import NotFound from "../NotFound";
 import Pagination from "../Pagination";
 import { IProduct } from "../../../product/interface/IProduct";
 import { useEffect } from "react";
-import { IBasketProduct } from "../../../basket/stores/basket-store";
+import { IBasketProduct } from "../../../basket/interface/IBasketProduct";
+import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
 
 interface ICatalog {
   partProducts: IProduct[];
@@ -16,7 +17,7 @@ interface ICatalog {
   currentPage?: number;
   setPage: (page?: number) => void;
   lengthVisiblePages?: number;
-  addCard: (product: IBasketProduct) => void;
+  addCard: (product: IBasketProductsIdToCount) => void
 }
 
 const Catalog = ({

@@ -1,5 +1,4 @@
-import { makeAutoObservable } from "mobx";
-import { IDiapason } from "../../home/interface/IDiapason";
+import { IDiapason } from "src/home/interface/IDiapason";
 
 //переписать selected на map
 export class ProductsFilter {
@@ -12,13 +11,13 @@ export class ProductsFilter {
     this.diapason = { max: 1000, min: 0 };
     this.title = "";
   }
-  public setCategory(id: number): void {
+  public toggleCategory(id: number): void {
     if (this.selectedFilterIds.includes(id)) {
       this.selectedFilterIds = this.selectedFilterIds.filter((selectedId) => {
         return selectedId !== id;
       });
     } else {
-      this.selectedFilterIds = this.selectedFilterIds.concat(id)
+      this.selectedFilterIds = this.selectedFilterIds.concat(id);
     }
   }
   public clearAllCategory(): void {

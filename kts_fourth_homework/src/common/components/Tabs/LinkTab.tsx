@@ -12,6 +12,10 @@ export interface ILinkTab {
 }
 
 const LinkTab = ({ children, value, className, to }: ILinkTab) => {
+  
+  //лучше всего добавить возможность любых css вариантов
+  //для компонентов, для активных и вариант с line
+
   const { activeValue, onClick } = useContext(HighlightContext);
   return (
     <Link

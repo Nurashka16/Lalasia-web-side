@@ -9,12 +9,12 @@ import { Link } from "react-router-dom";
 
 const SimilarProducts = observer(() => {
   const { partProducts } = productsStore;
-  const { addSelectedProducts } = basketStore;
+  const { addProduct } = basketStore;
   const cards = partProducts.slice(0, 3).map((item) => {
     return (
       <div className="similar_product">
         <Card
-          addCard={addSelectedProducts}
+          addCard={addProduct}
           id={item.id}
           image={item.images[1]}
           captionSlot={item.category.name}

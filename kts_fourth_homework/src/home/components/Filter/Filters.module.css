@@ -1,13 +1,10 @@
 .filters {
+}
+.filters_lower {
    display: flex;
 
    justify-content: space-between;
 }
-
-.price {
-   font-size: 21px;
-}
-
-.range {
+.filter_range {
    flex: 0 1 30%;
 }

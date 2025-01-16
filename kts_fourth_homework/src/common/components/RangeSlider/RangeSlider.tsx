@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import style from "./RangeSlider.module.css";
-import { IRange } from "../../../home/components/ProductsFilters/ProductsFilters";
+import { IRange } from "../../../home/components/Filter/Filters";
 
 interface IRangeSlider {
   minValue: number;

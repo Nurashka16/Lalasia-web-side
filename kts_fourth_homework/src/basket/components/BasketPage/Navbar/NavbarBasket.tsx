@@ -6,11 +6,10 @@ import { Link } from "react-router-dom";
 
 interface INavbar {
   goods: number;
-  price: number
+  price: number;
 }
 
-const NavbarBasket = ({goods, price}:INavbar) => {
-  useEffect(()=>{}, [goods, price])
+const NavbarBasket = ({ goods, price }: INavbar) => {
   return (
     <div className={style.navbar}>
       <div className={style.navbar_content}>

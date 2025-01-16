@@ -1,13 +1,12 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { IProduct } from "../../product/interface/IProduct";
 import { getAll } from "../api/getAll";
 import * as productsApi from "../api/search";
-import { PaginationClass } from "../../common/api/Pagination";
-import { ProductsFilter } from "../../common/api/ProductsFilter";
+import { IProduct } from "src/product/interface/IProduct";
+import { PaginationClass } from "src/common/api/Pagination";
+import { ProductsFilter } from "src/common/api/ProductsFilter copy";
 
 class ProductsStore {
   filter: ProductsFilter = new ProductsFilter();
-  // categoriesData: ICategory[] = [];
   partProducts: IProduct[] = [];
   allProducts: IProduct[] = [];
   pagination: PaginationClass = new PaginationClass(9);
@@ -23,7 +22,6 @@ class ProductsStore {
     );
   };
   search = async () => {
-    
     this.pagination.numberAllProducts = 0;
     this.allProducts = [];
     try {
@@ -71,18 +69,13 @@ class ProductsStore {
   getAll = async () => {
     try {
       let response = await getAll();
-      // let result: IProduct[] = [];
       runInAction(() => {
         if (response.length > 1000) {
           response = response.slice(0, 1000);
         }
-        // else {
-        //   result = response;
-        // }
         this.pagination.numberAllProducts = response.length;
         this.allProducts = response;
         this.setPage();
-        // this.partProducts = response.slice(this.pagination.getOffset());
       });
     } catch {
       throw new Error("Ошибка в получении всех элементов каталога");

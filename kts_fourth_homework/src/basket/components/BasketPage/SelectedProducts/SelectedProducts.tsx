@@ -9,21 +9,25 @@ import style from "./SelectedProduct.module.css";
 // }
 
 const SelectedProducts = () => {
-  const { productsData, selectedProducts, updateCountProduct, deleteProduct } =
-    basketStore;
-  useEffect(() => {}, [selectedProducts]);
-  const products = productsData.map((product) => {
+  const {
+    basketProductsIdToCount,
+    selectedProducts,
+    updateCountProduct,
+    deleteProduct,
+    toggleSelectedProduct,
+  } = basketStore;
+
+  const products = selectedProducts.map((product) => {
     return (
       <SelectedProduct
         deleteProduct={deleteProduct}
-        defaultCount={selectedProducts.get(product.id)!}
+        defaultCount={basketProductsIdToCount.get(product.data.id)!}
         updateCountProduct={updateCountProduct}
         product={product}
+        toggleSelectedProduct={toggleSelectedProduct}
       />
     );
   });
-  
-console.log(productsData);
 
   return (
     <div className={style.products}>

@@ -9,13 +9,13 @@ import basketStore from "../../../basket/stores/basket-store";
 
 const InfoCard = observer(() => {
   const { product, getProductAction } = productStore;
-  const { addSelectedProducts } = basketStore;
+  const { addProduct } = basketStore;
   const params = useParams();
   const [count, setCount] = useState(1);
 
-  const addProduct = () => {
+  const addProducts = () => {
     setCount(count + 1);
-    addSelectedProducts({ id: Number(params.id), count });
+    addProduct({ id: Number(params.id), count });
 
 
   };
@@ -89,7 +89,7 @@ const InfoCard = observer(() => {
           <div className="detailedCard_buttons">
             <Button>Buy Now</Button>
             {/*переписать на button компоненту */}
-            <button className="detailedCard_btn" onClick={() => addProduct()}>
+            <button className="detailedCard_btn" onClick={() => addProducts()}>
               Add to Cart
             </button>
           </div>

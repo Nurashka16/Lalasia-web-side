@@ -1,31 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Basket.module.css";
 import Text from "../../../common/components/Text";
-import SelectedProduct from "./SelectedProducts/SelectedProduct";
 import basketStore from "../../stores/basket-store";
 import Navbar from "./Navbar/NavbarBasket";
-import { EmptyBasket } from "./EmptyBasket/EmptyBasket";
 import SelectedProducts from "./SelectedProducts/SelectedProducts";
+import Loader from "../../../common/components/Loader";
+import { observer } from "mobx-react-lite";
 
-const Basket = () => {
-  const { getProductsBasket, countAllProducts, totalPrice } = basketStore;
+const Basket = observer(() => {
+  const { countSelectedProducts, totalPrice, getProducts } = basketStore;
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getProductsBasket();
+    setIsLoading(true);
+    getProducts();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
-  // const products = productsData.map((product) => {
-  //   return (
-  //     <SelectedProduct
-  //       deleteProduct={deleteProduct}
-  //       defaultCount={selectedProducts.get(product.id)!}
-  //       updateCountProduct={updateCountProduct}
-  //       product={product}
-  //     />
-  //   );
-  // });
   return (
-    // <div><Layout title="" className="" main navbar/></div>
     <div className={style.basket}>
       <Text className={style.title} weight="bold" tag="h1">
         Basket
@@ -37,12 +31,12 @@ const Basket = () => {
               Free shipping over $100
             </Text>
           </div>
-          <SelectedProducts />
+          {isLoading ? <Loader /> : <SelectedProducts />}
         </div>
-        <Navbar goods={countAllProducts} price={totalPrice} />
+        <Navbar goods={countSelectedProducts} price={totalPrice} />
       </div>
     </div>
   );
-};
+});
 
 export default Basket;

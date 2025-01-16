@@ -3,8 +3,9 @@ import "./Card.css";
 import classNames from "classnames";
 import Button from "../Button";
 import Text from "../Text";
-import { IBasketProduct } from "../../../basket/stores/basket-store";
 import { Link } from "react-router-dom";
+import { IBasketProduct } from "../../../basket/interface/IBasketProduct";
+import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
 
 export type CardProps = {
   /** Дополнительный classname */
@@ -23,7 +24,7 @@ export type CardProps = {
   onClick?: React.MouseEventHandler;
   /** Слот для действия */
   actionSlot?: React.ReactNode;
-  addCard: (product: IBasketProduct) => void;
+  addCard: (product: IBasketProductsIdToCount) => void
   id: number;
 };
 

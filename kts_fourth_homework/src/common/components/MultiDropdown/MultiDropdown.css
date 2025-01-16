@@ -54,11 +54,11 @@
    /* max-height: 260px;
    overflow-x: hidden; */
 }
-.lists {
+/* .lists {
    max-height: 260px;
    overflow-x: hidden;
    scroll-behavior: smooth;
-}
+} */
 .multiDropdownItem_button {
    display: flex;
    background-color: #518581;

@@ -1,80 +1,104 @@
-import { makeAutoObservable, runInAction, values } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { getProduct } from "../../product/api/getProduct";
-import { IProduct } from "../../product/interface/IProduct";
-import { useLayoutEffect } from "react";
+import { IBasketProduct } from "../interface/IBasketProduct";
 
-export interface IBasketProduct {
+export interface IBasketProductsIdToCount {
   id: number;
   count: number;
 }
 
+export interface ISelectedProduct {
+  data: IBasketProduct;
+  isActive: boolean;
+}
+
 class BasketStore {
-  productsData: IProduct[] = [];
-  countAllProducts: number = 0;
-  selectedProducts = new Map<number, number>();
+  basketProductsIdToCount = new Map<number, number>();
+  selectedProducts: ISelectedProduct[] = [];
+  countSelectedProducts: number = 0;
   totalPrice: number = 0;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  addSelectedProducts = (product: IBasketProduct) => {
-    let count = this.selectedProducts.get(product.id);
+  addProduct = (product: IBasketProductsIdToCount) => {
+    const count = this.basketProductsIdToCount.get(product.id);
     if (!count) {
-      this.selectedProducts.set(product.id, product.count);
+      this.basketProductsIdToCount.set(product.id, product.count);
     } else {
-      this.selectedProducts.set(product.id, count + 1);
+      this.basketProductsIdToCount.set(product.id, count + 1);
     }
-    this.getTotalCount();
-    // console.log(this.numberAllProducts);
   };
-  getPrice = (products: IProduct[] = this.productsData) => {
+
+  getPriceSelectedProducts = () => {
+    const products: ISelectedProduct[] = this.selectedProducts;
     this.totalPrice = 0;
-    products.map((product: IProduct) => {
-      let count = this.selectedProducts.get(product.id)!; //count
-      this.totalPrice += count * product.price;
+    products.map((product: ISelectedProduct) => {
+      if (product.isActive) {
+        const count = this.basketProductsIdToCount.get(product.data.id)!;
+        this.totalPrice += count * product.data.price;
+      }
     });
   };
-  getTotalCount = (products: IProduct[] = this.productsData) => {
-    this.countAllProducts = 0;
-    for (const count of this.selectedProducts.values()) {
-      // console.log(count);
 
-      this.countAllProducts += count;
-    }
+  getCountSelectedProducts = () => {
+    const products: ISelectedProduct[] = this.selectedProducts;
+    this.countSelectedProducts = 0;
+    products.map((product) => {
+      if (product.isActive) {
+        const count = this.basketProductsIdToCount.get(product.data.id)!;
+        this.countSelectedProducts += count;
+      }
+    });
   };
-  getProductsBasket = async () => {
-    this.productsData = [];
+
+  /**
+   * Вызывается при входе в корзину
+   */
+  getProducts = async () => {
+    //из за плохого API мы перебираем по id и по одному получаем
+    this.selectedProducts = [];
     try {
-      for (const productIds of this.selectedProducts.keys()) {
-        let response: IProduct = await getProduct(productIds.toString());
+      for (const productIds of this.basketProductsIdToCount.keys()) {
+        const response: IBasketProduct = await getProduct(
+          productIds.toString()
+        );
         runInAction(() => {
-          // this.basket.push(response);
-          this.getTotalCount();
-          this.getPrice();
-          this.productsData.push(response);
+          this.selectedProducts.push({ data: response, isActive: true });
         });
       }
+      this.getCountSelectedProducts();
+      this.getPriceSelectedProducts();
     } catch {
       throw new Error("Ошибка в получении элементов для корзины");
     }
   };
+
   deleteProduct = (id: number) => {
-    this.selectedProducts.delete(id);
-    this.productsData = this.productsData.filter(
-      (product) => product.id !== id
+    this.basketProductsIdToCount.delete(id);
+    this.selectedProducts = this.selectedProducts.filter(
+      (product) => product.data.id !== id
     );
-    this.getPrice();
-    this.getTotalCount();
+    this.getCountSelectedProducts();
+    this.getPriceSelectedProducts();
   };
+
   updateCountProduct = (count: number, id: number) => {
-    this.selectedProducts.set(id, count);
-    this.getPrice();
-    this.getTotalCount();
+    this.basketProductsIdToCount.set(id, count);
+    this.getCountSelectedProducts();
+    this.getPriceSelectedProducts();
     // console.log(this.selectedProducts.get(id));
   };
-  toggleProduct = (id: number, toggle: boolean) => {
-    const activeArr = this.productsData.filter((product) => product.id !== id);
+
+  toggleSelectedProduct = (id: number, isActive: boolean) => {
+    this.selectedProducts.forEach((product) => {
+      if (product.data.id == id) {
+        product.isActive = isActive;
+        this.getCountSelectedProducts();
+        this.getPriceSelectedProducts();
+      }
+    });
   };
 }
 export default new BasketStore();
