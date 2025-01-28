@@ -1,14 +1,13 @@
 import classNames from "classnames";
 import style from "./Pagination.module.css";
 import getPagination from "../../function/getPagination";
-import { Option } from "../MultiDropdown";
 
 interface IPagination {
-  currentPage: number;//() => void |
+  currentPage: number; //() => void |
   setPage: (page?: number) => void;
   lengthVisiblePages: number;
   lengthProductsPage: number;
-  numberAllProducts: number ;
+  numberAllProducts: number;
   className?: string;
 }
 

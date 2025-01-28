@@ -25,19 +25,23 @@ import SignUp from "./auth/components/SignUp";
 import ProductsCategory from "./categories/components/productsSameCategory";
 import InfoCard from "./product/components/InfoCard";
 import Product from "./product/components/Product";
-import GoCheckout from "./basket/components/GoCheckoutPage/GoCheckout";
+// import GoCheckout from "./basket/components/GoCheckoutPage/GoCheckout";
 import Payment from "./payment/components/Payment";
 import basketStore from "./basket/stores/basket-store";
 
 const App = observer(() => {
-  const { isAuth } = authStore;
+  const isAuth = true;
+  //  { isAuth } = authStore;
   const { basketProductsIdToCount } = basketStore;
 
   return (
     <PopUpProvider>
       {/*Проверить почему не работает popup*/}
       <div className="pages">
-        <Header isAuth={isAuth} countSelectedProducts={basketProductsIdToCount.size} />
+        <Header
+          isAuth={isAuth}
+          countSelectedProducts={basketProductsIdToCount.size}
+        />
         <Outlet />
         {isAuth ? (
           <Routes>
@@ -51,12 +55,12 @@ const App = observer(() => {
             </Route>
             <Route path={ABOUT_US} element={<AboutUs />} />
             <Route path={BASKET} element={<Basket />} />
-            <Route path={ORDER} element={<GoCheckout />} />
+            {/* <Route path={ORDER} element={<GoCheckout />} /> */}
             {/* <Route path={AUTH} element={<SignIn />}></Route> */}
             {/*Прописать роут для стр профиля*/}
             <Route path={EMPTY_PAGE} element={<EmptyPage />} />
 
-            <Route path="/goCheckout" element={<GoCheckout />} />
+            {/* <Route path="/goCheckout" element={<GoCheckout />} /> */}
             {/*Проверить используются ли эти стр*/}
             <Route path="/payment" element={<Payment />} />
             {/*Проверить используются ли эти стр*/}

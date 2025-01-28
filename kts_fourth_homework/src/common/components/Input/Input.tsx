@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import "./Input.css";
 import classNames from "classnames";
 
@@ -17,11 +17,6 @@ export type InputProps = Omit<
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ value, onChange, afterSlot, disabled, isActive, ...props }) => {
-    const [newValue, setNewValue] = useState(value);
-    const onChangeHandler = (value: string) => {
-      setNewValue(value);
-      onChange(value);
-    };
     return (
       <form className="input_form">
         <input
@@ -32,10 +27,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             props.className,
             isActive && "isActiveInput"
           )}
-          onChange={(e) => onChangeHandler(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           type="text"
           placeholder={props.placeholder}
-          value={newValue}
+          value={value}
         />
         {afterSlot && <div className="wrap_icon"> {afterSlot}</div>}
       </form>

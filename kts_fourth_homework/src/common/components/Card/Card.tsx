@@ -3,7 +3,7 @@ import "./Card.css";
 import classNames from "classnames";
 import Button from "../Button";
 import Text from "../Text";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IBasketProduct } from "../../../basket/interface/IBasketProduct";
 import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
 
@@ -24,7 +24,7 @@ export type CardProps = {
   onClick?: React.MouseEventHandler;
   /** Слот для действия */
   actionSlot?: React.ReactNode;
-  addCard: (product: IBasketProductsIdToCount) => void
+  addCard: (product: IBasketProductsIdToCount) => void;
   id: number;
 };
 
@@ -45,16 +45,29 @@ const Card: React.FC<CardProps> = ({
     addCard({ id: id, count: count });
     setCount(count + 1);
   };
+  const navigate = useNavigate();
 
+  const handleCardClick = () => {
+    navigate(`/product/${id}`); // Переходим на страницу товара
+  };
+
+  const handleButtonClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation(); // Остановить всплытие события
+    addProduct();
+  };
   return (
-    <div className={classNames("card", className)} onClick={onClick}>
-      <Link to={"/product/" + id}>
-        <img
-          className="image"
-          src={image}
-          alt="здесь должно было быть фото твоей мамаши"
-        />
-      </Link>
+    <div
+      className={classNames("card", className)}
+      onClick={() => handleCardClick()}
+    >
+      <img
+        className="image"
+        src={image}
+        alt="здесь должно было быть фото твоей мамаши"
+      />
+
       <div className="body">
         <div className="card_body">
           {captionSlot && (
@@ -75,7 +88,9 @@ const Card: React.FC<CardProps> = ({
               {contentSlot}
             </Text>
           )}
-          <Button onClick={() => addProduct()}>{actionSlot}</Button>
+          <Button className="card_btn" onClick={handleButtonClick}>
+            {actionSlot}
+          </Button>
         </div>
       </div>
     </div>

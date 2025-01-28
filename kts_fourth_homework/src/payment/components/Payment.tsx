@@ -5,7 +5,8 @@ import Text from "../../common/components/Text";
 
 import CheckIcon from "../../common/components/icons/CheckIcon";
 import CheckBox from "../../common/components/CheckBox";
-import MultiDropdown, { Option } from "../../common/components/MultiDropdown";
+import { Option } from "src/common/components/MultiDropdown/interface/Option";
+import MultiDropdown from "src/common/components/MultiDropdown/MultiDropdown";
 export type CheckBoxProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   "onChange"
@@ -30,7 +31,7 @@ const Payment = () => {
 
   return (
     <div className={style.payment}>
-      <MultiDropdown
+      {/* <MultiDropdown
         options={[
           { key: "1", value: "aa" },
           { key: "1", value: "2" },
@@ -39,7 +40,7 @@ const Payment = () => {
         getTitle={(value: Option[]) => "1"}
         onChange={(value) => console.log(value)}
         value={values}
-      />
+      /> */}
       {/* <Text className={style.payment_title}>Payment by card</Text>
       <div className={style.payment_total}>
         <div className={style.payment_description}>

@@ -1,14 +1,16 @@
 import style from "./Home.module.css";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
-import Filters from "./Filter/Filters";
+import Filters from "./Filters/Filters";
 import productsStore from "../store/products-store";
 import basketStore from "src/basket/stores/basket-store";
 import Catalog from "src/common/components/Catalog";
 import Loader from "src/common/components/Loader";
+import Text from "src/common/components/Text";
+import { s } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
 
 const Home = observer(() => {
-  const { partProducts, pagination, setPage, getAll } = productsStore;
+  const { productsCurrentPage, pagination, setPage, getAll } = productsStore;
   const { addProduct } = basketStore;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -31,13 +33,16 @@ const Home = observer(() => {
       <div className={style.main}>
         <Filters />
         {isLoading ? (
-          <Loader />
+          <div className={style.loader}>
+            <Loader />
+            <Text className={style.loader_text} weight="normal" tag="h2">Loading</Text>
+          </div>
         ) : (
           <Catalog
             addCard={addProduct}
-            partProducts={partProducts}
-            lengthProductsPage={pagination.limitPage}
-            numberAllProducts={pagination.numberAllProducts}
+            productsCurrentPage={productsCurrentPage}
+            maxCountProductsPage={pagination.limitPage}
+            countAllProducts={pagination.numberAllProducts}
             currentPage={pagination.currentPage}
             setPage={setPage}
           />

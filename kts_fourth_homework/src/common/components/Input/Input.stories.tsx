@@ -1,6 +1,6 @@
 import React from "react";
-import Input, { InputProps } from "./Input";
 import ArrowDownIcon from "../icons/ArrowDownIcon";
+import Input, { InputProps } from "./Input";
 
 export default {
   title: "Input",

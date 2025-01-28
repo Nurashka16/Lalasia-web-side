@@ -1,6 +1,9 @@
+/**
+ * Создает строку query параметров
+ */
 export class ParamQueryCollection {
    private params = new Map<string, string | undefined>();
- 
+
    public set(key: string, value: string | undefined) {
      this.params.set(key, value);
    }

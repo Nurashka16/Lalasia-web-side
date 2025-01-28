@@ -1,0 +1,38 @@
+.filters {
+   position: relative;
+}
+.filters_lower {
+   display: flex;
+   justify-content: space-between;
+}
+.filter_range {
+   flex: 0 1 30%;
+}
+.filter_search {
+   font-family: var(--font-family);
+   font-weight: var(--weight_normal);
+   font-size: 16px;
+   line-height: 125%;
+   color: var(--text-secondary);
+}
+
+.filters_resetBtn {
+   position: absolute;
+   bottom: 5px;
+   left: 1px;
+   color: var(--accent);
+   width: 100px;
+   background-color: var(--white);
+   border-radius: var(--size_xs);
+   height: 22px;
+   border: 1px solid var(--accent);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 3px;
+   z-index: 1;
+}
+.filters_resetBtn:hover {
+   color: var(--danger);
+   border-color: var(--danger);
+}

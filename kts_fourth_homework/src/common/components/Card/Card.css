@@ -42,5 +42,12 @@
    text-decoration: none;
    color: #afadb5;
 }
-
+.card{
+   position: relative;
+   z-index: 1;
+}
+.card_btn{
+   position: relative;
+   z-index: 100;
+}
 

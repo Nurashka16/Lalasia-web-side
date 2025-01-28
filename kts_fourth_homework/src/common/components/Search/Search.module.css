@@ -3,7 +3,6 @@
    flex-direction: row;
    gap: 24px;
    margin-bottom: 24px;
-   /* width: 100%; */
 }
 .search_btn {
    font-size: 18px;

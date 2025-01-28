@@ -1,30 +1,23 @@
-import { useState } from "react";
 import style from "./PriceDiapasonFilter.module.css";
-import Text from "../../../../common/components/Text";
-import RangeSlider from "../../../../common/components/RangeSlider/RangeSlider";
 import { observer } from "mobx-react-lite";
-import productsStore from "../../../store/products-store";
+import Text from "src/common/components/Text";
+import RangeSlider from "src/common/components/RangeSlider/RangeSlider";
+import productsStore from "src/home/store/products-store";
 
 const PriceDiapasonFilter = observer(() => {
   const { filter } = productsStore;
-
-  const [minPrice, setMinPrice] = useState<number>(filter.diapason.min);
-  const [maxPrice, setMaxPrice] = useState<number>(filter.diapason.max);
 
   const limitRange = { min: 0, max: 1000 };
   const difference = 10;
 
   const onChangeMinPriceInput = (value: number) => {
-    if (value <= maxPrice - difference && value >= limitRange.min) {
-      setMinPrice(value);
-      filter.setDiapason({ min: value, max: maxPrice });
+    if (value <= filter.diapason.max - difference && value >= limitRange.min) {
+      filter.setDiapason({ min: value, max: filter.diapason.max });
     }
   };
-
   const onChangeMaxPriceInput = (value: number) => {
-    if (value - minPrice >= difference && value <= limitRange.max) {
-      setMaxPrice(value);
-      filter.setDiapason({ min: minPrice, max: value });
+    if (value - filter.diapason.min >= difference && value <= limitRange.max) {
+      filter.setDiapason({ min: filter.diapason.min, max: value });
     }
   };
   return (
@@ -48,7 +41,7 @@ const PriceDiapasonFilter = observer(() => {
             type="number"
             name="min"
             className={style.minInput}
-            value={minPrice}
+            value={filter.diapason.min}
           />
         </div>
         <div className={style.divider}></div>
@@ -68,7 +61,7 @@ const PriceDiapasonFilter = observer(() => {
             onInput={(e) =>
               onChangeMaxPriceInput(Number(e.currentTarget.value))
             }
-            value={maxPrice}
+            value={filter.diapason.max}
             className={style.maxInput}
           />
         </div>
@@ -79,9 +72,9 @@ const PriceDiapasonFilter = observer(() => {
         onChangeMax={onChangeMaxPriceInput}
         limitRange={limitRange}
         step={10}
-        maxValue={maxPrice}
+        maxValue={filter.diapason.max}
         difference={difference}
-        minValue={minPrice}
+        minValue={filter.diapason.min}
       />
     </div>
   );

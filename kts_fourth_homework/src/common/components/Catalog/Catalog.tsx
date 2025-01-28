@@ -1,48 +1,45 @@
+import { IProduct } from "src/product/interface/IProduct";
 import style from "./Catalog.module.css";
-import { Link } from "react-router-dom";
+import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
+import { ICard } from "src/common/interfaces/ICard";
 import Card from "../Card";
 import Text from "../Text";
-import { ICard } from "../../interfaces/ICard";
 import NotFound from "../NotFound";
 import Pagination from "../Pagination";
-import { IProduct } from "../../../product/interface/IProduct";
-import { useEffect } from "react";
-import { IBasketProduct } from "../../../basket/interface/IBasketProduct";
-import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
 
 interface ICatalog {
-  partProducts: IProduct[];
-  lengthProductsPage: number;
-  numberAllProducts: number;
+  productsCurrentPage: IProduct[];
+  maxCountProductsPage: number;
+  countAllProducts: number;
   currentPage?: number;
   setPage: (page?: number) => void;
-  lengthVisiblePages?: number;
-  addCard: (product: IBasketProductsIdToCount) => void
+  countVisiblePages?: number;
+  addCard: (product: IBasketProductsIdToCount) => void;
 }
+//можно убрать из common и переместить в home
+//а catalog в category переписать
 
 const Catalog = ({
-  partProducts,
-  lengthProductsPage,
-  numberAllProducts,
+  productsCurrentPage,
+  maxCountProductsPage,
+  countAllProducts,
   currentPage = 1,
   setPage,
   addCard,
-  lengthVisiblePages = 5,
+  countVisiblePages = 5,
 }: ICatalog) => {
-  const cards = partProducts.map((item: ICard) => {
+  const cards = productsCurrentPage.map((item: ICard) => {
     return (
-      // <Link to={"/product/" + item.id}>
-        <Card
-          id={item.id}
-          image={item.images[0]}
-          captionSlot={item.category.name}
-          title={item.title}
-          subtitle={item.description}
-          contentSlot={"$" + item.price}
-          actionSlot="Add to Cart"
-          addCard={addCard}
-        />
-      // </Link>
+      <Card
+        id={item.id}
+        image={item.images[0]}
+        captionSlot={item.category.name}
+        title={item.title}
+        subtitle={item.description}
+        contentSlot={"$" + item.price}
+        actionSlot="Add to Cart"
+        addCard={addCard}
+      />
     );
   });
 
@@ -66,23 +63,23 @@ const Catalog = ({
             maxLines={0}
             className={style.main_count}
           >
-            {numberAllProducts}
+            {countAllProducts}
           </Text>
         </div>
-        {numberAllProducts !== 0 ? (
+        {countAllProducts !== 0 ? (
           <div className={style.main_products}>{cards}</div>
         ) : (
           <NotFound text="Nothing found" />
         )}
       </div>
 
-      {numberAllProducts > 0 && (
+      {countAllProducts > 0 && (
         <Pagination
           currentPage={currentPage}
           setPage={setPage}
-          lengthVisiblePages={lengthVisiblePages}
-          lengthProductsPage={lengthProductsPage}
-          numberAllProducts={numberAllProducts}
+          lengthVisiblePages={countVisiblePages}
+          lengthProductsPage={maxCountProductsPage}
+          numberAllProducts={countAllProducts}
         />
       )}
     </div>

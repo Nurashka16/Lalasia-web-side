@@ -1,12 +1,7 @@
-import React, { useEffect } from "react";
 import basketStore from "../../../stores/basket-store";
 import SelectedProduct from "./SelectedProduct";
 import { EmptyBasket } from "../EmptyBasket/EmptyBasket";
 import style from "./SelectedProduct.module.css";
-
-// interface ISelectedProducts{
-//    productsData:
-// }
 
 const SelectedProducts = () => {
   const {

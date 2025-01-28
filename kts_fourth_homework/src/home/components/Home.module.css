@@ -34,3 +34,13 @@
    flex-direction: column;
    min-height: 100%;
 }
+.loader{
+   padding: 100px 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 8px;
+}
+.loader_text{
+   color: var(--accent_active);
+}

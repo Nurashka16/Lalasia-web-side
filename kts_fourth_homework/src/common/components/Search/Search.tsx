@@ -1,15 +1,15 @@
 import style from "./Search.module.css";
-import Input from "../Input";
 import Button from "../Button";
+import { useEffect, useState } from "react";
+import Input from "../Input/Input";
 
 interface ISearch {
-  onClick?: () => Promise<void>;
-  onChange?: (value: string) => void;
+  onClick: () => Promise<void>;
+  onChange: (value: string) => void;
   disabled?: boolean;
-  value?: string;
+  defaultValue?: string;
   placeholder?: string;
   textBtn?: string;
-  isActiveInput?: boolean;
   className?: string;
 }
 
@@ -17,23 +17,21 @@ const Search = ({
   onClick,
   onChange,
   disabled,
-  value = "",
+  defaultValue = "",
   placeholder,
   textBtn = "Find now",
-  isActiveInput,
   className,
 }: ISearch) => {
   return (
     <div className={style.search}>
       <Input
         className={className}
-        isActive={isActiveInput}
         placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange && onChange(e)}
+        value={defaultValue}
+        onChange={onChange}
       />
       <Button
-        onClick={() => onClick && onClick()}
+        onClick={onClick}
         className={style.search_btn}
         disabled={disabled}
       >

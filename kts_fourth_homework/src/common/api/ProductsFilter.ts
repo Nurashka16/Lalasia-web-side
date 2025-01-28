@@ -1,32 +1,41 @@
+import {
+  makeAutoObservable,
+  observable,
+  runInAction,
+} from "mobx";
 import { IDiapason } from "src/home/interface/IDiapason";
 
-//переписать selected на map
-export class ProductsFilter {
-  public selectedFilterIds: number[] = [];
-  public diapason: IDiapason = { max: 1000, min: 0 };
-  public title: string = "";
 
-  public clear(): void {
-    this.selectedFilterIds = [];
+class ProductsFilter {
+  selectedFilterIds = observable.set<number>();
+  diapason: IDiapason = { max: 1000, min: 0 };
+  title: string = "";
+
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  toggleCategory = (id: number) => {
+    runInAction(() => {
+      if (this.selectedFilterIds.has(id)) {
+        this.selectedFilterIds.delete(id);
+      } else {
+        this.selectedFilterIds.add(id);
+      }
+      this.selectedFilterIds = observable.set([...this.selectedFilterIds])
+      
+    });
+  };
+  clearAllFilters = () => {
+    this.selectedFilterIds.clear();
     this.diapason = { max: 1000, min: 0 };
     this.title = "";
-  }
-  public toggleCategory(id: number): void {
-    if (this.selectedFilterIds.includes(id)) {
-      this.selectedFilterIds = this.selectedFilterIds.filter((selectedId) => {
-        return selectedId !== id;
-      });
-    } else {
-      this.selectedFilterIds = this.selectedFilterIds.concat(id);
-    }
-  }
-  public clearAllCategory(): void {
-    this.selectedFilterIds = [];
-  }
-  public setDiapason(data: IDiapason): void {
+  };
+  setDiapason(data: IDiapason): void {
     this.diapason = data;
   }
-  public setTitle = (value: string) => {
+  setTitle = (value: string) => {
     this.title = value;
   };
 }
+export default new ProductsFilter();
