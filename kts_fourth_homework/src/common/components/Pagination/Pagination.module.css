@@ -1,13 +1,11 @@
-
-.main_pagination {
+.pagination {
    display: flex;
    align-items: center;
    justify-content: center;
    column-gap: 15px;
    padding: 5px 0;
-   /* position: relative; */
    bottom: 0;
-   /* height: 42px; */
+   margin-top: 48px;
 }
 .pagination_icon {
    display: flex;
@@ -15,15 +13,8 @@
    justify-content: center;
 }
 
-/* .pagination_icon__active {
-   color: black;
-} */
-.pagination_counter {
-   /* position: relative; */
+.pagination_pages {
    display: flex;
-   /* column-gap: 10px; */
-   /* align-items: center;
-   justify-content: center; */
 }
 
 .pagination_count {
@@ -49,12 +40,9 @@
    background-color: #518581;
    color: white;
 }
-.pagination_scroll{
-
+.pagination_scroll {
 }
-.pagination_scroll:hover{
+.pagination_scroll:hover {
    border-radius: 50%;
-   /* background-color: #ffffff; */
    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
-
 }

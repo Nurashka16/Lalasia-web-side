@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import Filters from "./Filters/Filters";
 import productsStore from "../store/products-store";
 import basketStore from "src/basket/stores/basket-store";
-import Catalog from "src/common/components/Catalog";
 import Loader from "src/common/components/Loader";
 import Text from "src/common/components/Text";
-import { s } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
+import CatalogLayout from "../../common/CatalogLayout/CatalogLayout";
+import Pagination from "src/common/components/Pagination";
+import NotFound from "src/common/components/NotFound";
 
 const Home = observer(() => {
   const { productsCurrentPage, pagination, setPage, getAll } = productsStore;
@@ -35,17 +36,30 @@ const Home = observer(() => {
         {isLoading ? (
           <div className={style.loader}>
             <Loader />
-            <Text className={style.loader_text} weight="normal" tag="h2">Loading</Text>
+            <Text className={style.loader_text} weight="normal" tag="h2">
+              Loading
+            </Text>
           </div>
         ) : (
-          <Catalog
-            addCard={addProduct}
-            productsCurrentPage={productsCurrentPage}
-            maxCountProductsPage={pagination.limitPage}
-            countAllProducts={pagination.numberAllProducts}
-            currentPage={pagination.currentPage}
-            setPage={setPage}
-          />
+          <div className={style.catalog}>
+            <CatalogLayout
+              countAllProducts={pagination.numberAllProducts}
+              onClick={addProduct}
+              products={productsCurrentPage}
+            />
+            {pagination.numberAllProducts ? (
+              <Pagination
+                className={style.pagination}
+                currentPage={pagination.currentPage}
+                onClick={setPage}
+                countVisiblePages={5}
+                maxCountProductsPage={pagination.limitPage}
+                countAllProducts={pagination.numberAllProducts}
+              />
+            ) : (
+              <NotFound text="Nothing found" />
+            )}
+          </div>
         )}
       </div>
     </main>

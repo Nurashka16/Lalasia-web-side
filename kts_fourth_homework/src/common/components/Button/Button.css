@@ -21,7 +21,7 @@
    background-color: var(--accent_active);
 }
 .btn:disabled {
-   background-color: var(--light_grey);
+   background-color: var( --dark_gray);
    pointer-events: none;
    cursor: default;
 }

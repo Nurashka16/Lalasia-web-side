@@ -14,16 +14,3 @@
    text-wrap: nowrap;
 }
 
-.main {
-   display: grid;
-   grid-template-columns: repeat(3, 360px);
-   grid-gap: 30px 0;
-   justify-content: space-between;
-}
-.main_product {
-   display: block;
-   max-width: 360px;
-}
-.pagination {
-   margin-top: var(--size_l);
-}

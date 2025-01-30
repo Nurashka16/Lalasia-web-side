@@ -2,7 +2,7 @@ import { IProduct } from "src/product/interface/IProduct";
 import style from "./Catalog.module.css";
 import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
 import { ICard } from "src/common/interfaces/ICard";
-import Card from "../Card";
+import Card from "../../Cards/Card";
 import Text from "../Text";
 import NotFound from "../NotFound";
 import Pagination from "../Pagination";
@@ -18,10 +18,11 @@ interface ICatalog {
 }
 //можно убрать из common и переместить в home
 //а catalog в category переписать
+//но лучше это сделать после полного осмотра стр Categories
 
 const Catalog = ({
   productsCurrentPage,
-  maxCountProductsPage,
+  maxCountProductsPage, // если не передано макс количество продуктов, вывести все!
   countAllProducts,
   currentPage = 1,
   setPage,
@@ -38,48 +39,42 @@ const Catalog = ({
         subtitle={item.description}
         contentSlot={"$" + item.price}
         actionSlot="Add to Cart"
-        addCard={addCard}
+        onClick={addCard}
       />
     );
   });
 
   return (
     <div className={style.catalog}>
-      <div className={style.catalog_main}>
-        <div className={style.main_counter}>
-          <Text
-            tag="div"
-            maxLines={0}
-            className={style.main_title}
-            weight="bold"
-          >
-            Total&thinsp;Product
-          </Text>
-          <Text
-            tag="span"
-            view="p-20"
-            color="accent"
-            weight="bold"
-            maxLines={0}
-            className={style.main_count}
-          >
-            {countAllProducts}
-          </Text>
-        </div>
-        {countAllProducts !== 0 ? (
-          <div className={style.main_products}>{cards}</div>
-        ) : (
-          <NotFound text="Nothing found" />
-        )}
+      <div className={style.catalog_title}>
+        <Text tag="h1" maxLines={0} className={style.title} weight="bold">
+          Total&thinsp;Product
+        </Text>
+        <Text
+          tag="span"
+          view="p-20"
+          color="accent"
+          weight="bold"
+          maxLines={0}
+          className={style.count}
+        >
+          {countAllProducts}
+        </Text>
       </div>
+      {countAllProducts ? (
+        <div className={style.main}>{cards}</div>
+      ) : (
+        <NotFound text="Nothing found" />
+      )}
 
-      {countAllProducts > 0 && (
+      {countAllProducts && (
         <Pagination
+          className={style.pagination}
           currentPage={currentPage}
-          setPage={setPage}
-          lengthVisiblePages={countVisiblePages}
-          lengthProductsPage={maxCountProductsPage}
-          numberAllProducts={countAllProducts}
+          onClick={setPage}
+          countVisiblePages={countVisiblePages}
+          maxCountProductsPage={maxCountProductsPage}
+          countAllProducts={countAllProducts}
         />
       )}
     </div>

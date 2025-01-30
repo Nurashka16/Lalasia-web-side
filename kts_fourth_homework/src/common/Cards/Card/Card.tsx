@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Card.css";
 import classNames from "classnames";
-import Button from "../Button";
-import Text from "../Text";
+import Button from "../../components/Button";
+import Text from "../../components/Text";
 import { Link, useNavigate } from "react-router-dom";
 import { IBasketProduct } from "../../../basket/interface/IBasketProduct";
 import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
@@ -21,10 +21,9 @@ export type CardProps = {
   /** Содержимое карточки (футер/боковая часть), может быть пустым */
   contentSlot?: React.ReactNode;
   /** Клик на карточку */
-  onClick?: React.MouseEventHandler;
+  onClick: (product: IBasketProductsIdToCount) => void;
   /** Слот для действия */
   actionSlot?: React.ReactNode;
-  addCard: (product: IBasketProductsIdToCount) => void;
   id: number;
 };
 
@@ -37,12 +36,11 @@ const Card: React.FC<CardProps> = ({
   contentSlot,
   actionSlot,
   onClick,
-  addCard,
   id,
 }) => {
   const [count, setCount] = useState(1);
   const addProduct = () => {
-    addCard({ id: id, count: count });
+    onClick({ id: id, count: count });
     setCount(count + 1);
   };
   const navigate = useNavigate();

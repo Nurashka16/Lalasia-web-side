@@ -35,6 +35,7 @@ const Filters = observer(() => {
     <div className={style.filters}>
       <Search
       className={style.filter_search}
+      disabled={!isActiveReset}
         onClick={search}
         defaultValue={filter.title}
         onChange={(value: string) => {

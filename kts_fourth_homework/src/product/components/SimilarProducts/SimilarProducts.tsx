@@ -2,7 +2,7 @@ import React from "react";
 import "./SimilarProducts.css";
 import { observer } from "mobx-react-lite";
 import productsStore from "../../../home/store/products-store";
-import Card from "../../../common/components/Card";
+import Card from "../../../common/Cards/Card";
 import Text from "../../../common/components/Text";
 import basketStore from "../../../basket/stores/basket-store";
 import { Link } from "react-router-dom";

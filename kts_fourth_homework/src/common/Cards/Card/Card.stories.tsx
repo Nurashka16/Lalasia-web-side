@@ -1,7 +1,7 @@
 import React from "react";
 import "./Card.css";
 import Card, { CardProps } from "./Card";
-import Button from "../Button";
+import Button from "../../components/Button";
 
 export default {
   title: "Card",
