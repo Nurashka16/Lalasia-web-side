@@ -5,16 +5,15 @@ import productsStore from "../../../home/store/products-store";
 import Card from "../../../common/Cards/Card";
 import Text from "../../../common/components/Text";
 import basketStore from "../../../basket/stores/basket-store";
-import { Link } from "react-router-dom";
 
 const SimilarProducts = observer(() => {
-  const { partProducts } = productsStore;
+  const { allProducts } = productsStore;
   const { addProduct } = basketStore;
-  const cards = partProducts.slice(0, 3).map((item) => {
+  const cards = allProducts.slice(0, 3).map((item) => {
     return (
       <div className="similar_product">
         <Card
-          addCard={addProduct}
+          onClick={addProduct}
           id={item.id}
           image={item.images[1]}
           captionSlot={item.category.name}

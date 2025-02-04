@@ -12,5 +12,15 @@
 .title {
    font-size: 32px;
    text-wrap: nowrap;
+   font-family: var(--font-family);
+   font-weight: var(--weight_bold);
+   line-height: 150%;
+   color: var(--text-primary);
 }
-
+.count {
+   font-family: var(--font-family);
+   font-weight: var(--weight_bold);
+   font-size: 20px;
+   line-height: 120%;
+   color: var(--brand);
+}

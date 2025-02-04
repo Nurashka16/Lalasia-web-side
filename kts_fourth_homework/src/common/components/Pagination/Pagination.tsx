@@ -3,6 +3,7 @@ import style from "./Pagination.module.css";
 import getPagination from "../../function/getPagination";
 import LeftArrow from "./svg/LeftArrow";
 import RightArrow from "./svg/RightArrow";
+import VisiblePage from "./PaginationPage/PaginationPage";
 
 interface IPagination {
   currentPage: number;
@@ -28,44 +29,45 @@ const Pagination = ({
     countVisiblePages
   );
 
-  const getPages = () => {
-    const partPages = () => {
-      if (endPages.length) {
-        return [...startPages, "...", ...endPages];
-      }
-      return [...startPages, ...endPages];
-    };
-    return partPages().map((page) => (
-      <div
-        className={classNames(
-          style.pagination_count,
-          currentPage == Number(page) && style.active_page,
-          page !== "..." && currentPage !== Number(page) && style.count
-        )}
-        onClick={() => page != "..." && onClick(Number(page))}
-      >
-        {page}
-      </div>
-    ));
+  const getNumberPages = () => {
+    if (endPages.length) {
+      return [...startPages, "...", ...endPages];
+    }
+    return [...startPages, ...endPages];
   };
+
+  const pages = getNumberPages().map((page) => (
+    <VisiblePage
+      numberPage={page}
+      isActive={currentPage == page}
+      onClick={onClick}
+      disabled={page == "..."}
+    />
+  ));
 
   return (
     <div className={classNames(style.pagination, className)}>
       {totalPages > 5 && (
         <div
           onClick={() => currentPage > 1 && onClick(currentPage - 1)}
-          className={style.pagination_scroll}
+          className={classNames(
+            style.pagination_scroll,
+            !(currentPage > 1) && style.pagination_scroll__disabled
+          )}
         >
-          <LeftArrow isActive={currentPage > 1} />
+          <LeftArrow />
         </div>
       )}
-      <ul className={style.pagination_pages}>{getPages()}</ul>
+      <ul className={style.pagination_pages}>{pages}</ul>
       {totalPages > countVisiblePages && (
         <div
           onClick={() => onClick(currentPage + 1)}
-          className={style.pagination_scroll}
+          className={classNames(
+            style.pagination_scroll,
+            !(endPages.length > 0) && style.pagination_scroll__disabled
+          )}
         >
-          <RightArrow isActive={endPages.length > 0} />
+          <RightArrow />
         </div>
       )}
     </div>

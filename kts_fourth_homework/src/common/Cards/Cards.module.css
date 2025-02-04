@@ -1,6 +1,42 @@
+/*Для телефонов (до 600px)*/
+/* @media only screen and (max-width: 400px) {
+
+} */
+/*Для телефонов (до 600px)*/
+/* @media only screen and (min-width: 400px) and (max-width: 600px) {
+
+} */
+/*Для планшетов (от 601px до 1024px)*/
+/* @media only screen and (min-width: 600px) and (max-width: 1024px) {
+
+} */
+/*Для ноутбуков поменьше*/
+@media only screen and (min-width: 1024px) and (max-width: 1220px) {
+   .cards {
+      grid-template-columns: repeat(3, 250px);
+   }
+}
+/*Для ноутбуков (от 1025px до 1440px)*/
+@media only screen and (min-width: 1221px) and (max-width: 1440px) {
+   .cards {
+      grid-template-columns: repeat(3, 300px);
+   }
+}
+
+/*Для ПК (от 1441px и выше)*/
+@media only screen and (min-width: 1440px) and (max-width: 1600px) {
+   .cards {
+      grid-template-columns: repeat(3, 360px);
+   }
+}
+@media only screen and (min-width: 1600px) {
+   .cards {
+      grid-template-columns: repeat(3, 420px);
+   }
+}
 .cards {
    display: grid;
-   grid-template-columns: repeat(3, 360px);
    grid-gap: 30px 0;
    justify-content: space-between;
 }
+

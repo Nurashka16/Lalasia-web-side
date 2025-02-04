@@ -1,8 +1,4 @@
-interface IRightArrowProps {
-  isActive?: boolean;
-}
-
-const RightArrow = ({ isActive = false }: IRightArrowProps) => {
+const RightArrow = () => {
   return (
     <svg
       width="32"
@@ -13,8 +9,7 @@ const RightArrow = ({ isActive = false }: IRightArrowProps) => {
     >
       <path
         d="M11.88 26.5599L20.5733 17.8666C21.6 16.8399 21.6 15.1599 20.5733 14.1333L11.88 5.43994"
-        stroke={isActive ? "#151411" : "#AFADB5"}
-        // stroke={endPages.length ? "#151411" : "#AFADB5"}
+        stroke="currentColor"
         stroke-width="1.5"
         stroke-miterlimit="10"
         stroke-linecap="round"

@@ -140,6 +140,7 @@ ul li {
    --brand: #518581;
    --brand-active: #487773;
    --brand-hover: #86aaa7;
+   --easy-transition: ease 0.2s;
 }
 
 /* body {

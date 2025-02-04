@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import "./Card.css";
+import style from "./Card.module.css";
 import classNames from "classnames";
 import Button from "../../components/Button";
 import Text from "../../components/Text";
-import { Link, useNavigate } from "react-router-dom";
-import { IBasketProduct } from "../../../basket/interface/IBasketProduct";
+import { useNavigate } from "react-router-dom";
 import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
 
 export type CardProps = {
@@ -57,36 +56,42 @@ const Card: React.FC<CardProps> = ({
   };
   return (
     <div
-      className={classNames("card", className)}
+      className={classNames(style.card, className)}
       onClick={() => handleCardClick()}
     >
       <img
-        className="image"
+        className={style.card_image}
         src={image}
-        alt="здесь должно было быть фото твоей мамаши"
+        alt="there should have been a photo of the product here"
       />
 
-      <div className="body">
-        <div className="card_body">
+      <div className={style.card_body}>
+        <div className={style.body_info}>
           {captionSlot && (
             <Text weight="medium" color="secondary" view="p-14">
               {captionSlot}
             </Text>
           )}
-          <Text maxLines={2} weight="medium" color="primary" view="p-20">
+          <Text
+            className={style.body_title}
+            maxLines={2}
+            weight="medium"
+            color="primary"
+            view="p-20"
+          >
             {title}
           </Text>
-          <Text className="link" maxLines={3} view="p-16" color="secondary">
+          <Text className={style.body_subtitle} view="p-16" color="secondary">
             {subtitle}
           </Text>
         </div>
-        <div className="footer">
+        <div className={style.card_footer}>
           {contentSlot && (
             <Text weight="bold" view="p-18" color="primary">
               {contentSlot}
             </Text>
           )}
-          <Button className="card_btn" onClick={handleButtonClick}>
+          <Button className={style.footer_btn} onClick={handleButtonClick}>
             {actionSlot}
           </Button>
         </div>

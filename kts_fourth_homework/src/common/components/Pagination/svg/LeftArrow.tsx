@@ -1,8 +1,4 @@
-interface ILeftArrowProps {
-  isActive?: boolean;
-}
-
-const LeftArrow = ({ isActive = false }: ILeftArrowProps) => {
+const LeftArrow = () => {
   return (
     <svg
       width="32"
@@ -13,8 +9,7 @@ const LeftArrow = ({ isActive = false }: ILeftArrowProps) => {
     >
       <path
         d="M20.12 26.5599L11.4267 17.8666C10.4 16.8399 10.4 15.1599 11.4267 14.1333L20.12 5.43994"
-        stroke={isActive ? "#151411" : "#AFADB5"}
-        //   stroke={currentPage > 1 ? "#151411" : "#AFADB5"}
+        stroke="currentColor"
         stroke-width="1.5"
         stroke-miterlimit="10"
         stroke-linecap="round"
