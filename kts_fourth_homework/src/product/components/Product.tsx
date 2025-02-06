@@ -3,10 +3,10 @@ import style from "./Product.module.css";
 import InfoCard from "./InfoCard";
 import SimilarProducts from "./SimilarProducts";
 import { useParams } from "react-router-dom";
-import ButtonBack from "../../common/components/ButtonBack/ButtonBack";
-import { HOME } from "../../utils/const";
 import productStore from "../stores/product-store";
 import Loader from "src/common/components/Loader";
+import ButtonBack from "src/common/components/ButtonBack/ButtonBack";
+import { HOME } from "src/utils/const";
 
 const Product = () => {
   const { getProductAction, product } = productStore;

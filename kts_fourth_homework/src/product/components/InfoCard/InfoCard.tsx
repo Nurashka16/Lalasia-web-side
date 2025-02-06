@@ -4,9 +4,10 @@ import { IProduct } from "src/product/interface/IProduct";
 import basketStore from "src/basket/stores/basket-store";
 import Text from "src/common/components/Text";
 import Button from "src/common/components/Button";
+import classNames from "classnames";
 import RightArrow from "src/common/components/Pagination/svg/RightArrow";
 import LeftArrow from "src/common/components/Pagination/svg/LeftArrow";
-import classNames from "classnames";
+import Images from "./Images";
 
 interface IInfoCardProps {
   product: IProduct;
@@ -14,8 +15,11 @@ interface IInfoCardProps {
 
 const InfoCard = ({ product }: IInfoCardProps) => {
   const [count, setCount] = useState(1);
+  // const [currentImg, setCurrentImg] = useState(0);
+  // const [isActiveIconRight, setIsActiveIconRight] = useState(false);
+  // const [isActiveIconLeft, setIsActiveIconLeft] = useState(false);
 
-  const [isActiveIcon, setIsActiveIcon] = useState(false);
+  // const maxImages = product.images.length;
 
   const { addProduct } = basketStore;
   const addProducts = () => {
@@ -23,31 +27,60 @@ const InfoCard = ({ product }: IInfoCardProps) => {
     addProduct({ id: product.id, count });
   };
 
+  // const toggleActiveIcons = () => {
+  //   currentImg > 0 ? setIsActiveIconLeft(true) : setIsActiveIconLeft(false);
+  //   currentImg < maxImages-1
+  //     ? setIsActiveIconRight(true)
+  //     : setIsActiveIconRight(false);
+  // };
+  // const onClick = (num: number) => {
+  //   toggleActiveIcons();
+  //   if (num >= 0 || num < 2) {
+  //     setCurrentImg(num);
+  //   }
+  // };
+  const imgs:string[] = []
+  const filterImages = (arr:string[])=> {
+     arr.map((img)=> {
+        imgs.push(img.replace( /["\[\]]/g, ""))
+    })
+  }
+  filterImages(product?.images)
   return (
     <div className={style.card}>
-      <div
+      <Images
+        currentItem={0}
+        images={imgs}
+        maxCountItem={product?.images.length}
+      />
+      {/* <div
         className={style.card_carousel}
-        onMouseOver={() => setIsActiveIcon(true)}
-        onMouseLeave={() => setIsActiveIcon(false)}
+        onMouseOver={() => toggleActiveIcons()}
+        onMouseLeave={() => toggleActiveIcons()}
       >
         <div
-          style={{ display: isActiveIcon ? "flex" : "none" }}
-          className={style.carousel_icon}
+          onClick={() => onClick(currentImg - 1)}
+          style={{ display: isActiveIconLeft ? "flex" : "none" }}
+          className={classNames(isActiveIconLeft && style.carousel_icon)}
         >
           <LeftArrow />
-        </div>
+        </div>    
         <img
           className={style.carousel_img}
-          src={product?.images[0]}
+          src={product?.images[currentImg]}
           alt="there should have been a photo of the product here"
         />
         <div
-          style={{ display: isActiveIcon ? "flex" : "none" }}
-          className={classNames(style.carousel_icon, style.carousel_icon__right)}
+          onClick={() => onClick(currentImg + 1)}
+          style={{ display: isActiveIconRight ? "flex" : "none" }}
+          className={classNames(
+            isActiveIconRight && style.carousel_icon,
+            style.carousel_icon__right
+          )}
         >
           <RightArrow />
         </div>
-      </div>
+      </div> */}
       <div className={style.card_main}>
         <div className={style.main_info}>
           <Text weight="bold" view="title">
