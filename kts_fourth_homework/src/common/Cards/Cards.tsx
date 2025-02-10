@@ -10,6 +10,8 @@ interface ICards {
 }
 const Cards = ({ onClick, products }: ICards) => {
   const cards = products.map((item: ICard) => {
+    // console.log(item.images[0]);
+    
     return (
       <Card className={style.card}
         id={item.id}

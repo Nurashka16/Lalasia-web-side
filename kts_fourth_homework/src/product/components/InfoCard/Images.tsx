@@ -19,8 +19,6 @@ const Images = ({
   const [currentImg, setCurrentImg] = useState(currentItem);
   const [isActiveIconRight, setIsActiveIconRight] = useState(false);
   const [isActiveIconLeft, setIsActiveIconLeft] = useState(false);
-  console.log(images[0]);
-  
   const toggleActiveIcons = (value: boolean) => {
     if (value) {
       if (images.length > 1) {
@@ -41,10 +39,8 @@ const Images = ({
       setCurrentImg(num);
     }
   };
-
   return (
-    <div
-      className={style.card_carousel}
+    <div  
       onMouseOver={() => toggleActiveIcons(true)}
       onMouseLeave={() => toggleActiveIcons(false)}
     >

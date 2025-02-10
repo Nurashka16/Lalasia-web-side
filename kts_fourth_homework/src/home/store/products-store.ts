@@ -22,7 +22,8 @@ class ProductsStore {
     );
   };
 
-  search = async () => {//не работает
+  search = async () => {
+    //не работает
     this.pagination.numberAllProducts = 0;
     this.allProducts = [];
     try {

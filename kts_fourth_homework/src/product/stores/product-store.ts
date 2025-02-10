@@ -11,6 +11,8 @@ class ProductStore {
   getProductAction = async (id: string) => {
     try {
       const response = await getProduct(id);
+      console.log(response.images[0]);
+      
       runInAction(() => {
         this.product = response;
       });
@@ -18,7 +20,5 @@ class ProductStore {
       throw new Error("Ошибка в получении элементa");
     }
   };
-
-
 }
 export default new ProductStore();

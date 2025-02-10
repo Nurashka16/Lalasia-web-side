@@ -39,18 +39,12 @@ const InfoCard = ({ product }: IInfoCardProps) => {
   //     setCurrentImg(num);
   //   }
   // };
-  const imgs:string[] = []
-  const filterImages = (arr:string[])=> {
-     arr.map((img)=> {
-        imgs.push(img.replace( /["\[\]]/g, ""))
-    })
-  }
-  filterImages(product?.images)
+
   return (
     <div className={style.card}>
       <Images
         currentItem={0}
-        images={imgs}
+        images={product?.images}
         maxCountItem={product?.images.length}
       />
       {/* <div

@@ -20,13 +20,13 @@ export const getProduct = async (id: string) => {
       "https://api.escuelajs.co/api/v1/products/" + id
     )
   ).data;
-
   const result: IProduct = {
     id: response.id,
     title: response.title,
     price: response.price,
     description: response.description,
-    images: response.images,
+      //Возвращается неправильный массив картинок c лишними символами
+    images: response.images.map((img) => img.replace(/["\[\]]/g, "")),
     category: {
       id: response.category.id,
       name: response.category.name,

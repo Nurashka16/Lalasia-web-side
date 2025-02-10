@@ -23,7 +23,9 @@ interface IInnerSearchProductsRequest {
 //Из за плохого api(невозможность отправлять несколько категорий id),
 // приходится делать несколько запросов
 
-export const search = async (request: ISearchProductsRequest):Promise<IProductResponse[]> => {
+export const search = async (
+  request: ISearchProductsRequest
+): Promise<IProductResponse[]> => {
   if (request.categoryIds.length) {
     return request.categoryIds
       .map(async (id) => {
@@ -33,10 +35,11 @@ export const search = async (request: ISearchProductsRequest):Promise<IProductRe
           title: request.title,
         };
         return await innerSearch(innerRequest);
-      }).reduce((result, products)=> {
+      })
+      .reduce((result, products) => {
         result.push(...products);
-        return result
-      },[]);//flat()
+        return result;
+      }, []); //flat()
   }
   return innerSearch({ diapason: request.diapason, title: request.title });
 };
@@ -47,9 +50,12 @@ const innerSearch = async (data: IInnerSearchProductsRequest) => {
   params.set("price_min", data.diapason?.priceMin?.toString());
   params.set("price_max", data.diapason?.priceMax?.toString());
   params.set("categoryId", data.categoryId?.toString());
-  return (
-    await axios.get<IProductResponse[]>(
-      `https://api.escuelajs.co/api/v1/products/${params.createParamQuery()}`
-    )
-  ).data;
+  const response = await axios.get<IProductResponse[]>(
+    `https://api.escuelajs.co/api/v1/products/${params.createParamQuery()}`
+  );
+    //Возвращается неправильный массив картинок c лишними символами
+  return response.data.map((product) => ({
+    ...product,
+    images: product.images.map((img) => img.replace(/["\[\]]/g, "")),
+  }));
 };
