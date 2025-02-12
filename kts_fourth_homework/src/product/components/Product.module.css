@@ -1,51 +1,48 @@
 /*Для телефонов (до 600px)*/
- @media only screen and (max-width: 400px) {
-   .product {
-      padding: 20px;
-   }
-} 
+@media only screen and (max-width: 400px) {
+  .product {
+    padding: 20px;
+  }
+}
 /*Для телефонов (до 600px)*/
- @media only screen and (min-width: 400px) and (max-width: 600px) {
-   .product {
-      padding: 30px;
-   }
-} 
+@media only screen and (min-width: 400px) and (max-width: 600px) {
+  .product {
+    padding: 30px;
+  }
+}
 /*Для планшетов (от 601px до 1024px)*/
- @media only screen and (min-width: 600px) and (max-width: 1024px) {
-   .product {
-      padding: 50px;
-   }
-} 
+@media only screen and (min-width: 600px) and (max-width: 1024px) {
+  .product {
+    padding: 50px 50px 72px;
+  }
+}
 /*Для ноутбуков поменьше*/
 @media only screen and (min-width: 1024px) and (max-width: 1220px) {
-   .product {
-      padding: 60px;
-   }
+  .product {
+    padding: 60px 60px 84px;
+  }
 }
 /*Для ноутбуков (от 1025px до 1440px)*/
 @media only screen and (min-width: 1221px) and (max-width: 1440px) {
-   .product {
-      padding: 60px 40px 60px 100px;
-   }
+  .product {
+    padding: 60px 40px 96px 100px;
+  }
 }
 
 /*Для ПК (от 1441px и выше)*/
 @media only screen and (min-width: 1440px) and (max-width: 1600px) {
-   .product {
-      padding: 60px 40px 60px 100px;
-   }
+  .product {
+    padding: 60px 40px 96px 100px;
+  }
 }
 @media only screen and (min-width: 1600px) {
-   .product {
-      padding: 60px 40px 60px 100px;
-   }
+  .product {
+    padding: 60px 40px 96px 100px;
+  }
 }
 
 .product_main {
-   height: 100%;
-   display: flex;
-   flex-direction: column;
-   row-gap: var(--size_l);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-
-

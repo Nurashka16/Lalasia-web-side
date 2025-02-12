@@ -1,16 +1,4 @@
-/* .similar {
-   padding-right: 61px;
-   display: flex;
-   flex-direction: column;
-   gap: 32px;
+.relatesProducts {
 }
-.similar_title {
-   line-height: 48px;
+.relatesProducts_main {
 }
-.similar_cards {
-   display: flex;
-   justify-content: space-between;
-}
-.similar_product {
-   width: 360px;
-} */

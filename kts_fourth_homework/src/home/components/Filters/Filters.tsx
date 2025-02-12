@@ -6,6 +6,7 @@ import Search from "src/common/components/Search";
 import CategoryFilter from "./CategoryFilter/CategoryFilter";
 import ResetIcon from "./svg/ResetIcon";
 import { useEffect, useState } from "react";
+import CategoryFilterC from "./CategoryFilter copy/CategoryFilterС";
 
 const Filters = observer(() => {
   const { search, filter } = productsStore;
@@ -34,8 +35,8 @@ const Filters = observer(() => {
   return (
     <div className={style.filters}>
       <Search
-      className={style.filter_search}
-      disabled={!isActiveReset}
+        className={style.filter_search}
+        disabled={!isActiveReset}
         onClick={search}
         defaultValue={filter.title}
         onChange={(value: string) => {
@@ -44,7 +45,9 @@ const Filters = observer(() => {
         placeholder="Search product"
       />
       <div className={style.filters_lower}>
+        <CategoryFilterC />
         <CategoryFilter />
+
         <div className={style.filter_range}>
           <PriceDiapasonFilter />
         </div>

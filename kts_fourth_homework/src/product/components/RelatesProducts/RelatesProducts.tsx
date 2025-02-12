@@ -7,8 +7,8 @@ import CatalogLayout from "src/common/CatalogLayout/CatalogLayout";
 
 const RelatesProducts = observer(() => {
   const { relatesProducts } = productStore;
-  console.log(relatesProducts);
   const { addProduct } = basketStore;
+  
   return (   
     <div className={style.relatesProducts}>
       <CatalogLayout

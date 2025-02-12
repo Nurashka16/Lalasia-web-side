@@ -24,7 +24,7 @@ class ProductStore {
         this.getRelatesProduct(this.product.category.id, 3, this.product.id);
       });
     } catch {
-      throw new Error("Ошибка в получении элементa");
+      throw new Error("Ошибка в получении продукта");
     }
   };
   getRelatesProduct = async (

@@ -4,13 +4,12 @@ import style from "./Cards.module.css";
 import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
 import Card from "./Card/Card";
 
-interface ICards {
+interface ICardsProps {
   products: IProduct[];
   onClick: (product: IBasketProductsIdToCount) => void;
 }
-const Cards = ({ onClick, products }: ICards) => {
+const Cards = ({ onClick, products }: ICardsProps) => {
   const cards = products.map((item: ICard) => {
-    // console.log(item.images[0]);
     
     return (
       <Card className={style.card}

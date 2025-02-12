@@ -8,7 +8,7 @@ import { search } from "../api/search";
 class ProductsStore {
   filter = ProductsFilter;
   productsCurrentPage: IProduct[] = [];
-  pagination = new Pagination(9);
+  pagination = new Pagination(1);
   allProducts: IProduct[] = [];
 
   constructor() {

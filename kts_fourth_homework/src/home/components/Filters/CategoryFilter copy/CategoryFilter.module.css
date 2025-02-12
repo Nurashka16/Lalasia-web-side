@@ -1,0 +1,12 @@
+.filter {
+   width: 300px;
+}
+.filter_pagination {
+   padding: 0;
+}
+
+.lists {
+   max-height: 260px;
+   overflow-x: hidden;
+   scroll-behavior: smooth;
+}

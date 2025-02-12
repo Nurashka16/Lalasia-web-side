@@ -6,14 +6,16 @@ import Text from "src/common/components/Text";
 import Button from "src/common/components/Button";
 import Carousel from "../../../common/components/Carousel/Carousel";
 import classNames from "classnames";
+import Loader from "src/common/components/Loader";
 
-interface IInfoCardProps {
+interface IProductsCardProps {
   product: IProduct;
 }
 
-const ProductCard = ({ product }: IInfoCardProps) => {
-  const [countProduct, setCountProduct] = useState(1);
+const ProductCard = ({ product }: IProductsCardProps) => {
   const [currentImgNumber, setCurrentImgNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [countProduct, setCountProduct] = useState(1);
 
   const { addProduct } = basketStore;
 
@@ -30,15 +32,30 @@ const ProductCard = ({ product }: IInfoCardProps) => {
       <Carousel
         isActive={false}
         className={style.carousel_icon}
-        onClick={setCurrentImgNumber}
+        onClick={(value: number) => {
+          setIsLoading(true);
+          setCurrentImgNumber(value);
+          setTimeout(() => setIsLoading(false), 200);
+        }}
         currentItem={currentImgNumber}
         maxCountItem={product?.images.length}
       >
-        <img
-          className={style.carousel_img}
-          src={product?.images[currentImgNumber - 1]}
-          alt="there should have been a photo of the product here"
-        />
+        <div className={style.imageContainer}>
+          {isLoading ? (
+            <div className={style.imageContainer_loader}>
+              <Text tag="h2" weight="bold" color="secondary">
+                the picture is loading
+              </Text>
+              <Loader color="#afadb5" />
+            </div>
+          ) : (
+            <img
+              className={style.imageContainer_img}
+              src={product?.images[currentImgNumber - 1]}
+              alt="there should have been a photo of the product here"
+            />
+          )}
+        </div>
       </Carousel>
       <div className={style.main}>
         <div className={style.main_info}>

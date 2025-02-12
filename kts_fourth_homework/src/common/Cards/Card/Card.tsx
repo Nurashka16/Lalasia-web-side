@@ -59,37 +59,31 @@ const Card: React.FC<CardProps> = ({
       className={classNames(style.card, className)}
       onClick={() => handleCardClick()}
     >
-      <img
-        className={style.card_image}
-        src={image}
-        alt="there should have been a photo of the product here"
-      />
+      <div className={style.imageContainer}>
+        <img
+          className={style.imageContainer_img}
+          src={image}
+          alt="there should have been a photo of the product here"
+        />
+      </div>
 
-      <div className={style.card_body}>
-        <div className={style.body_info}>
+      <div className={style.body}>
+        <div className={style.info}>
           {captionSlot && (
-            <Text weight="medium" color="secondary" view="p-14">
-              {captionSlot}
-            </Text>
+            <Text className={style.info_subtitle}>{captionSlot}</Text>
           )}
+          <Text className={style.info_title}>{title}</Text>
           <Text
-            className={style.body_title}
-            maxLines={2}
-            weight="medium"
-            color="primary"
-            view="p-20"
+            className={style.info_description}
+            view="p-16"
+            color="secondary"
           >
-            {title}
-          </Text>
-          <Text className={style.body_subtitle} view="p-16" color="secondary">
             {subtitle}
           </Text>
         </div>
-        <div className={style.card_footer}>
+        <div className={style.footer}>
           {contentSlot && (
-            <Text weight="bold" view="p-18" color="primary">
-              {contentSlot}
-            </Text>
+            <Text className={style.footer_price}>{contentSlot}</Text>
           )}
           <Button className={style.footer_btn} onClick={handleButtonClick}>
             {actionSlot}

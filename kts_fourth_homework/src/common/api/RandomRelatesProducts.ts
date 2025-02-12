@@ -8,8 +8,15 @@ export interface IRelatesProducts {
     currentIdItem: number
   ) => Promise<IProduct[]>;
 }
-
+/**
+ * Возвращает рандомные продукты
+ */
 export class RandomRelatesProducts implements IRelatesProducts {
+  private getRandomElements(arr: number[], countElem: number) {
+    const shuffled = arr.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, countElem);
+  }
+  
   public async getProducts(
     idCategory: number,
     countItems: number,
@@ -24,7 +31,7 @@ export class RandomRelatesProducts implements IRelatesProducts {
           return category.id;
         }
       })
-      .filter((id) => id !== undefined); //хз
+      .filter((id) => id !== undefined);
 
     const randomProductsIds = this.getRandomElements(
       arrProductsIds,
@@ -49,8 +56,5 @@ export class RandomRelatesProducts implements IRelatesProducts {
     });
   }
 
-  private getRandomElements(arr: number[], countElem: number) {
-    const shuffled = arr.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, countElem);
-  }
+
 }
