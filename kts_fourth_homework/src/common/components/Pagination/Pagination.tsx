@@ -2,8 +2,8 @@ import classNames from "classnames";
 import style from "./Pagination.module.css";
 import getPagination from "../../function/getPagination";
 import VisiblePage from "./PaginationPage/PaginationPage";
-import LeftArrow from "./svg/LeftArrow";
-import RightArrow from "./svg/RightArrow";
+import LeftArrow from "../Carousel/svg/LeftArrow";
+import RightArrow from "../Carousel/svg/RightArrow";
 
 interface IPagination {
   currentPage: number;

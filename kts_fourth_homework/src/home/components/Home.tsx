@@ -43,6 +43,7 @@ const Home = observer(() => {
         ) : (
           <div className={style.catalog}>
             <CatalogLayout
+              title="Total Product"
               countAllProducts={pagination.numberAllProducts}
               onClick={addProduct}
               products={productsCurrentPage}

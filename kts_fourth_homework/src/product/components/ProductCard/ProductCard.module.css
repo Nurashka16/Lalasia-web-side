@@ -1,0 +1,199 @@
+/*Для телефонов (до 600px)*/
+/* @media only screen and (max-width: 400px) {
+
+} */
+/*Для телефонов (до 600px)*/
+/* @media only screen and (min-width: 400px) and (max-width: 600px) {
+
+} */
+/*Для планшетов (от 601px до 1024px)*/
+@media only screen and (min-width: 600px) and (max-width: 1024px) {
+  .carousel_img {
+    width: 400px;
+    height: 400px;
+  }
+  .info_description {
+    font-size: 16px;
+  }
+  .card {
+    column-gap: var(--size_m);
+  }
+  .main {
+    justify-content: space-between;
+    gap: var(--size_m);
+  }
+  .main_footer {
+    gap: var(--size_m);
+  }
+  .footer_price {
+    font-size: 28px;
+  }
+  .info_header {
+    font-size: 30px;
+  }
+  .footer_buttons {
+    flex-direction: column;
+    gap: var(--size_m);
+  }
+}
+/*Для ноутбуков поменьше*/
+@media only screen and (min-width: 1024px) and (max-width: 1220px) {
+  .carousel_img {
+    width: 500px;
+    height: 500px;
+  }
+  .info_description {
+    font-size: 18px;
+  }
+  .card {
+    column-gap: var(--size_l);
+  }
+  .main {
+    gap: var(--size_l);
+    justify-content: space-between;
+  }
+  .main_footer {
+    gap: var(--size_l);
+  }
+  .footer_price {
+    font-size: 38px;
+  }
+  .info_header {
+    font-size: 40px;
+  }
+  .footer_buttons {
+    /* gap: var(--size_l); */
+    justify-content: space-between;
+  }
+
+}
+/*Для ноутбуков (от 1025px до 1440px)*/
+@media only screen and (min-width: 1221px) and (max-width: 1440px) {
+  .carousel_img {
+    width: 550px;
+    height: 550px;
+  }
+  .card {
+    column-gap: var(--size_l);
+  }
+  .main {
+    gap: var(--size_l);
+  }
+  .main_footer {
+    gap: var(--size_l);
+    padding-top: 32px;
+  }
+  .footer_buttons {
+    gap: var(--size_l);
+  }
+  
+}
+
+/*Для ПК (от 1441px и выше)*/
+@media only screen and (min-width: 1440px) and (max-width: 1600px) {
+  .carousel_img {
+    width: 600px;
+    height: 600px;
+  }
+  .card {
+    column-gap: var(--size_l);
+  }
+  .main {
+    gap: var(--size_l);
+  }
+  .main_footer {
+    gap: var(--size_l);
+    padding-top: 32px;
+  }
+  .footer_buttons {
+    gap: var(--size_l);
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .carousel_img {
+    width: 600px;
+    height: 600px;
+  }
+  .card {
+    column-gap: var(--size_l);
+  }
+  .main {
+    gap: var(--size_l);
+  }
+  .main_footer {
+    gap: var(--size_l);
+    padding-top: 32px;
+  }
+  .footer_buttons {
+    gap: var(--size_l);
+  }
+}
+.card {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+.carousel_img {
+  background-size: cover;
+}
+
+.carousel_icon {
+}
+.carousel_icon:hover {
+}
+.carousel_icon:disabled {
+}
+.main {
+  display: flex;
+  flex-direction: column;
+}
+.main_info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size_m);
+}
+.info_header {
+  font-family: var(--font-family);
+  font-weight: var(--weight_bold);
+  line-height: 109%;
+  color: var(--text-primary);
+}
+.info_description {
+  text-wrap: wrap;
+  font-family: var(--font-family);
+  font-weight: var(--weight_normal);
+  line-height: 120%;
+  color: var(--text-secondary);
+}
+.main_footer {
+  display: flex;
+  flex-direction: column;
+}
+.footer_price {
+  font-family: var(--font-family);
+  font-weight: var(--weight_bold);
+  line-height: 109%;
+  color: var(--text-primary);
+}
+.footer_buttons {
+  display: flex;
+  min-height: 52px;
+}
+.footer_btn {
+  width: 155px;
+}
+.footer_btn__add {
+  font-size: 18px;
+  color: var(--black);
+  background-color: var(--light_white);
+  transition: var(--easy-transition);
+
+  height: 52px;
+  border: 1px solid var(--text-secondary);
+  padding: 16px 30px;
+  min-height: 52px;
+}
+.footer_btn__add:hover {
+  background-color: var( --button-secondary-bg-hover);
+  border: 1px solid transparent;
+}

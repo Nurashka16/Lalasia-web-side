@@ -1,0 +1,91 @@
+@media only screen and (min-width: 600px) and (max-width: 1024px) {
+  .carousel_icon {
+    width: 50px;
+    height: 50px;
+  }
+  .carousel_icon:hover {
+    width: 52px;
+    height: 52px;
+  }
+}
+/*Для ноутбуков поменьше*/
+@media only screen and (min-width: 1024px) and (max-width: 1220px) {
+  .carousel_icon {
+    width: 54px;
+    height: 54px;
+  }
+  .carousel_icon:hover {
+    width: 56px;
+    height: 56px;
+  }
+}
+@media only screen and (min-width: 1221px) and (max-width: 1440px) {
+  .carousel_icon {
+    width: 58px;
+    height: 58px;
+  }
+  .carousel_icon:hover {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/*Для ПК (от 1441px и выше)*/
+@media only screen and (min-width: 1440px) and (max-width: 1600px) {
+  .carousel_icon {
+    width: 64px;
+    height: 64px;
+  }
+  .carousel_icon:hover {
+    width: 66px;
+    height: 66px;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .carousel_icon {
+    width: 64px;
+    height: 64px;
+  }
+  .carousel_icon:hover {
+    width: 66px;
+    height: 66px;
+  }
+}
+.carousel {
+  background-color: var(--light_gray);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  max-width: 100%;
+  height: 100%;
+}
+.carousel:hover .carousel_icon {
+  opacity: 1;
+}
+.carousel_icon__right {
+  right: 0;
+}
+.carousel_icon__active {
+  opacity: 1;
+}
+.carousel_icon {
+  transform: translate(-0%, -0%);
+  transition: opacity 0.3s;
+  margin: 0 var(--size_s);
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgb(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  color: var(--white);
+  padding: 0;
+  opacity: 0;
+}
+.carousel_icon:hover {
+  background-color: rgb(0, 0, 0, 0.8);
+}
+.carousel_icon:disabled {
+  display: none;
+}

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import style from "./Product.module.css";
-import InfoCard from "./InfoCard";
-import SimilarProducts from "./SimilarProducts";
 import { useParams } from "react-router-dom";
 import productStore from "../stores/product-store";
 import Loader from "src/common/components/Loader";
 import ButtonBack from "src/common/components/ButtonBack/ButtonBack";
 import { HOME } from "src/utils/const";
+import RelatesProducts from "./RelatesProducts/index.ts";
+import ProductCard from "./ProductCard/ProductCard.tsx";
 
 const Product = () => {
   const { getProductAction, product } = productStore;
@@ -18,7 +18,7 @@ const Product = () => {
   useEffect(() => {
     setIsLoading(true);
     getProductAction(params.id!);
-    setTimeout(() => setIsLoading(false), 100);
+    setTimeout(() => setIsLoading(false), 1000);
   }, [params.id]);
 
   return isLoading ? (
@@ -27,8 +27,8 @@ const Product = () => {
     <div className={style.product}>
       <ButtonBack link={HOME} />
       <div className={style.product_main}>
-        <InfoCard product={product!} />
-        <SimilarProducts />
+        <ProductCard product={product!} />
+        <RelatesProducts />
       </div>
     </div>
   );

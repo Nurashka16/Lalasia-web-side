@@ -1,27 +1,29 @@
-.btn_back {
-   height: 48px;
-   margin-bottom: 32px;
-   display: flex;
-   align-items: center;
-   justify-content: start;
-   column-gap: 12px;
-   color: black;
-   width: 110px;
+.btn {
+  height: var(--size_l);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  column-gap: var(--size_s);
+  width: 110px;
 }
 .btn_icon {
-   display: flex;
-   align-items: center;
-   justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.btn_back svg {
-   height: 32px;
-   width: 32px;
+.btn svg {
+  height: 32px;
+  width: 32px;
 }
-.btn_back div {
-   color: black;
-   /* padding: 24px 10px; */
+.btn:hover {
+  border-radius: 7%;
+  box-shadow: var(--shadows);
 }
-.btn_back:hover {
-   border-radius: 7%;
-   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
+.btn_text {
+  font-family: var(--font-family);
+  font-weight: var(--weight_normal);
+  font-size: 20px;
+  line-height: 120%;
+  color: var(--text-primary);
 }

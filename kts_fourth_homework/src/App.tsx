@@ -23,7 +23,7 @@ import EmptyPage from "./empty/components/EmptyPage/EmptyPage";
 import Categories from "./categories/components/categoriesCatalog/Categories";
 import SignUp from "./auth/components/SignUp";
 import ProductsCategory from "./categories/components/productsSameCategory";
-import InfoCard from "./product/components/InfoCard";
+import InfoCard from "./product/components/ProductCard";
 import Product from "./product/components/Product";
 // import GoCheckout from "./basket/components/GoCheckoutPage/GoCheckout";
 import Payment from "./payment/components/Payment";

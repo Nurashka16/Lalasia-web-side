@@ -27,19 +27,18 @@ export const search = async (
   request: ISearchProductsRequest
 ): Promise<IProductResponse[]> => {
   if (request.categoryIds.length) {
-    return request.categoryIds
+    const tasks = request.categoryIds
       .map(async (id) => {
         const innerRequest: IInnerSearchProductsRequest = {
           categoryId: id,
           diapason: request.diapason,
           title: request.title,
         };
-        return await innerSearch(innerRequest);
+        return (await innerSearch(innerRequest));
       })
-      .reduce((result, products) => {
-        result.push(...products);
-        return result;
-      }, []); //flat()
+   
+
+      return (await Promise.all(tasks)).flat()
   }
   return innerSearch({ diapason: request.diapason, title: request.title });
 };
