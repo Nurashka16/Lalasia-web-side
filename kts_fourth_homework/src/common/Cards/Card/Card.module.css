@@ -48,7 +48,7 @@
     font-size: var(--size_m);
   }
   .info_description {
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 7;
     font-size: 16px;
   }
   .info_subtitle {
@@ -145,10 +145,10 @@
   }
   .info_title {
     font-size: 20px;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
   }
   .info_description {
-    -webkit-line-clamp: 3; /*проверить как лучше*/
+    -webkit-line-clamp: 2; /*проверить как лучше*/
     font-size: 16px;
   }
   .body {

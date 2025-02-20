@@ -1,41 +1,76 @@
-import {
-  makeAutoObservable,
-  observable,
-  runInAction,
-} from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { IDiapason } from "src/home/interface/IDiapason";
+import { Option } from "../MultiDropDown/interface/Option";
+import { action } from "mobx";
 
+export class ProductsFilter {
+  private readonly _options: Option[];
 
-class ProductsFilter {
-  selectedFilterIds = observable.set<number>();
+  selectedCategories: Option[] = [];
+  selectedSort: Option;
   diapason: IDiapason = { max: 1000, min: 0 };
-  title: string = "";
+  searchValue: string = "";
 
-  constructor() {
+  constructor(options: Option[]) {
+    if (options.length == 0) {
+      throw new Error("Options не должен быть пустым");
+    }
+    this._options = options;
+    this.selectedSort = this._options[0];
     makeAutoObservable(this);
   }
 
-  toggleCategory = (id: number) => {
-    runInAction(() => {
-      if (this.selectedFilterIds.has(id)) {
-        this.selectedFilterIds.delete(id);
-      } else {
-        this.selectedFilterIds.add(id);
+  //получить извне приватные варианты сортировки
+  get getOptions() {
+    return [...this._options];
+  }
+
+  // Метод для работы с сортировкой
+
+  setSelectedSort = (sort: Option) => {
+    this.selectedSort = sort;
+  };
+
+  // Метод для работы с категориями
+
+  toggleCategory = (clickedCategory: Option) => {
+    const selectedCategoriesIds = this.selectedCategories.map(
+      (selectedCategory) => {
+        return selectedCategory.key;
       }
-      this.selectedFilterIds = observable.set([...this.selectedFilterIds])
-      
-    });
+    );
+    if (selectedCategoriesIds.includes(clickedCategory.key)) {
+      this.selectedCategories = this.selectedCategories.filter(
+        (selectedCategory) => {
+          return selectedCategory.key !== clickedCategory.key;
+        }
+      );
+    } else {
+      this.selectedCategories.push(clickedCategory);
+    }
   };
-  clearAllFilters = () => {
-    this.selectedFilterIds.clear();
-    this.diapason = { max: 1000, min: 0 };
-    this.title = "";
-  };
+
+  // Метод для работы с диапазоном
+
   setDiapason(data: IDiapason): void {
+    if (data.min < 0 || data.max > 1000 || data.min > data.max) {
+      throw new Error(
+        "Диапазон невалиден. Убедитесь, что min >= 0 и max <= 1000."
+      );
+    }
     this.diapason = data;
   }
-  setTitle = (value: string) => {
-    this.title = value;
-  };
+
+  // Метод для работы с поисковиком
+  setSearchValue(value: string) {
+    this.searchValue = value;
+  }
+
+  // Метод для очистки фильтров
+  clearAllFilters() {
+    this.selectedCategories = [];
+    this.diapason = { max: 1000, min: 0 };
+    this.searchValue = "";
+    this.selectedSort = this._options[0];
+  }
 }
-export default new ProductsFilter();

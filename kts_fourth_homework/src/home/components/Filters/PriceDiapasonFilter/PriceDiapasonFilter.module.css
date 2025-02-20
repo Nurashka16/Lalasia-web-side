@@ -1,7 +1,73 @@
+
+/*Для телефонов (до 600px)*/
+/* @media only screen and (max-width: 400px) {
+
+} */
+/*Для телефонов (до 600px)*/
+/* @media only screen and (min-width: 400px) and (max-width: 600px) {
+
+} */
+@media only screen and (min-width: 600px) and (max-width: 850px) {
+   .inputField span{
+      font-size: 16.5px;
+   }
+   .inputField input {
+      max-width: 80px;
+      min-width: 60px;
+   }
+ }
+ /*Для планшетов (от 601px до 1024px)*/
+ @media only screen and (min-width: 850px) and (max-width: 1024px) {
+   .inputField span{
+      font-size: 16.5px;
+   }
+   .inputField input {
+      max-width: 80px;
+      min-width: 60px;
+   }
+ }
+ /*Для ноутбуков поменьше*/
+ @media only screen and (min-width: 1024px) and (max-width: 1220px) {
+   .inputField span{
+      font-size: 16.5px;
+   }
+   .inputField input {
+      max-width: 60px;
+      min-width: 50px;
+   }
+ }
+ /*Для ноутбуков (от 1025px до 1440px)*/
+ @media only screen and (min-width: 1221px) and (max-width: 1440px) {
+   .inputField span{
+      font-size: 16.5px;
+   }
+   .inputField input {
+      max-width: 80px;
+      min-width: 60px;
+   }
+ }
+ /*Для ПК (от 1441px и выше)*/
+ @media only screen and (min-width: 1440px) and (max-width: 1600px) {
+   .inputField span{
+      font-size: 16.5px;
+   }
+   .inputField input {
+      max-width: 80px;
+      min-width: 60px;
+   }
+ }
+ @media only screen and (min-width: 1600px) {
+   .inputField span{
+      font-size: 16.5px;
+   }
+   .inputField input {
+      max-width: 80px;
+      min-width: 60px;
+   }
+ }
+
+
 .container {
-   /*потом убрать*/
-   /* padding: 0 0 0 10px;
-   width: 100%; */
 }
 
 .price {
@@ -19,15 +85,13 @@
    color: var(--dark_gray);
    color: var(--text-secondary);
    font-weight: var(--weight_normal);
-   font-size: 16.5px;
+
    /* color: var(--text-primary); */
    text-wrap: nowrap;
    margin-right: 10px;
 }
 .inputField input {
    transition: outline 0.1s ease;
-   max-width: 80px;
-   min-width: 60px;
    text-align: center;
    padding: 16px 10px 3px 10px;
    border: none;

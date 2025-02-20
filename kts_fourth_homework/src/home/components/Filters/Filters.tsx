@@ -6,25 +6,32 @@ import Search from "src/common/components/Search";
 import CategoryFilter from "./CategoryFilter/CategoryFilter";
 import ResetIcon from "./svg/ResetIcon";
 import { useEffect, useState } from "react";
-import CategoryFilterC from "./CategoryFilter copy/CategoryFilterС";
+import SortProducts from "./SortProducts/SortProducts";
 
 const Filters = observer(() => {
   const { search, filter } = productsStore;
   const { getAll } = productsStore;
 
   const [isActiveReset, setIsActiveReset] = useState(false);
+
   useEffect(() => {
     if (
-      filter.title ||
-      filter.selectedFilterIds.size ||
+      filter.searchValue ||
+      filter.selectedCategories.length ||
       filter.diapason.max < 1000 ||
       filter.diapason.min > 0
+      //||filter.selectedSort не получается отследить из за того что во время инициализации конструктором он меняется
     ) {
       setIsActiveReset(true);
     } else {
       setIsActiveReset(false);
     }
-  }, [filter.title, filter.diapason, filter.selectedFilterIds]);
+  }, [
+    filter.searchValue,
+    filter.diapason,
+    filter.selectedCategories,
+    // filter.selectedSort,
+  ]);
 
   const reset = () => {
     filter.clearAllFilters();
@@ -38,15 +45,15 @@ const Filters = observer(() => {
         className={style.filter_search}
         disabled={!isActiveReset}
         onClick={search}
-        defaultValue={filter.title}
+        defaultValue={filter.searchValue}
         onChange={(value: string) => {
-          filter.setTitle(value);
+          filter.setSearchValue(value);
         }}
         placeholder="Search product"
       />
       <div className={style.filters_lower}>
-        <CategoryFilterC />
-        <CategoryFilter />
+          <SortProducts />
+          <CategoryFilter />
 
         <div className={style.filter_range}>
           <PriceDiapasonFilter />

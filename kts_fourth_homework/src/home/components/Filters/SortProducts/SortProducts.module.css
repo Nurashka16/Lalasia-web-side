@@ -1,0 +1,50 @@
+
+/*Для телефонов (до 600px)*/
+/* @media only screen and (max-width: 400px) {
+
+} */
+/*Для телефонов (до 600px)*/
+/* @media only screen and (min-width: 400px) and (max-width: 600px) {
+
+} */
+@media only screen and (min-width: 600px) and (max-width: 850px) {
+   .filter {
+     width: 280px;
+   }
+ }
+ /*Для планшетов (от 601px до 1024px)*/
+ @media only screen and (min-width: 850px) and (max-width: 1024px) {
+   .filter {
+     width: 280px;
+   }
+ }
+ /*Для ноутбуков поменьше*/
+ @media only screen and (min-width: 1024px) and (max-width: 1220px) {
+   .filter {
+     width: 260px;
+   }
+ }
+ /*Для ноутбуков (от 1025px до 1440px)*/
+ @media only screen and (min-width: 1221px) and (max-width: 1440px) {
+   .filter {
+     width: 300px;
+   }
+ }
+ /*Для ПК (от 1441px и выше)*/
+ @media only screen and (min-width: 1440px) and (max-width: 1600px) {
+   .filter {
+     width: 350px;
+   }
+ }
+ @media only screen and (min-width: 1600px) {
+   .filter {
+     width: 350px;
+   }
+ }
+.filter {
+}
+.lists {
+   max-height: 260px;
+   overflow-x: hidden;
+   scroll-behavior: smooth;
+}

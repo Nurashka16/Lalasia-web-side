@@ -1,38 +1,109 @@
+/*Для телефонов (до 600px)*/
+/* @media only screen and (max-width: 400px) {
+
+} */
+/*Для телефонов (до 600px)*/
+/* @media only screen and (min-width: 400px) and (max-width: 600px) {
+
+} */
+@media only screen and (min-width: 600px) and (max-width: 850px) {
+  .filters_lower {
+    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    margin-bottom: 24px;
+  }
+  .filter_range {
+    width: 300px;
+    margin-bottom: 12px;
+  }
+}
+/*Для планшетов (от 601px до 1024px)*/
+@media only screen and (min-width: 850px) and (max-width: 1024px) {
+  .filters_lower {
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    gap: 24px;
+    position: relative;
+    margin-bottom: 72px;
+  }
+  .filter_range {
+    width: 300px;
+   position: absolute;
+   bottom: -125px;
+  }
+}
+/*Для ноутбуков поменьше*/
+@media only screen and (min-width: 1024px) and (max-width: 1220px) {
+  .filters_lower {
+    flex-direction: row;
+  }
+  .filter_range {
+    width: 260px;
+  }
+}
+/*Для ноутбуков (от 1025px до 1440px)*/
+@media only screen and (min-width: 1221px) and (max-width: 1440px) {
+  .filters_lower {
+    flex-direction: row;
+  }
+  .filter_range {
+    width: 300px;
+  }
+}
+/*Для ПК (от 1441px и выше)*/
+@media only screen and (min-width: 1440px) and (max-width: 1600px) {
+  .filters_lower {
+    flex-direction: row;
+  }
+  .filter_range {
+    width: 350px;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .filters_lower {
+    flex-direction: row;
+  }
+  .filter_range {
+    width: 350px;
+  }
+}
 .filters {
-   position: relative;
+  position: relative;
 }
 .filters_lower {
-   display: flex;
-   justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
-.filter_range {
-   flex: 0 1 30%;
-}
+
+/* .filter_range {
+   flex: 0 1 300px;
+} */
 .filter_search {
-   font-family: var(--font-family);
-   font-weight: var(--weight_normal);
-   font-size: 16px;
-   line-height: 125%;
-   color: var(--text-secondary);
+  font-family: var(--font-family);
+  font-weight: var(--weight_normal);
+  font-size: 16px;
+  line-height: 125%;
+  color: var(--text-secondary);
 }
 
 .filters_resetBtn {
-   position: absolute;
-   bottom: 5px;
-   left: 1px;
-   color: var(--accent);
-   width: 100px;
-   background-color: var(--white);
-   border-radius: var(--size_xs);
-   height: 22px;
-   border: 1px solid var(--accent);
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   gap: 3px;
-   z-index: 1;
+  position: absolute;
+  bottom: 5px;
+  left: 1px;
+  color: var(--accent);
+  width: 100px;
+  background-color: var(--white);
+  border-radius: var(--size_xs);
+  height: 22px;
+  border: 1px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  z-index: 1;
 }
 .filters_resetBtn:hover {
-   color: var(--danger);
-   border-color: var(--danger);
+  color: var(--danger);
+  border-color: var(--danger);
 }
