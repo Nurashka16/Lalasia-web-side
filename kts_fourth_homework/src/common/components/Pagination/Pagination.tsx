@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import style from "./Pagination.module.css";
 import getPagination from "../../function/getPagination";
-import VisiblePage from "./PaginationPage/PaginationPage";
+import VisiblePage from "./VisiblePage/VisiblePage";
 import LeftArrow from "../Carousel/svg/LeftArrow";
 import RightArrow from "../Carousel/svg/RightArrow";
 
-interface IPagination {
+interface IPaginationProps {
   currentPage: number;
   onClick: (page?: number) => void;
   countVisiblePages: number;
@@ -20,7 +20,7 @@ const Pagination = ({
   maxCountProductsPage,
   countAllProducts,
   className,
-}: IPagination) => {
+}: IPaginationProps) => {
   const totalPages = Math.ceil(countAllProducts / maxCountProductsPage);
 
   const { startPages, endPages } = getPagination(
@@ -47,7 +47,7 @@ const Pagination = ({
 
   return (
     <div className={classNames(style.pagination, className)}>
-      {totalPages > 5 && (
+      {totalPages > countVisiblePages && (
         <div
           onClick={() => currentPage > 1 && onClick(currentPage - 1)}
           className={classNames(

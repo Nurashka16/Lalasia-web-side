@@ -24,13 +24,7 @@ const PriceDiapasonFilter = observer(() => {
     <div className={style.container}>
       <div className={style.price}>
         <div className={style.inputField}>
-          <Text
-            className={style.text}
-            view="button"
-            weight="bold"
-            tag="span"
-            color="secondary"
-          >
+          <Text view="button" weight="bold" tag="span" color="secondary">
             Min $
           </Text>
 

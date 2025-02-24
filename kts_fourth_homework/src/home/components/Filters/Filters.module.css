@@ -11,11 +11,11 @@
     flex-direction: column;
     flex-direction: row;
     flex-wrap: wrap-reverse;
-    margin-bottom: 24px;
+    margin-bottom: var(--size_m);
   }
   .filter_range {
     width: 300px;
-    margin-bottom: 12px;
+    margin-bottom: var(--size_s);
   }
 }
 /*Для планшетов (от 601px до 1024px)*/
@@ -23,14 +23,14 @@
   .filters_lower {
     flex-direction: row-reverse;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: var(--size_m);
     position: relative;
     margin-bottom: 72px;
   }
   .filter_range {
-    width: 300px;
-   position: absolute;
-   bottom: -125px;
+    width: 280px;
+    position: absolute;
+    bottom: -125px;
   }
 }
 /*Для ноутбуков поменьше*/
@@ -75,10 +75,6 @@
   display: flex;
   justify-content: space-between;
 }
-
-/* .filter_range {
-   flex: 0 1 300px;
-} */
 .filter_search {
   font-family: var(--font-family);
   font-weight: var(--weight_normal);
@@ -102,6 +98,7 @@
   justify-content: center;
   gap: 3px;
   z-index: 1;
+  font-family: var(--font-family);
 }
 .filters_resetBtn:hover {
   color: var(--danger);

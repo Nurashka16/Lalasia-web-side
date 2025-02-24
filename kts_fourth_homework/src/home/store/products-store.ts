@@ -1,16 +1,17 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { getAll } from "../api/getAll";
 import { IProduct } from "src/product/interface/IProduct";
 import { Pagination } from "src/common/api/Pagination";
-import { search } from "../api/search";
 import { ProductsFilter } from "src/common/api/ProductsFilter";
 import { Option } from "src/common/MultiDropDown/interface/Option";
+import { shuffleArray } from "src/common/function/shuffleArray";
+import { SortType } from "../interface/SortType";
+import * as ProductsApi from "../api/ProductsApi";
 
-const typesSort: Option[] = [
-  { key: "1", value: "Popular" },
-  { key: "2", value: "Cheaper" },
-  { key: "3", value: "More expensive" },
-  { key: "4", value: "New Items" },
+export const typesSort: Option<SortType>[] = [
+  new Option("Popular", "Popular"),
+  new Option("Cheaper", "Cheaper"),
+  new Option("MoreExpensive", "More expensive"),
+  new Option("NewItems", "New items"),
 ];
 
 class ProductsStore {
@@ -18,13 +19,15 @@ class ProductsStore {
   productsCurrentPage: IProduct[] = [];
   pagination = new Pagination(9);
   allProducts: IProduct[] = [];
+  isLoading: boolean = false;
+  error: string | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
 
   setPage = (page: number = 1) => {
-    if(page) {
+    if (page) {
       this.pagination.currentPage = page;
       this.productsCurrentPage = this.allProducts.slice(
         this.pagination.getStartIndex(),
@@ -35,38 +38,35 @@ class ProductsStore {
 
   sort(arr: IProduct[]) {
     const sortedArr = [...arr];
-    switch (this.filter.selectedSort.value) {
-      case "asc":
-        return sortedArr.sort((a, b) => a.price - b.price);
-      case "desc":
-        return sortedArr.sort((a, b) => b.price - a.price);
+    switch (this.filter.selectedTypeSort.key) {
+      case "Cheaper":
+        this.allProducts = sortedArr.sort((a, b) => a.price - b.price);
+        break;
+      case "MoreExpensive":
+        this.allProducts = sortedArr.sort((a, b) => b.price - a.price);
+
+        break;
+      case "NewItems":
+        this.allProducts = shuffleArray(sortedArr);
         //поскольку мы не знаем дату создания товаров, то делаем рандомим продукты
-      case "new":
-        return this.shuffleArray(sortedArr);
+        break;
       default:
-        return sortedArr;
+        this.allProducts = sortedArr;
+        break;
     }
   }
-  shuffleArray(arr: IProduct[]): IProduct[] {
-    //возможно убрать в common func
-    const copy = [...arr];
-    for (let i = copy.length - 1; i > 0; i--) {
-      const randomIndex = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[randomIndex]] = [copy[randomIndex], copy[i]];
-    }
-    return copy;
-  }
-  
+
   search = async () => {
+    this.isLoading = true;
     this.pagination.numberAllProducts = 0;
     this.allProducts = [];
     const selectedCategoriesIds = this.filter.selectedCategories.map(
-      (category: Option) => {
+      (category: Option<string>) => {
         return Number(category.key);
       }
     );
     try {
-      let response = await search({
+      let response = await ProductsApi.search({
         title: this.filter.searchValue,
         categoryIds: selectedCategoriesIds,
         diapason: {
@@ -79,9 +79,10 @@ class ProductsStore {
           response = response.slice(0, 1000);
         }
         this.pagination.numberAllProducts += response.length;
-        this.allProducts = this.sort(response);
+        this.sort(response);
       });
       this.setPage();
+      this.isLoading = false;
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Ошибка в получении данных:", error.message);
@@ -94,15 +95,17 @@ class ProductsStore {
   };
 
   getAll = async () => {
+    this.isLoading = true;
     try {
-      let response = await getAll();
+      let response = await ProductsApi.getAll();
       runInAction(() => {
         if (response.length > 1000) {
           response = response.slice(0, 1000);
         }
         this.pagination.numberAllProducts = response.length;
-        this.allProducts = this.sort(response);
+        this.sort(response);
         this.setPage();
+        this.isLoading = false;
       });
     } catch (error) {
       console.error("Ошибка в получении данных:", error);

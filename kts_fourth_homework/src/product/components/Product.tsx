@@ -25,7 +25,7 @@ const Product = () => {
     <Loader />
   ) : (
     <div className={style.product}>
-      <ButtonBack link={HOME} />
+      <ButtonBack link="" />
       <div className={style.product_main}>
         <ProductCard product={product!} />
         <RelatesProducts />

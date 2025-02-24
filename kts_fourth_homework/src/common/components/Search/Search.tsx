@@ -1,6 +1,5 @@
 import style from "./Search.module.css";
 import Button from "../Button";
-import { useEffect, useState } from "react";
 import Input from "../Input/Input";
 
 interface ISearch {

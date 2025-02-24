@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import style from "./ButtonBack.module.css";
 import Text from "../Text";
 import ArrowBackIcon from "./svg/ArrowBackIcon";
@@ -11,12 +11,29 @@ interface IButtonBack {
   className?: string;
 }
 
-const ButtonBack = ({ link, onClick, className, ...props }: IButtonBack) => {
+const ButtonBack: React.FC<IButtonBack> = ({
+  link,
+  onClick,
+  className,
+  ...props
+}) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+    if (!link) {
+      navigate(-1);
+    }
+  };
+
   return (
     <Link
-      // onClick={() => (onClick ? onClick() : "")}
+      onClick={handleClick}
       className={classNames(style.btn, className)}
-      to={link ? link : ""}
+      to={link || "#"}
+      {...props}
     >
       <div className={style.btn_icon}>
         <ArrowBackIcon />

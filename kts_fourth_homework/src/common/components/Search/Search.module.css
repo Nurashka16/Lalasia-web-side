@@ -1,8 +1,9 @@
 .search {
    display: flex;
    flex-direction: row;
-   gap: 24px;
-   margin-bottom: 24px;
+   gap: var(--size_m);
+   margin-bottom: var(--size_m);
+   
 }
 .search_btn {
    font-size: 18px;

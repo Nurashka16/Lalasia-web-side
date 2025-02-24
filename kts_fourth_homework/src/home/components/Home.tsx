@@ -6,21 +6,30 @@ import productsStore from "../store/products-store";
 import basketStore from "src/basket/stores/basket-store";
 import Loader from "src/common/components/Loader";
 import Text from "src/common/components/Text";
-import CatalogLayout from "../../common/CatalogLayout/CatalogLayout";
 import Pagination from "src/common/components/Pagination";
 import NotFound from "src/common/components/NotFound";
+import CatalogLayout from "src/common/CatalogLayout/CatalogLayout";
 
 const Home = observer(() => {
-  const { productsCurrentPage, pagination, setPage, getAll } = productsStore;
+  const {
+    productsCurrentPage,
+    pagination,
+    setPage,
+    getAll,
+    isLoading,
+    filter,
+    sort,
+    allProducts,
+  } = productsStore;
   const { addProduct } = basketStore;
 
-  const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
-    setIsLoading(true);
-    getAll();
-    setTimeout(() => setIsLoading(false), 1000);
-  }, []);
+    if (allProducts) {
+      getAll();
+    } else {
+      sort(allProducts);
+    }
+  }, [filter.selectedTypeSort]);
 
   return (
     <main className={style.home}>

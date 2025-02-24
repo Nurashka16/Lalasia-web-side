@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./PaginationPage.module.css";
+import style from "./VisiblePage.module.css";
 import classNames from "classnames";
 
 interface IPaginationPageProps {
@@ -10,7 +10,7 @@ interface IPaginationPageProps {
   disabled?: boolean;
 }
 
-const PaginationPage = ({
+const Pagination = ({
   isActive = false,
   onClick,
   className,
@@ -32,4 +32,4 @@ const PaginationPage = ({
   );
 };
 
-export default PaginationPage;
+export default Pagination;

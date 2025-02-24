@@ -7,16 +7,18 @@ import Input from "../components/Input/Input";
 import ArrowDownIcon from "../components/icons/ArrowDownIcon";
 import Text from "../components/Text";
 import Loader from "../components/Loader";
+import MultiDropdownItem from "./MultiDropDownItem";
 
 export type MultiDropdownProps = {
   className?: string;
-  variants: Option[];
+  variants: Option<string>[];
   defaultPlaceholder: string;
   disabled?: boolean;
-  selectedVariants: Option[];
+  selectedVariants: Option<string>[];
   isLoading?: boolean;
-  children: React.ReactNode;
-} & React.HTMLProps<HTMLDivElement>;
+  afterSlot?: React.ReactNode;
+  onClick: (option: Option<string>) => void;
+};
 
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
   className,
@@ -25,17 +27,17 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   defaultPlaceholder,
   isLoading = false,
   selectedVariants,
-  children,
+  afterSlot,
+  onClick,
   ...props
 }: MultiDropdownProps) => {
   const { ref: menuRef, isShow, onShow } = useClickOutside();
   const [value, setValue] = useState("");
-
   const [allVariants, setAllVariants] = useState(variants);
 
   useEffect(() => {
-    setAllVariants(allVariants);
-  }, [allVariants]);
+    setAllVariants(variants);
+  }, [variants]);
 
   const findMatches = (value: string) => {
     if (!value) {
@@ -49,16 +51,15 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
     });
     setAllVariants(result);
   };
-  const getValue = (arr: Option[]) => {
+
+  const getValue = (arr: Option<string>[]) => {
     return arr.map((item) => item.value).join(", ");
   };
   return (
     <form className={style.multiDropdown} ref={menuRef}>
       <label className={style.inputContainer}>
         <Input
-          onClick={() => {
-            onShow();
-          }}
+          onClick={onShow}
           className={style.inputContainer_input}
           value={value}
           placeholder={
@@ -71,7 +72,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
             setValue(value);
             findMatches(value);
           }}
-          afterSlot={<ArrowDownIcon className={style.multiDropdown_icon} />}
+          afterSlot={<ArrowDownIcon className={style.inputContainer_icon} />}
         />
       </label>
       {isShow &&
@@ -91,7 +92,19 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
               className
             )}
           >
-            {children}
+            {allVariants.map((option) => {
+              return (
+                <MultiDropdownItem
+                  key={option.key}
+                  afterSlot={afterSlot}
+                  isActive={selectedVariants.some((variant) => {
+                    return variant.key == option.key;
+                  })}
+                  item={option}
+                  onClick={onClick}
+                />
+              );
+            })}
           </div>
         ))}
     </form>

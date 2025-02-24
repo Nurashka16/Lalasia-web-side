@@ -1,0 +1,1 @@
+export type SortType = "Popular" | "Cheaper" | "MoreExpensive" | "NewItems";

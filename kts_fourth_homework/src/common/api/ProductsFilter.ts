@@ -1,22 +1,24 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { IDiapason } from "src/home/interface/IDiapason";
 import { Option } from "../MultiDropDown/interface/Option";
-import { action } from "mobx";
+import { SortType } from "src/home/interface/SortType";
 
 export class ProductsFilter {
-  private readonly _options: Option[];
+  private readonly _options: Option<SortType>[];
 
-  selectedCategories: Option[] = [];
-  selectedSort: Option;
+  selectedCategories: Option<string>[] = [];
+  selectedTypeSort: Option<SortType>;
   diapason: IDiapason = { max: 1000, min: 0 };
   searchValue: string = "";
 
-  constructor(options: Option[]) {
+  constructor(options: Option<SortType>[]) {
     if (options.length == 0) {
       throw new Error("Options не должен быть пустым");
     }
     this._options = options;
-    this.selectedSort = this._options[0];
+
+    this.selectedTypeSort = this._options[0];
+    // this._defaultOption = this.selectedSort;
     makeAutoObservable(this);
   }
 
@@ -24,30 +26,37 @@ export class ProductsFilter {
   get getOptions() {
     return [...this._options];
   }
-
+  get isChangeFilters() {
+    return (
+      this.searchValue ||
+      this.selectedCategories.length > 0 ||
+      this.diapason.max < 1000 ||
+      this.diapason.min > 0
+    );
+  }
+  // this.selectedSort
   // Метод для работы с сортировкой
 
-  setSelectedSort = (sort: Option) => {
-    this.selectedSort = sort;
+  setSelectedSort = (sort: Option<SortType>) => {
+    this.selectedTypeSort = sort;
   };
 
   // Метод для работы с категориями
 
-  toggleCategory = (clickedCategory: Option) => {
-    const selectedCategoriesIds = this.selectedCategories.map(
-      (selectedCategory) => {
-        return selectedCategory.key;
-      }
-    );
-    if (selectedCategoriesIds.includes(clickedCategory.key)) {
-      this.selectedCategories = this.selectedCategories.filter(
-        (selectedCategory) => {
-          return selectedCategory.key !== clickedCategory.key;
-        }
+  toggleCategory = (clickedCategory: Option<string>) => {
+    runInAction(() => {
+      const selectedCategoriesIds = this.selectedCategories.map(
+        (selectedCategory) => selectedCategory.key
       );
-    } else {
-      this.selectedCategories.push(clickedCategory);
-    }
+
+      if (selectedCategoriesIds.includes(clickedCategory.key)) {
+        this.selectedCategories = this.selectedCategories.filter(
+          (selectedCategory) => selectedCategory.key !== clickedCategory.key
+        );
+      } else {
+        this.selectedCategories = [...this.selectedCategories, clickedCategory];
+      }
+    });
   };
 
   // Метод для работы с диапазоном
@@ -71,6 +80,6 @@ export class ProductsFilter {
     this.selectedCategories = [];
     this.diapason = { max: 1000, min: 0 };
     this.searchValue = "";
-    this.selectedSort = this._options[0];
+    this.selectedTypeSort = this._options[0];
   }
 }

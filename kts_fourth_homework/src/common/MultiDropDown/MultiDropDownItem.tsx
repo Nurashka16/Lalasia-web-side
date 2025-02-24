@@ -3,15 +3,15 @@ import style from "./MultiDropdown.module.css";
 import { Option } from "./interface/Option";
 
 interface IMultiDropdownItemProps {
-  item: Option;
-  onClick: (option: Option) => void;
+  item: Option<string>;
+  onClick: (option: Option<string>) => void;
   isActive: boolean;
   className?: string;
   afterSlot?: React.ReactNode;
   disabled?: boolean;
 }
 
-const MultiDropdownItemCheckBox = ({
+const MultiDropdownItem = ({
   item,
   onClick,
   isActive = false,
@@ -36,4 +36,4 @@ const MultiDropdownItemCheckBox = ({
   );
 };
 
-export default MultiDropdownItemCheckBox;
+export default MultiDropdownItem;

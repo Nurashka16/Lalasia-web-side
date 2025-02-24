@@ -58,5 +58,5 @@
   align-items: center;
   justify-content: center;
   margin-right: 5px;
-  color: white;
+  color: var(--white);
 }

@@ -1,5 +1,5 @@
-import { search } from "src/home/api/search";
 import { IProduct } from "src/product/interface/IProduct";
+import * as ProductsApi from "../../home/api/ProductsApi";
 
 export interface IRelatesProducts {
   getProducts: (
@@ -16,13 +16,13 @@ export class RandomRelatesProducts implements IRelatesProducts {
     const shuffled = arr.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, countElem);
   }
-  
+
   public async getProducts(
     idCategory: number,
     countItems: number,
     currentIdItem: number
   ) {
-    const response = await search({ categoryIds: [idCategory] });
+    const response = await ProductsApi.search({ categoryIds: [idCategory] });
     const arrProductsIds = response
       .map((category) => {
         if (response.length < countItems) {
@@ -55,6 +55,4 @@ export class RandomRelatesProducts implements IRelatesProducts {
       };
     });
   }
-
-
 }
