@@ -8,26 +8,22 @@ import {
   HOME,
   ORDER,
   PRODUCT,
-  PRODUCTS_CATEGORY,
   SIGN_UP,
 } from "./utils/const";
 import { observer } from "mobx-react-lite";
-import authStore from "./auth/stores/auth-store";
 import PopUpProvider from "./common/components/PopUpProvider/PopUpProvider";
 import Header from "./header/components/Header";
 import Home from "./home/components/Home";
-import AboutUs from "./aboutUs/components/AboutUs/AboutUs";
+import AboutUs from "./aboutUs/components/AboutUs";
 import SignIn from "./auth/components/SignIn";
 import Basket from "./basket/components/BasketPage/Basket";
 import EmptyPage from "./empty/components/EmptyPage/EmptyPage";
-import Categories from "./categories/components/categoriesCatalog/Categories";
 import SignUp from "./auth/components/SignUp";
-import ProductsCategory from "./categories/components/productsSameCategory";
-import InfoCard from "./product/components/ProductCard";
 import Product from "./product/components/Product";
 // import GoCheckout from "./basket/components/GoCheckoutPage/GoCheckout";
 import Payment from "./payment/components/Payment";
 import basketStore from "./basket/stores/basket-store";
+import Categories from "./categories/components";
 
 const App = observer(() => {
   const isAuth = true;
@@ -47,12 +43,9 @@ const App = observer(() => {
           <Routes>
             <Route path={HOME} element={<Home />} />
             <Route path={PRODUCT} element={<Product />}>
-              <Route path=":id" element={<InfoCard />} />
+              <Route path=":id" element={<Product />} />
             </Route>
             <Route path={CATEGORIES} element={<Categories />} />
-            <Route path={PRODUCTS_CATEGORY} element={<ProductsCategory />}>
-              <Route path=":id" element={<ProductsCategory />} />
-            </Route>
             <Route path={ABOUT_US} element={<AboutUs />} />
             <Route path={BASKET} element={<Basket />} />
             {/* <Route path={ORDER} element={<GoCheckout />} /> */}

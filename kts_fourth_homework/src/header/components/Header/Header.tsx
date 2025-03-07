@@ -13,6 +13,8 @@ import {
   HOME,
 } from "src/utils/const";
 import Text from "src/common/components/Text";
+import { useLocation, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 interface IHeaderProps {
   isAuth: boolean;
@@ -20,27 +22,40 @@ interface IHeaderProps {
 }
 
 const Header = ({ isAuth, countSelectedProducts }: IHeaderProps) => {
+  const location = useLocation(); // Получаем информацию о текущем местоположении
+
+  const [activeValue, setActiveValue] = useState(HOME);
+
+  useEffect(() => {
+    if (location.pathname != activeValue) {
+      setActiveValue(location.pathname);
+    }
+  }, [location]);
   return (
     <header className={style.header}>
       <Logo />
       {isAuth && (
-        <Tabs className={style.main} value="products">
+        <Tabs
+          onChange={setActiveValue}
+          className={style.main}
+          value={activeValue}
+        >
           <nav
             className={classNames(style.main_pages, style.main_pages__basic)}
           >
-            <LinkTab className={style.main_page} to={HOME} value="products">
+            <LinkTab className={style.main_page} to={HOME} name="/">
               <span className="sr-only">link to home page</span>
               Products
             </LinkTab>
             <LinkTab
               className={style.main_page}
-              value="categories"
+              name="/categories"
               to={CATEGORIES}
             >
               <span className="sr-only">link to categories page</span>
               Categories
             </LinkTab>
-            <LinkTab className={style.main_page} value="aboutUs" to={ABOUT_US}>
+            <LinkTab className={style.main_page} name="/about" to={ABOUT_US}>
               <span className="sr-only">link to about us page</span>
               About us
             </LinkTab>
@@ -53,7 +68,7 @@ const Header = ({ isAuth, countSelectedProducts }: IHeaderProps) => {
           >
             <LinkTab
               className={classNames(style.main_page, style.main_page__basket)}
-              value="basket"
+              name="/basket"
               to={BASKET}
             >
               <span className="sr-only">link to basket page</span>
@@ -70,7 +85,7 @@ const Header = ({ isAuth, countSelectedProducts }: IHeaderProps) => {
             <LinkTab
               className={style.main_page}
               to={EMPTY_PAGE}
-              value="profile"
+              name="/profile"
             >
               <span className="sr-only">link to profile page</span>
               <ProfileIcon />

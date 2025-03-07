@@ -23,5 +23,6 @@
    font-weight: var(--weight_bold);
    font-size: 20px;
    line-height: 120%;
+   margin-top: 2px;
    color: var(--brand);
 }

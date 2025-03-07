@@ -1,6 +1,6 @@
 import style from "./Home.module.css";
 import { observer } from "mobx-react-lite";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Filters from "./Filters/Filters";
 import productsStore from "../store/products-store";
 import basketStore from "src/basket/stores/basket-store";
@@ -15,17 +15,17 @@ const Home = observer(() => {
     productsCurrentPage,
     pagination,
     setPage,
-    getAll,
     isLoading,
     filter,
     sort,
     allProducts,
+    search,
   } = productsStore;
   const { addProduct } = basketStore;
 
   useEffect(() => {
     if (allProducts) {
-      getAll();
+      search();
     } else {
       sort(allProducts);
     }

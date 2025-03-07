@@ -6,29 +6,25 @@ import { Link } from "react-router-dom";
 
 export interface ILinkTab {
   children: React.ReactNode;
-  value: string;
+  name: string;
   className?: string;
   to: string;
 }
 
-const LinkTab = ({ children, value, className, to }: ILinkTab) => {
-  
-  //лучше всего добавить возможность любых css вариантов
-  //для компонентов, для активных и вариант с line
-
-  const { activeValue, onClick } = useContext(HighlightContext);
+const LinkTab = ({ children, name, className, to }: ILinkTab) => {
+  const { value, onClick } = useContext(HighlightContext);
   return (
     <Link
       to={to}
       className={classNames(
         style.link,
-        activeValue == value && style.isActive,
+        value == name && style.isActive,
         className
       )}
-      onClick={() => onClick(value)}
+      onClick={() => onClick(name)}
     >
       {children}
-      {activeValue == value && <div className={style.line}></div>}
+      {value == name && <div className={style.line}></div>}
     </Link>
   );
 };
