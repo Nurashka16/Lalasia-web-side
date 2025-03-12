@@ -142,6 +142,7 @@ ul li {
   --brand-active: #487773;
   --brand-hover: #86aaa7;
   --easy-transition: ease 0.2s;
+  --line: solid rgb(206, 206, 206);
 }
 
 /* body {

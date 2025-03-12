@@ -1,0 +1,69 @@
+/*Для телефонов (до 600px)*/
+/* @media only screen and (max-width: 400px) {
+
+} */
+/*Для телефонов (до 600px)*/
+/* @media only screen and (min-width: 400px) and (max-width: 600px) {
+
+} */
+@media only screen and (min-width: 600px) and (max-width: 850px) {
+  .empty {
+    margin: 36px 0 var(--size_s) 0;
+  }
+}
+/*Для планшетов (от 601px до 1024px)*/
+@media only screen and (min-width: 850px) and (max-width: 1024px) {
+  .empty {
+    margin: 36px 0 var(--size_s);
+  }
+}
+/*Для ноутбуков поменьше*/
+@media only screen and (min-width: 1024px) and (max-width: 1220px) {
+  .empty {
+    margin: 36px 0 0 0;
+  }
+}
+/*Для ноутбуков (от 1025px до 1440px)*/
+@media only screen and (min-width: 1221px) and (max-width: 1440px) {
+  .empty {
+    margin: 36px 0 0 0;
+  }
+}
+/*Для ПК (от 1441px и выше)*/
+@media only screen and (min-width: 1440px) and (max-width: 1600px) {
+  .empty {
+    margin: 36px 0 0 0;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .empty {
+    margin: 36px 0 0 0;
+  }
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  align-items: center;
+}
+.title {
+  font-family: var(--font-family);
+}
+.link {
+  position: relative;
+  border-radius: 4px;
+  padding: 8px 9px;
+  z-index: 10;
+  font-size: 16px;
+  transition: color var(--easy-transition);
+  font-family: var(--font-family);
+  color: white;
+  background-color: var(--accent);
+}
+.link:hover {
+  background-color: var(--accent_hover);
+}
+.link:active {
+  background-color: var(--light_gray);
+}

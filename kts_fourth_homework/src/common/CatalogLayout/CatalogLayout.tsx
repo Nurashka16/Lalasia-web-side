@@ -2,12 +2,12 @@ import style from "./CatalogLayout.module.css";
 import Text from "src/common/components/Text";
 import Cards from "../Cards/Cards";
 import { IProduct } from "src/product/interface/IProduct";
-import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
+import { IBasketProducts } from "src/basket/stores/basket-store";
 import classNames from "classnames";
 import { ReactNode } from "react";
 
 interface ICatalogLayoutProps {
-  onClick?: (product: IBasketProductsIdToCount) => void;
+  onClick?: (product: IBasketProducts) => void;
   products?: IProduct[];
   countAllProducts?: number;
   title?: string;

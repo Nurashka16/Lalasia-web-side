@@ -20,7 +20,7 @@ import Basket from "./basket/components/BasketPage/Basket";
 import EmptyPage from "./empty/components/EmptyPage/EmptyPage";
 import SignUp from "./auth/components/SignUp";
 import Product from "./product/components/Product";
-// import GoCheckout from "./basket/components/GoCheckoutPage/GoCheckout";
+import GoCheckout from "./basket/components/GoCheckoutPage/GoCheckout";
 import Payment from "./payment/components/Payment";
 import basketStore from "./basket/stores/basket-store";
 import Categories from "./categories/components";
@@ -28,7 +28,7 @@ import Categories from "./categories/components";
 const App = observer(() => {
   const isAuth = true;
   //  { isAuth } = authStore;
-  const { basketProductsIdToCount } = basketStore;
+  const { dataProductsBasket } = basketStore;
 
   return (
     <PopUpProvider>
@@ -36,7 +36,7 @@ const App = observer(() => {
       <div className="pages">
         <Header
           isAuth={isAuth}
-          countSelectedProducts={basketProductsIdToCount.size}
+          countSelectedProducts={dataProductsBasket.size}
         />
         <Outlet />
         {isAuth ? (
@@ -53,7 +53,7 @@ const App = observer(() => {
             {/*Прописать роут для стр профиля*/}
             <Route path={EMPTY_PAGE} element={<EmptyPage />} />
 
-            {/* <Route path="/goCheckout" element={<GoCheckout />} /> */}
+            <Route path="/goCheckout" element={<GoCheckout />} />
             {/*Проверить используются ли эти стр*/}
             <Route path="/payment" element={<Payment />} />
             {/*Проверить используются ли эти стр*/}

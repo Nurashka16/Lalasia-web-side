@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Basket = () => {
+const Profile= () => {
   return (
     <div>Basket</div>
   )
 }
 
-export default Basket
+export default Profile

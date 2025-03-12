@@ -1,25 +1,28 @@
-import React, { useEffect } from "react";
-import style from "../Basket.module.css";
-import Text from "../../../../common/components/Text";
-import Button from "../../../../common/components/Button";
+import style from "./Navbar.module.css";
 import { Link } from "react-router-dom";
+import Button from "src/common/components/Button";
+import Text from "src/common/components/Text";
+import { observer } from "mobx-react-lite";
+import basketStore from "src/basket/stores/basket-store";
 
-interface INavbar {
-  goods: number;
-  price: number;
-}
-
-const NavbarBasket = ({ goods, price }: INavbar) => {
+const NavbarBasket = observer(() => {
+  const isButtonDisabled =
+    basketStore.countSelectedProducts === 0 || basketStore.totalPrice === 0;
   return (
-    <div className={style.navbar}>
-      <div className={style.navbar_content}>
-        <Button className={style.navbar_btn} onClick={() => console.log(2)}>
-          <Link className={style.navbar_link} to="/goCheckout">
+    <nav className={style.navbar}>
+      <div className={style.content}>
+        <Button
+          aria-label="Go to registration"
+          aria-disabled={isButtonDisabled}
+          className={style.btn}
+          disabled={isButtonDisabled}
+        >
+          <Link className={style.link} to="/goCheckout">
             Go to registration
           </Link>
         </Button>
         <Text
-          maxLines={2}
+          maxLines={3}
           tag="h5"
           color="secondary"
           className={style.subtitle}
@@ -30,29 +33,26 @@ const NavbarBasket = ({ goods, price }: INavbar) => {
         <div className={style.line}></div>
       </div>
 
-      <div className={style.navbar_footer}>
-        <div className={style.navbar_goods}>
-          <Text color="secondary" className={style.goods_title} tag="h4">
+      <footer className={style.footer}>
+        <div className={style.goods}>
+          <Text color="secondary" className={style.goodsTitle} tag="h4">
             Goods:
           </Text>
-          <Text className={style.goods_count}>{goods}</Text>
+          <Text color="secondary" className={style.goodsCount}>
+            {basketStore.countSelectedProducts}
+          </Text>
         </div>
-        <div className={style.navbar_totalCost}>
-          <Text className={style.totalCost_title} tag="h3">
+        <div className={style.totalCost}>
+          <Text className={style.totalCostTitle} tag="h3">
             Total cost:
           </Text>
-          <Text
-            className={style.totalCost_count}
-            weight="bold"
-            tag="h3"
-            color="accent"
-          >
-            {price}
+          <Text className={style.totalCostCount} weight="bold" color="accent">
+            {basketStore.totalPrice} $
           </Text>
         </div>
-      </div>
-    </div>
+      </footer>
+    </nav>
   );
-};
+});
 
 export default NavbarBasket;

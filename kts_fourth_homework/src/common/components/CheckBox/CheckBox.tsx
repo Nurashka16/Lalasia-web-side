@@ -17,7 +17,7 @@ export type CheckBoxProps = Omit<
 };
 
 const CheckBox: React.FC<CheckBoxProps> = ({
-  checked,
+  checked=true,
   disabled,
   onChange,
   width,
@@ -38,13 +38,13 @@ const CheckBox: React.FC<CheckBoxProps> = ({
         {...props}
         defaultChecked={checked}
         disabled={disabled}
-        style={{ display: checked ? "none" : "" }}
+        style={{ display: !checked ? "none" : "" }}
         className="checkbox"
         type="checkbox"
       />
 
       <CheckIcon
-        style={{ opacity: checked ? 0 : 1 }}
+        style={{ opacity: !checked ? 0 : 1 }}
         className={classNames(
           "checkbox_icon",
           disabled && "checkbox_icon__disabled"

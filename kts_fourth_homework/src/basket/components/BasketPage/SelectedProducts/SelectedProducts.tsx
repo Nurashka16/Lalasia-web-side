@@ -2,21 +2,26 @@ import basketStore from "../../../stores/basket-store";
 import SelectedProduct from "./SelectedProduct";
 import { EmptyBasket } from "../EmptyBasket/EmptyBasket";
 import style from "./SelectedProduct.module.css";
+import { observer } from "mobx-react-lite";
 
-const SelectedProducts = () => {
+const SelectedProducts = observer(() => {
   const {
-    basketProductsIdToCount,
-    selectedProducts,
+    allProductsBasket,
+    dataProductsBasket,
     updateCountProduct,
     deleteProduct,
     toggleSelectedProduct,
+    updateProductsPayment
   } = basketStore;
 
-  const products = selectedProducts.map((product) => {
+  const products = allProductsBasket.map((product) => {
     return (
       <SelectedProduct
+      updateProductsPayment={updateProductsPayment}
+        key={product.data.id}
+        isActive={product.isActive}
         deleteProduct={deleteProduct}
-        defaultCount={basketProductsIdToCount.get(product.data.id)!}
+        defaultCount={dataProductsBasket.get(product.data.id)!}
         updateCountProduct={updateCountProduct}
         product={product}
         toggleSelectedProduct={toggleSelectedProduct}
@@ -29,6 +34,6 @@ const SelectedProducts = () => {
       {products.length ? products : <EmptyBasket />}
     </div>
   );
-};
+});
 
 export default SelectedProducts;

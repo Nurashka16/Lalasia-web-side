@@ -21,9 +21,6 @@ const SortProducts = observer(() => {
   return (
     <div className={style.filter}>
       <MultiDropdown
-        // style={{
-        //   maxHeight: !options.length ? "0px" : "250px",
-        // }}
         onClick={filter.setSelectedSort}//потом пофиксить
         isLoading={isLoading}
         className={style.lists}

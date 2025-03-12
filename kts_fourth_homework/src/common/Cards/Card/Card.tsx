@@ -4,7 +4,7 @@ import classNames from "classnames";
 import Button from "../../components/Button";
 import Text from "../../components/Text";
 import { useNavigate } from "react-router-dom";
-import { IBasketProductsIdToCount } from "src/basket/stores/basket-store";
+import { IBasketProducts } from "src/basket/stores/basket-store";
 
 export type CardProps = {
   /** Дополнительный classname */
@@ -20,7 +20,7 @@ export type CardProps = {
   /** Содержимое карточки (футер/боковая часть), может быть пустым */
   contentSlot?: React.ReactNode;
   /** Клик на карточку */
-  onClick: (product: IBasketProductsIdToCount) => void;
+  onClick: (product: IBasketProducts) => void;
   /** Слот для действия */
   actionSlot?: React.ReactNode;
   id: number;

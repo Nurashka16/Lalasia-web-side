@@ -1,41 +1,45 @@
 import React, { useEffect, useState } from "react";
 import style from "./Basket.module.css";
-import Text from "../../../common/components/Text";
 import basketStore from "../../stores/basket-store";
 import Navbar from "./Navbar/NavbarBasket";
 import SelectedProducts from "./SelectedProducts/SelectedProducts";
-import Loader from "../../../common/components/Loader";
 import { observer } from "mobx-react-lite";
+import Text from "src/common/components/Text";
+import Loader from "src/common/components/Loader";
 
 const Basket = observer(() => {
-  const { countSelectedProducts, totalPrice, getProducts } = basketStore;
-  const [isLoading, setIsLoading] = useState(false);
+  const { getProducts, isLoading } = basketStore;
 
   useEffect(() => {
-    setIsLoading(true);
     getProducts();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
   }, []);
 
   return (
-    <div className={style.basket}>
+    <section className={style.basket}>
       <Text className={style.title} weight="bold" tag="h1">
         Basket
       </Text>
-      <div className={style.content}>
-        <div className={style.main}>
-          <div className={style.main_description}>
+      <div className={style.main}>
+        <div className={style.content}>
+          <div className={style.description}>
             <Text view="p-18" weight="medium">
               Free shipping over $100
             </Text>
           </div>
-          {isLoading ? <Loader /> : <SelectedProducts />}
+          {isLoading ? (
+            <div className={style.loader}>
+              <Text weight="medium" view="p-20" color="primary">
+                Loading
+              </Text>
+              <Loader />
+            </div>
+          ) : (
+            <SelectedProducts />
+          )}
         </div>
-        <Navbar goods={countSelectedProducts} price={totalPrice} />
+        <Navbar />
       </div>
-    </div>
+    </section>
   );
 });
 
