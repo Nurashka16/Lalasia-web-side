@@ -8,7 +8,7 @@ import Text from "src/common/components/Text";
 import Loader from "src/common/components/Loader";
 
 const Basket = observer(() => {
-  const { getProducts, isLoading } = basketStore;
+  const { getProducts, isLoading} = basketStore;
 
   useEffect(() => {
     getProducts();

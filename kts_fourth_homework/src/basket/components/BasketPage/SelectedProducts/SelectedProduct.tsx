@@ -6,6 +6,7 @@ import Text from "src/common/components/Text";
 import Counter from "src/common/components/Counter/Counter";
 import DeleteIcon from "../../icons/DeleteIcon";
 import BuyNowIcon from "../../icons/BuyNowIcon";
+import { IBasketProduct } from "src/basket/interface/IBasketProduct";
 
 interface ISelectedProductProps {
   product: IProductsSelectedPayment;
@@ -14,7 +15,7 @@ interface ISelectedProductProps {
   deleteProduct: (id: number) => void;
   toggleSelectedProduct: (id: number, isActive: boolean) => void;
   isActive: boolean;
-  updateProductsPayment: () => void;
+  updateProductsPayment: (product?: IBasketProduct) => void;
 }
 const SelectedProduct = ({
   product,
@@ -63,7 +64,10 @@ const SelectedProduct = ({
               >
                 <DeleteIcon />
               </button>
-              <Link to={"/order"} onClick={() => console.log()}>
+              <Link
+                to={"/checkout"}
+                onClick={() => updateProductsPayment(product.data)}
+              >
                 <button
                   className={style.buy}
                   aria-label={`Buy only this product ${product.data.title}`}

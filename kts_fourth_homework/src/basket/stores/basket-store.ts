@@ -11,14 +11,19 @@ export interface IProductsSelectedPayment {
   data: IBasketProduct;
   isActive: boolean;
 }
+export interface IProductsCheckout {
+  product: IBasketProduct;
+  count: number;
+  price: number;
+}
 
 class BasketStore {
-  dataProductsBasket = new Map<number, number>();//данные о количестве и айди продуктов(копятся извне)
-  allProductsBasket: IProductsSelectedPayment[] = [];//Вся информация о продуктах в корзине
-  selectedProductsPayment: IBasketProduct[] =[];//продукты выбранные для оплаты
+  dataProductsBasket = new Map<number, number>(); //данные о количестве и айди продуктов(копятся извне)
+  allProductsBasket: IProductsSelectedPayment[] = []; //Вся информация о продуктах в корзине
+  selectedProductsPayment: IProductsCheckout[] = []; //продукты выбранные для оплаты
   isLoading: boolean = false;
 
-  // Приватные свойства
+  // Приватные свойства 
   private _countSelectedProducts: number = 0;
   private _totalPrice: number = 0;
 
@@ -60,10 +65,30 @@ class BasketStore {
       throw new Error("Ошибка в получении элементов для корзины");
     }
   };
-  updateProductsPayment = (products:IBasketProduct[]) => {
-    this.selectedProductsPayment.push(...products);
-    
-  }
+
+  //рефакторинг
+  updateProductsPayment = (product?: IBasketProduct) => {
+    this.selectedProductsPayment = [];
+    if (product) {
+      this.selectedProductsPayment.push({
+        count: this.dataProductsBasket.get(product.id)!,
+        price: product.price,
+        product: product,
+      });
+    } else {
+      const products = this.allProductsBasket.filter(
+        (product) => product.isActive == true
+      );
+      products.forEach((product) => {
+        this.selectedProductsPayment.push({
+          count: this.dataProductsBasket.get(product.data.id)!,
+          price: product.data.price,
+          product: product.data,
+        });
+      });
+    }
+    // this.selectedProductsPayment.push(...products);
+  };
   /*Добавляет извне продукты в корзину*/
   addProduct = (product: IBasketProducts) => {
     const currentCount = this.dataProductsBasket.get(product.id) || 0;

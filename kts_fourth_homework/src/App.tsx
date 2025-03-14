@@ -9,6 +9,7 @@ import {
   ORDER,
   PRODUCT,
   SIGN_UP,
+  CHECKOUT
 } from "./utils/const";
 import { observer } from "mobx-react-lite";
 import PopUpProvider from "./common/components/PopUpProvider/PopUpProvider";
@@ -53,7 +54,7 @@ const App = observer(() => {
             {/*Прописать роут для стр профиля*/}
             <Route path={EMPTY_PAGE} element={<EmptyPage />} />
 
-            <Route path="/goCheckout" element={<GoCheckout />} />
+            <Route path="/checkout" element={<GoCheckout />} />
             {/*Проверить используются ли эти стр*/}
             <Route path="/payment" element={<Payment />} />
             {/*Проверить используются ли эти стр*/}

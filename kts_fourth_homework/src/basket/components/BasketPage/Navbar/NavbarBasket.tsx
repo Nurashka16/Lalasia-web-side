@@ -6,21 +6,27 @@ import { observer } from "mobx-react-lite";
 import basketStore from "src/basket/stores/basket-store";
 
 const NavbarBasket = observer(() => {
+  const { updateProductsPayment } = basketStore;
+
   const isButtonDisabled =
     basketStore.countSelectedProducts === 0 || basketStore.totalPrice === 0;
   return (
     <nav className={style.navbar}>
       <div className={style.content}>
-        <Button
-          aria-label="Go to registration"
-          aria-disabled={isButtonDisabled}
-          className={style.btn}
-          disabled={isButtonDisabled}
+        <Link
+          onClick={() => updateProductsPayment()}
+          className={style.link}
+          to="/checkout"
         >
-          <Link className={style.link} to="/goCheckout">
+          <Button
+            aria-label="Go to registration"
+            aria-disabled={isButtonDisabled}
+            className={style.btn}
+            disabled={isButtonDisabled}
+          >
             Go to registration
-          </Link>
-        </Button>
+          </Button>
+        </Link>
         <Text
           maxLines={3}
           tag="h5"

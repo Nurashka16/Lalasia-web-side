@@ -2,8 +2,8 @@ import React from "react";
 import style from "./Carousel.module.css";
 import classNames from "classnames";
 import Button from "src/common/components/Button";
-import LeftArrow from "./svg/LeftArrow";
-import RightArrow from "./svg/RightArrow";
+import LeftArrow from "./Icons/LeftArrowIcon";
+import RightArrow from "./Icons/RightArrowIcon";
 
 interface IImagesProps {
   currentItem: number;
