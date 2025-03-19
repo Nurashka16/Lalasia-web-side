@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 const SelectedProducts = observer(() => {
   const {
     allProductsBasket,
-    dataProductsBasket,
+    productIdsWithCounts,
     updateCountProduct,
     deleteProduct,
     toggleSelectedProduct,
@@ -18,10 +18,10 @@ const SelectedProducts = observer(() => {
     return (
       <SelectedProduct
       updateProductsPayment={updateProductsPayment}
-        key={product.data.id}
-        isActive={product.isActive}
+        key={product.id}
+        isActive={product.isSelected}
         deleteProduct={deleteProduct}
-        defaultCount={dataProductsBasket.get(product.data.id)!}
+        defaultCount={productIdsWithCounts.get(product.id)!}
         updateCountProduct={updateCountProduct}
         product={product}
         toggleSelectedProduct={toggleSelectedProduct}

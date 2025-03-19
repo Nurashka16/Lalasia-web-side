@@ -11,22 +11,30 @@ class ProductStore {
 
   product: IProduct | undefined = undefined;
   relatesProducts: IProduct[] = [];
+  isLoading: boolean = false;
+  // error: string | null = null; Добавляем состояние ошибки, в будущем юзать в popup
+
   constructor(relatesProducts: IRelatesProducts) {
     this._relatesProducts = relatesProducts;
     makeAutoObservable(this);
   }
 
   getProductAction = async (id: string) => {
+    this.isLoading = true;
     try {
       const response = await getProduct(id);
       runInAction(() => {
         this.product = response;
         this.getRelatesProduct(this.product.category.id, 3, this.product.id);
       });
-    } catch {
+    } catch (error) {
+      console.error("Ошибка в получении продукта:", error);
       throw new Error("Ошибка в получении продукта");
+    } finally {
+      this.isLoading = false;
     }
   };
+
   getRelatesProduct = async (
     idCategory: number,
     countItems: number,
@@ -41,9 +49,11 @@ class ProductStore {
       runInAction(() => {
         this.relatesProducts = relatesProducts;
       });
-    } catch {
-      throw new Error("Ошибка в получении похожих продуктов");
+    } catch (error) {
+      console.error("Ошибка в получении рекомендуемых продуктов:", error);
+      throw new Error("Ошибка в получении рекомендуемых продуктов");
     }
   };
 }
+
 export default new ProductStore(new RandomRelatesProducts());

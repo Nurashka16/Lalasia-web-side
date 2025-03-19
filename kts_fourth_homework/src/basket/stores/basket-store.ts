@@ -1,98 +1,94 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { getProduct } from "../../product/api/getProduct";
-import { IBasketProduct } from "../interface/IBasketProduct";
+import { IProduct } from "src/product/interface/IProduct";
 
-export interface IBasketProducts {
-  id: number;
-  count: number;
+export interface IProductBasket extends IProduct {
+  isSelected: boolean;
 }
-
-export interface IProductsSelectedPayment {
-  data: IBasketProduct;
-  isActive: boolean;
-}
-export interface IProductsCheckout {
-  product: IBasketProduct;
+export interface IProductPayment extends IProduct {
   count: number;
-  price: number;
 }
 
 class BasketStore {
-  dataProductsBasket = new Map<number, number>(); //данные о количестве и айди продуктов(копятся извне)
-  allProductsBasket: IProductsSelectedPayment[] = []; //Вся информация о продуктах в корзине
-  selectedProductsPayment: IProductsCheckout[] = []; //продукты выбранные для оплаты
+  productIdsWithCounts = new Map<number, number>(); //данные о айди продуктов и его количестве(копятся извне)
+  allProductsBasket: IProductBasket[] = []; //Вся информация о продуктах в корзине
+  selectedProductsPayment: IProductPayment[] = []; //продукты выбранные для оплаты *убрать в другой store
   isLoading: boolean = false;
 
-  // Приватные свойства 
+  // Приватные свойства
   private _countSelectedProducts: number = 0;
-  private _totalPrice: number = 0;
+  private _sumSelectedProducts: number = 0;
+  private _countAllProducts: number = 0;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  /*Геттер для количества выбранных продуктов*/
+  /*Геттер о количестве выбранных продуктов*/
   get countSelectedProducts() {
     return this._countSelectedProducts;
   }
-
-  /*Геттер для общей цены*/
-  get totalPrice() {
-    return this._totalPrice;
+  /*Геттер о количестве всех продуктов*/
+  get countAllProducts() {
+    return this._countAllProducts;
+  }
+  /*Геттер о сумме выбранных продуктов*/
+  get sumSelectedProducts() {
+    return this._sumSelectedProducts;
   }
 
   /*Вызывается при входе в корзину*/
   getProducts = async () => {
     this.isLoading = true;
     this.allProductsBasket = [];
+  
     try {
-      const productIds = Array.from(this.dataProductsBasket.keys());
+      const productIds = Array.from(this.productIdsWithCounts.keys());
+      
+      // Используйте Promise.all для параллельного выполнения запросов
       const responses = await Promise.all(
-        productIds.map((id) => getProduct(id.toString()))
+        productIds.map((id) => getProduct(id))
       );
-
+  
       runInAction(() => {
         this.allProductsBasket = responses.map((response) => ({
-          data: response,
-          isActive: true,
+          ...response,
+          isSelected: true,
         }));
       });
-
+  
       this.updateSelectedProductsValues();
-      this.isLoading = false;
-    } catch (error) {
-      console.error("Ошибка в получении элементов для корзины", error);
+    } catch {
       throw new Error("Ошибка в получении элементов для корзины");
+    } finally {
+      this.isLoading = false;
     }
   };
+  
 
-  //рефакторинг
-  updateProductsPayment = (product?: IBasketProduct) => {
-    this.selectedProductsPayment = [];
+  //при нажатии на кнопку "быстрой покупки" или в момент оформления
+  updateProductsPayment = (product?: IProduct) => {
     if (product) {
+      this.selectedProductsPayment = [];
       this.selectedProductsPayment.push({
-        count: this.dataProductsBasket.get(product.id)!,
-        price: product.price,
-        product: product,
+        count: this.productIdsWithCounts.get(product.id)!,
+        ...product,
       });
     } else {
-      const products = this.allProductsBasket.filter(
-        (product) => product.isActive == true
-      );
-      products.forEach((product) => {
-        this.selectedProductsPayment.push({
-          count: this.dataProductsBasket.get(product.data.id)!,
-          price: product.data.price,
-          product: product.data,
-        });
+      this.allProductsBasket.forEach((product) => {
+        if (product.isSelected) {
+          this.selectedProductsPayment.push({
+            count: this.productIdsWithCounts.get(product.id)!,
+            ...product,
+          });
+        }
       });
     }
-    // this.selectedProductsPayment.push(...products);
   };
   /*Добавляет извне продукты в корзину*/
-  addProduct = (product: IBasketProducts) => {
-    const currentCount = this.dataProductsBasket.get(product.id) || 0;
-    this.dataProductsBasket.set(product.id, currentCount + product.count);
+  addProduct = (id: number, count = 1) => {
+    const currentCount = this.productIdsWithCounts.get(id) || 0;
+    this.productIdsWithCounts.set(id, currentCount + count);
   };
 
   /*Обновляет количество нужных значений*/
@@ -100,7 +96,7 @@ class BasketStore {
     this._countSelectedProducts = this.calculateSelectedProductsValue(
       (count) => count
     );
-    this._totalPrice = this.calculateSelectedProductsValue(
+    this._sumSelectedProducts = this.calculateSelectedProductsValue(
       (count, price) => count * price
     );
   };
@@ -109,13 +105,13 @@ class BasketStore {
   calculateSelectedProductsValue = (
     callback: (count: number, price: number) => number
   ) => {
-    const products: IProductsSelectedPayment[] = this.allProductsBasket;
+    const products: IProductBasket[] = this.allProductsBasket;
     let total = 0;
     products.forEach((product) => {
-      if (product.isActive) {
-        const count = this.dataProductsBasket.get(product.data.id);
+      if (product.isSelected) {
+        const count = this.productIdsWithCounts.get(product.id);
         if (count !== undefined) {
-          total += callback(count, product.data.price);
+          total += callback(count, product.price);
         }
       }
     });
@@ -124,26 +120,24 @@ class BasketStore {
 
   /*Удалить продукт*/
   deleteProduct = (id: number) => {
-    this.dataProductsBasket.delete(id);
+    this.productIdsWithCounts.delete(id);
     this.allProductsBasket = this.allProductsBasket.filter(
-      (product) => product.data.id !== id
+      (product) => product.id !== id
     );
     this.updateSelectedProductsValues();
   };
 
   /*Обновить количество продукта*/
   updateCountProduct = (count: number, id: number) => {
-    this.dataProductsBasket.set(id, count);
+    this.productIdsWithCounts.set(id, count);
     this.updateSelectedProductsValues();
   };
 
   /*из продуктов корзины выбрать или убрать продукт для оплаты*/
-  toggleSelectedProduct = (id: number, isActive: boolean) => {
-    const product = this.allProductsBasket.find(
-      (product) => product.data.id === id
-    );
+  toggleSelectedProduct = (id: number, isSelected: boolean) => {
+    const product = this.allProductsBasket.find((product) => product.id === id);
     if (product) {
-      product.isActive = isActive;
+      product.isSelected = isSelected;
       this.updateSelectedProductsValues();
     }
   };

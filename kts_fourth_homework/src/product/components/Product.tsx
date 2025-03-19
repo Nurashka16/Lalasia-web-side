@@ -4,21 +4,17 @@ import { useParams } from "react-router-dom";
 import productStore from "../stores/product-store";
 import Loader from "src/common/components/Loader";
 import ButtonBack from "src/common/components/ButtonBack/ButtonBack";
-import { HOME } from "src/utils/const";
 import RelatesProducts from "./RelatesProducts/index.ts";
 import ProductCard from "./ProductCard/ProductCard.tsx";
+import { observer } from "mobx-react-lite";
 
-const Product = () => {
-  const { getProductAction, product } = productStore;
-
-  const [isLoading, setIsLoading] = useState(false);
+const Product = observer(() => {
+  const { getProductAction, product, isLoading } = productStore;
 
   const params = useParams();
 
   useEffect(() => {
-    setIsLoading(true);
     getProductAction(params.id!);
-    setTimeout(() => setIsLoading(false), 1000);
   }, [params.id]);
 
   return isLoading ? (
@@ -32,6 +28,6 @@ const Product = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Product;

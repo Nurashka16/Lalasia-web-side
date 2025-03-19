@@ -21,7 +21,7 @@ import Basket from "./basket/components/BasketPage/Basket";
 import EmptyPage from "./empty/components/EmptyPage/EmptyPage";
 import SignUp from "./auth/components/SignUp";
 import Product from "./product/components/Product";
-import GoCheckout from "./basket/components/GoCheckoutPage/GoCheckout";
+import GoCheckout from "./goCheckout/components/GoCheckoutPage/GoCheckout";
 import Payment from "./payment/components/Payment";
 import basketStore from "./basket/stores/basket-store";
 import Categories from "./categories/components";
@@ -29,7 +29,7 @@ import Categories from "./categories/components";
 const App = observer(() => {
   const isAuth = true;
   //  { isAuth } = authStore;
-  const { dataProductsBasket } = basketStore;
+  const { productIdsWithCounts } = basketStore;
 
   return (
     <PopUpProvider>
@@ -37,7 +37,7 @@ const App = observer(() => {
       <div className="pages">
         <Header
           isAuth={isAuth}
-          countSelectedProducts={dataProductsBasket.size}
+          countSelectedProducts={productIdsWithCounts.size}
         />
         <Outlet />
         {isAuth ? (

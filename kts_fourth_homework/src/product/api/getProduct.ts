@@ -14,10 +14,10 @@ export type IProductResponse = {
   };
 };
 
-export const getProduct = async (id: string) => {
+export const getProduct = async (id:number) => {
   const response = (
     await axios.get<IProductResponse>(
-      "https://api.escuelajs.co/api/v1/products/" + id
+      "https://api.escuelajs.co/api/v1/products/" + id.toString()
     )
   ).data;
   const result: IProduct = {

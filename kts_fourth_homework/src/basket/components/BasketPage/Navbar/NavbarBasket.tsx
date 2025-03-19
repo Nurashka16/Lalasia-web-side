@@ -8,8 +8,8 @@ import basketStore from "src/basket/stores/basket-store";
 const NavbarBasket = observer(() => {
   const { updateProductsPayment } = basketStore;
 
-  const isButtonDisabled =
-    basketStore.countSelectedProducts === 0 || basketStore.totalPrice === 0;
+  const isDisabledButton =
+    basketStore.countSelectedProducts === 0 || basketStore.sumSelectedProducts === 0;
   return (
     <nav className={style.navbar}>
       <div className={style.content}>
@@ -20,9 +20,9 @@ const NavbarBasket = observer(() => {
         >
           <Button
             aria-label="Go to registration"
-            aria-disabled={isButtonDisabled}
+            aria-disabled={isDisabledButton}
             className={style.btn}
-            disabled={isButtonDisabled}
+            disabled={isDisabledButton}
           >
             Go to registration
           </Button>
@@ -53,7 +53,7 @@ const NavbarBasket = observer(() => {
             Total cost:
           </Text>
           <Text className={style.totalCostCount} weight="bold" color="accent">
-            {basketStore.totalPrice} $
+            {basketStore.sumSelectedProducts} $
           </Text>
         </div>
       </footer>

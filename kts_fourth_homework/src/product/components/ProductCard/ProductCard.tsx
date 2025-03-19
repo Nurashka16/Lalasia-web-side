@@ -4,44 +4,35 @@ import { IProduct } from "src/product/interface/IProduct";
 import basketStore from "src/basket/stores/basket-store";
 import Text from "src/common/components/Text";
 import Button from "src/common/components/Button";
-import Carousel from "../../../common/components/Carousel/Carousel";
 import classNames from "classnames";
 import Loader from "src/common/components/Loader";
+import { observer } from "mobx-react-lite";
+import Carousel from "src/common/components/Carousel/Carousel";
 
 interface IProductsCardProps {
   product: IProduct;
 }
 
-const ProductCard = ({ product }: IProductsCardProps) => {
-  const [currentImgNumber, setCurrentImgNumber] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [countProduct, setCountProduct] = useState(1);
+const ProductCard = observer(({ product }: IProductsCardProps) => {
+  const [currentNumberImg, setCurrentNumberImg] = useState(1);
+  const [isLoadingImg, setIsLoadingImg] = useState(false);
 
   const { addProduct } = basketStore;
-
-  //в будущем переписать эти функции, чтобы нигде не было setCount и т.п.
-  //вместо этого, нужно чтобы этим занимался store: добавлял элемент если, его не было как count:1,
-  //а если есть то обращался к его count и делал +1
-  const addProducts = () => {
-    setCountProduct(countProduct + 1);
-    addProduct({ id: product.id, count: countProduct });
-  };
-
   return (
     <div className={style.card}>
       <Carousel
         isActive={false}
         className={style.carousel_icon}
         onClick={(value: number) => {
-          setIsLoading(true);
-          setCurrentImgNumber(value);
-          setTimeout(() => setIsLoading(false), 200);
+          setIsLoadingImg(true);
+          setCurrentNumberImg(value);
+          setTimeout(() => setIsLoadingImg(false), 200);
         }}
-        currentItem={currentImgNumber}
+        currentItem={currentNumberImg}
         maxCountItem={product?.images.length}
       >
         <div className={style.imageContainer}>
-          {isLoading ? (
+          {isLoadingImg ? (
             <div className={style.imageContainer_loader}>
               <Text tag="h2" weight="bold" color="secondary">
                 the picture is loading
@@ -51,7 +42,7 @@ const ProductCard = ({ product }: IProductsCardProps) => {
           ) : (
             <img
               className={style.imageContainer_img}
-              src={product?.images[currentImgNumber - 1]}
+              src={product?.images[currentNumberImg - 1]}
               alt="there should have been a photo of the product here"
             />
           )}
@@ -82,7 +73,7 @@ const ProductCard = ({ product }: IProductsCardProps) => {
             </Button>
             <Button
               className={classNames(style.footer_btn, style.footer_btn__add)}
-              onClick={() => addProducts()}
+              onClick={() => addProduct(product.id)}
             >
               Add to Cart
             </Button>
@@ -91,6 +82,6 @@ const ProductCard = ({ product }: IProductsCardProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default ProductCard;

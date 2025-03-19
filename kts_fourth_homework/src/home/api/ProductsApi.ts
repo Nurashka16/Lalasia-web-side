@@ -48,7 +48,8 @@ export const getAll = async () => {
   //Возвращается неправильный массив картинок c лишними символами
   return removeExtraCharacters(response.data);
 };
-export const removeExtraCharacters = (data: IProduct[]) => {
+
+const removeExtraCharacters = (data: IProduct[]) => {
   return data.map((product) => ({
     ...product,
     images: product.images.map((img) => img.replace(/["\[\]]/g, "")),

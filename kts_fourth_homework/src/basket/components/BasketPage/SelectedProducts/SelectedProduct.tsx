@@ -1,5 +1,4 @@
 import style from "./SelectedProduct.module.css";
-import { IProductsSelectedPayment } from "../../../stores/basket-store";
 import { Link } from "react-router-dom";
 import CheckBox from "src/common/components/CheckBox";
 import Text from "src/common/components/Text";
@@ -7,15 +6,16 @@ import Counter from "src/common/components/Counter/Counter";
 import DeleteIcon from "../../icons/DeleteIcon";
 import BuyNowIcon from "../../icons/BuyNowIcon";
 import { IBasketProduct } from "src/basket/interface/IBasketProduct";
+import { IProduct } from "src/product/interface/IProduct";
 
 interface ISelectedProductProps {
-  product: IProductsSelectedPayment;
+  product: IProduct;
   updateCountProduct: (id: number, count: number) => void;
   defaultCount: number;
   deleteProduct: (id: number) => void;
   toggleSelectedProduct: (id: number, isActive: boolean) => void;
   isActive: boolean;
-  updateProductsPayment: (product?: IBasketProduct) => void;
+  updateProductsPayment: (product?: IProduct) => void;
 }
 const SelectedProduct = ({
   product,
@@ -34,19 +34,19 @@ const SelectedProduct = ({
           width={30}
           height={30}
           checked={isActive}
-          onChange={() => toggleSelectedProduct(product.data.id, !isActive)}
+          onChange={() => toggleSelectedProduct(product.id, !isActive)}
         />
         <div className={style.content}>
-          <Link className={style.link} to={`/product/${product.data.id}`}>
+          <Link className={style.link} to={`/product/${product.id}`}>
             <img
               className={style.image}
               alt="Product image"
-              src={product.data.images[0]}
+              src={product.images[0]}
             />
           </Link>
           <div className={style.info}>
             <Text tag="h3" className={style.title} maxLines={1} weight="bold">
-              {product.data.title}
+              {product.title}
             </Text>
             <Text
               className={style.description}
@@ -54,23 +54,23 @@ const SelectedProduct = ({
               tag="p"
               maxLines={2}
             >
-              {product.data.description}
+              {product.description}
             </Text>
             <div className={style.icons}>
               <button
                 className={style.delete}
-                aria-label={`Delete ${product.data.title}`}
-                onClick={() => deleteProduct(product.data.id)}
+                aria-label={`Delete ${product.title}`}
+                onClick={() => deleteProduct(product.id)}
               >
                 <DeleteIcon />
               </button>
               <Link
                 to={"/checkout"}
-                onClick={() => updateProductsPayment(product.data)}
+                onClick={() => updateProductsPayment(product)}
               >
                 <button
                   className={style.buy}
-                  aria-label={`Buy only this product ${product.data.title}`}
+                  aria-label={`Buy only this product ${product.title}`}
                 >
                   <BuyNowIcon />
                   <Text color="primary" className={style.buyText} weight="bold">
@@ -84,14 +84,12 @@ const SelectedProduct = ({
       </div>
       <div className={style.additional}>
         <Text tag="span" maxLines={1} className={style.price}>
-          {product.data.price} $
+          {product.price} $
         </Text>
         <div className={style.counter}>
           <Counter
             defaultCount={defaultCount}
-            onClick={(count: number) =>
-              updateCountProduct(count, product.data.id)
-            }
+            onClick={(count: number) => updateCountProduct(count, product.id)}
           />
         </div>
       </div>

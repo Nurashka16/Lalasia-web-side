@@ -1,12 +1,11 @@
 import { ICard } from "src/common/interfaces/ICard";
 import { IProduct } from "src/product/interface/IProduct";
 import style from "./Cards.module.css";
-import { IBasketProducts } from "src/basket/stores/basket-store";
 import Card from "./Card/Card";
 
 interface ICardsProps {
   products: IProduct[];
-  onClick: (product: IBasketProducts) => void;
+  onClick: (id:number) => void;
 }
 const Cards = ({ onClick, products }: ICardsProps) => {
   const cards = products.map((item: ICard) => {

@@ -2,12 +2,11 @@ import style from "./CatalogLayout.module.css";
 import Text from "src/common/components/Text";
 import Cards from "../Cards/Cards";
 import { IProduct } from "src/product/interface/IProduct";
-import { IBasketProducts } from "src/basket/stores/basket-store";
 import classNames from "classnames";
 import { ReactNode } from "react";
 
 interface ICatalogLayoutProps {
-  onClick?: (product: IBasketProducts) => void;
+  onClick: (id:number) => void;
   products?: IProduct[];
   countAllProducts?: number;
   title?: string;
@@ -42,7 +41,7 @@ const CatalogLayout = ({
           </Text>
         </div>
       )}
-      {products ? <Cards onClick={onClick!} products={products!} /> : children}
+      {products ? <Cards onClick={onClick} products={products!} /> : children}
     </div>
   );
 };

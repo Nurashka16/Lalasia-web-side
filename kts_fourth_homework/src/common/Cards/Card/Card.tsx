@@ -4,9 +4,8 @@ import classNames from "classnames";
 import Button from "../../components/Button";
 import Text from "../../components/Text";
 import { useNavigate } from "react-router-dom";
-import { IBasketProducts } from "src/basket/stores/basket-store";
 
-export type CardProps = {
+export type ICardProps = {
   /** Дополнительный classname */
   className?: string;
   /** URL изображения */
@@ -20,13 +19,13 @@ export type CardProps = {
   /** Содержимое карточки (футер/боковая часть), может быть пустым */
   contentSlot?: React.ReactNode;
   /** Клик на карточку */
-  onClick: (product: IBasketProducts) => void;
+  onClick: (id: number) => void;
   /** Слот для действия */
   actionSlot?: React.ReactNode;
   id: number;
 };
 
-const Card: React.FC<CardProps> = ({
+const Card: React.FC<ICardProps> = ({
   className,
   image,
   captionSlot,
@@ -37,11 +36,6 @@ const Card: React.FC<CardProps> = ({
   onClick,
   id,
 }) => {
-  const [count, setCount] = useState(1);
-  const addProduct = () => {
-    onClick({ id: id, count: count });
-    setCount(count + 1);
-  };
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -52,7 +46,7 @@ const Card: React.FC<CardProps> = ({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.stopPropagation(); // Остановить всплытие события
-    addProduct();
+    onClick(id);
   };
   return (
     <div
