@@ -1,16 +1,21 @@
 .payment {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  width: 100%;
 }
 .payment_title {
   margin-bottom: 12px;
 }
 .payment_buttons {
-  padding: 24px;
+  padding: 24px 24px;
   border-radius: 7px;
   background: white;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   gap: 50px;
+  position: relative;
 }
 .payment_button {
   width: 120px;
@@ -19,17 +24,31 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: #ebe9e9 solid 3px;
   border-radius: 7px;
+  /* transition: ease 0.3s; */
+  border: #ebe9e9 solid 2px;
 }
-.payment_button:hover {
+.payment_button__isActive {
+  border-color: #487773;
+}
+.payment_button__isNotActive {
+
+}
+.payment_button__isNotActive:hover {
   border: none;
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
 }
+
 .payment_icon {
   margin-bottom: 5px;
 }
 .payment_icon:hover {
 }
 .payment_text {
+}
+
+.payment_description{
+  font-family: cursive;
+  position: absolute;
+  bottom: +14px;
 }

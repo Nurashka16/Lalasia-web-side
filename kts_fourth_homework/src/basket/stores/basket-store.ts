@@ -1,18 +1,16 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { getProduct } from "../../product/api/getProduct";
 import { IProduct } from "src/product/interface/IProduct";
+import { getCalculateValues } from "src/common/function/getCalculateValues";
 
 export interface IProductBasket extends IProduct {
   isSelected: boolean;
-}
-export interface IProductPayment extends IProduct {
   count: number;
 }
 
 class BasketStore {
   productIdsWithCounts = new Map<number, number>(); //данные о айди продуктов и его количестве(копятся извне)
   allProductsBasket: IProductBasket[] = []; //Вся информация о продуктах в корзине
-  selectedProductsPayment: IProductPayment[] = []; //продукты выбранные для оплаты *убрать в другой store
   isLoading: boolean = false;
 
   // Приватные свойства
@@ -41,22 +39,21 @@ class BasketStore {
   getProducts = async () => {
     this.isLoading = true;
     this.allProductsBasket = [];
-  
+
     try {
       const productIds = Array.from(this.productIdsWithCounts.keys());
-      
-      // Используйте Promise.all для параллельного выполнения запросов
       const responses = await Promise.all(
         productIds.map((id) => getProduct(id))
       );
-  
+
       runInAction(() => {
         this.allProductsBasket = responses.map((response) => ({
           ...response,
+          count: this.productIdsWithCounts.get(response.id) || 1,
           isSelected: true,
         }));
       });
-  
+
       this.updateSelectedProductsValues();
     } catch {
       throw new Error("Ошибка в получении элементов для корзины");
@@ -64,58 +61,19 @@ class BasketStore {
       this.isLoading = false;
     }
   };
-  
 
-  //при нажатии на кнопку "быстрой покупки" или в момент оформления
-  updateProductsPayment = (product?: IProduct) => {
-    if (product) {
-      this.selectedProductsPayment = [];
-      this.selectedProductsPayment.push({
-        count: this.productIdsWithCounts.get(product.id)!,
-        ...product,
-      });
-    } else {
-      this.allProductsBasket.forEach((product) => {
-        if (product.isSelected) {
-          this.selectedProductsPayment.push({
-            count: this.productIdsWithCounts.get(product.id)!,
-            ...product,
-          });
-        }
-      });
-    }
-  };
   /*Добавляет извне продукты в корзину*/
   addProduct = (id: number, count = 1) => {
     const currentCount = this.productIdsWithCounts.get(id) || 0;
     this.productIdsWithCounts.set(id, currentCount + count);
+    this._countAllProducts = this.allProductsBasket.length;
   };
 
   /*Обновляет количество нужных значений*/
   updateSelectedProductsValues = () => {
-    this._countSelectedProducts = this.calculateSelectedProductsValue(
-      (count) => count
-    );
-    this._sumSelectedProducts = this.calculateSelectedProductsValue(
-      (count, price) => count * price
-    );
-  };
-
-  /*Метод для подсчета количества значений*/
-  calculateSelectedProductsValue = (
-    callback: (count: number, price: number) => number
-  ) => {
-    const products: IProductBasket[] = this.allProductsBasket;
-    let total = 0;
-    products.forEach((product) => {
-      if (product.isSelected) {
-        const count = this.productIdsWithCounts.get(product.id);
-        if (count !== undefined) {
-          total += callback(count, product.price);
-        }
-      }
-    });
-    return total;
+    const results = getCalculateValues(this.allProductsBasket);
+    this._countSelectedProducts = results.totalCount;
+    this._sumSelectedProducts = results.totalSum;
   };
 
   /*Удалить продукт*/
@@ -124,12 +82,20 @@ class BasketStore {
     this.allProductsBasket = this.allProductsBasket.filter(
       (product) => product.id !== id
     );
+    this._countAllProducts = this.allProductsBasket.length;
     this.updateSelectedProductsValues();
   };
 
   /*Обновить количество продукта*/
   updateCountProduct = (count: number, id: number) => {
     this.productIdsWithCounts.set(id, count);
+    this.allProductsBasket = this.allProductsBasket.map((product) => {
+      if (product.id === id) {
+        return { ...product, count };
+      }
+      return product;
+    });
+
     this.updateSelectedProductsValues();
   };
 

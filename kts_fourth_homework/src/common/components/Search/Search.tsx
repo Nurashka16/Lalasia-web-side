@@ -1,6 +1,7 @@
 import style from "./Search.module.css";
 import Button from "../Button";
 import Input from "../Input/Input";
+import { useState } from "react";
 
 interface ISearch {
   onClick: () => Promise<void>;
@@ -21,6 +22,7 @@ const Search = ({
   textBtn = "Find now",
   className,
 }: ISearch) => {
+  const [isSearching, setIsSearching] = useState(false);
   return (
     <div className={style.search}>
       <Input
@@ -30,8 +32,12 @@ const Search = ({
         onChange={onChange}
       />
       <Button
-        onClick={onClick}
-        className={style.search_btn}
+        className={`${style.search_btn} ${isSearching ? style.colorChange  : ""}`}
+        onClick={() => {
+          onClick();
+          setIsSearching(true);
+          setTimeout(() => setIsSearching(false), 500);
+        }}
         disabled={disabled}
       >
         {textBtn}

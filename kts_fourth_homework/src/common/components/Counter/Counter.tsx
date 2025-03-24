@@ -6,13 +6,13 @@ import classNames from "classnames";
 interface ICounter {
   className?: string;
   defaultCount?: number;
-  onClick: (count: number) => void
-
+  onClick: (count: number) => void;
 }
 
 const Counter = ({ className, defaultCount = 1, onClick }: ICounter) => {
-  // const [currentValue, setCurrentValue] = useState(defaultCount);
-
+  useEffect(() => {
+    console.log(1);
+  }, [defaultCount]);
   return (
     <div className={classNames(style.product_count, className)}>
       <Button
@@ -30,7 +30,10 @@ const Counter = ({ className, defaultCount = 1, onClick }: ICounter) => {
         value={defaultCount?.toString()}
       />
       <Button
-        onClick={() => onClick(Number(defaultCount + 1))}
+        onClick={() => {
+          onClick(Number(defaultCount + 1));
+          console.log(defaultCount);
+        }}
         className={style.product_add}
       >
         +

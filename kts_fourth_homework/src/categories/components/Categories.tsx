@@ -44,11 +44,6 @@ const Categories = observer(() => {
             countAllProducts={allCategories.length}
             children={<div className={style.main}>{categories}</div>}
           />
-          {allCategories.length ? (
-            <div></div>
-          ) : (
-            <NotFound text="Nothing found" />
-          )}
         </div>
       )}
     </div>

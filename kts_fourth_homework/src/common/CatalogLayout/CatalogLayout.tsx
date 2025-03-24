@@ -4,9 +4,10 @@ import Cards from "../Cards/Cards";
 import { IProduct } from "src/product/interface/IProduct";
 import classNames from "classnames";
 import { ReactNode } from "react";
+import NotFound from "../components/NotFound";
 
 interface ICatalogLayoutProps {
-  onClick: (id:number) => void;
+  onClick?: (id: number) => void;
   products?: IProduct[];
   countAllProducts?: number;
   title?: string;
@@ -16,12 +17,14 @@ interface ICatalogLayoutProps {
 
 const CatalogLayout = ({
   onClick,
-  products,
-  countAllProducts,
+  products = [],
+  countAllProducts = 0,
   title,
   className,
   children,
 }: ICatalogLayoutProps) => {
+  const hasProducts = products.length > 0 && onClick;
+
   return (
     <div className={classNames(style.catalog, className)}>
       {title && (
@@ -37,11 +40,19 @@ const CatalogLayout = ({
             maxLines={0}
             className={style.count}
           >
-            {countAllProducts && countAllProducts}
+            {countAllProducts}
           </Text>
         </div>
       )}
-      {products ? <Cards onClick={onClick} products={products!} /> : children}
+      {countAllProducts > 0 ? (
+        hasProducts ? (
+          <Cards onClick={onClick} products={products} />
+        ) : (
+          children
+        )
+      ) : (
+        <NotFound text="Not found" />
+      )}
     </div>
   );
 };

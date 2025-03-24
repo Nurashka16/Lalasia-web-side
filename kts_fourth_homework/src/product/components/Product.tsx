@@ -14,7 +14,7 @@ const Product = observer(() => {
   const params = useParams();
 
   useEffect(() => {
-    getProductAction(params.id!);
+    getProductAction(Number(params.id!));
   }, [params.id]);
 
   return isLoading ? (
@@ -23,7 +23,7 @@ const Product = observer(() => {
     <div className={style.product}>
       <ButtonBack link="" />
       <div className={style.product_main}>
-        <ProductCard product={product!} />
+        <ProductCard product={product} />
         <RelatesProducts />
       </div>
     </div>

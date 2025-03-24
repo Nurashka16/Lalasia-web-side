@@ -6,8 +6,7 @@
 }
 .errorMessage {
    color: red;
-
    position: absolute;
-   top: 60px;
-   left: 5px;
+   /* top: 60px;
+   left: 5px; */
 }

@@ -38,6 +38,8 @@ const Card: React.FC<ICardProps> = ({
 }) => {
   const navigate = useNavigate();
 
+  const [isAdding, setIsAdding] = useState(false);
+
   const handleCardClick = () => {
     navigate(`/product/${id}`); // Переходим на страницу товара
   };
@@ -46,8 +48,13 @@ const Card: React.FC<ICardProps> = ({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.stopPropagation(); // Остановить всплытие события
+    setIsAdding(true);
     onClick(id);
+    setTimeout(() => {
+      setIsAdding(false);
+    }, 500); // время анимации
   };
+
   return (
     <div
       className={classNames(style.card, className)}
@@ -79,7 +86,11 @@ const Card: React.FC<ICardProps> = ({
           {contentSlot && (
             <Text className={style.footer_price}>{contentSlot}</Text>
           )}
-          <Button className={style.footer_btn} onClick={handleButtonClick}>
+          <Button
+            aria-label={`Add ${title}`} 
+            className={`${style.footer_btn} ${isAdding ? style.pulse : ""}`}
+            onClick={handleButtonClick}
+          >
             {actionSlot}
           </Button>
         </div>

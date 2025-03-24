@@ -11,7 +11,7 @@ const Navbar = () => {
     <div className={style.navbar}>
       <div className={style.pay}>
         <Link to="/payment" className={style.pay_btn}>
-          <Button style={{ width: "100%", borderRadius: "7px" }}>
+          <Button disabled style={{ width: "100%", borderRadius: "7px" }}>
             Pay online
           </Button>
         </Link>
@@ -36,7 +36,7 @@ const Navbar = () => {
             weight="bold"
             color="accent"
           >
-            800
+            800 $
           </Text>
         </div>
       </div>
@@ -46,12 +46,12 @@ const Navbar = () => {
         </Text>
         <div className={style.promotionalCode_input}>
           <Input
-            isActive={true}
+            className={style.input}
             value=""
             placeholder="Enter the code"
             onChange={() => console.log(1)}
           />
-          <Button style={{ width: "100%", borderRadius: "7px" }}>
+          <Button disabled style={{ width: "100%", borderRadius: "7px" }}>
             Apply promotional code
           </Button>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./ProductCheckout.module.css";
-import { IProductPayment } from "src/basket/stores/basket-store";
+import { IProductPayment } from "src/goCheckout/stores/payment-store";
 
 const ProductCheckout = ({ images, count, price }: IProductPayment) => {
   return (

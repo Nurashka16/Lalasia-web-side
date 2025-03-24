@@ -167,10 +167,11 @@
   width: 100%;
   display: flex;
   background-color: var(--light_gray);
-  transition: box-shadow 0.3 ease;
+  transition: transform 0.2s ease;
 }
 .card:hover {
-  box-shadow: var(--shadows);
+  transform: scale(1.05);
+
 }
 .imageContainer img {
   width: 100%;
@@ -217,4 +218,17 @@
   font-weight: var(--weight_bold);
   line-height: 122%;
   color: var(--text-primary);
+}
+.pulse {
+  animation: pulse-animation 0.5s ease-in-out;
+}
+
+@keyframes pulse-animation {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }

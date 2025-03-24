@@ -7,7 +7,6 @@ import basketStore from "src/basket/stores/basket-store";
 import Loader from "src/common/components/Loader";
 import Text from "src/common/components/Text";
 import Pagination from "src/common/components/Pagination";
-import NotFound from "src/common/components/NotFound";
 import CatalogLayout from "src/common/CatalogLayout/CatalogLayout";
 
 const Home = observer(() => {
@@ -57,18 +56,14 @@ const Home = observer(() => {
               onClick={addProduct}
               products={productsCurrentPage}
             />
-            {pagination.numberAllProducts ? (
-              <Pagination
-                className={style.pagination}
-                currentPage={pagination.currentPage}
-                onClick={setPage}
-                countVisiblePages={5}
-                maxCountProductsPage={pagination.limitPage}
-                countAllProducts={pagination.numberAllProducts}
-              />
-            ) : (
-              <NotFound text="Nothing found" />
-            )}
+            <Pagination
+              className={style.pagination}
+              currentPage={pagination.currentPage}
+              onClick={setPage}
+              countVisiblePages={5}
+              maxCountProductsPage={pagination.limitPage}
+              countAllProducts={pagination.numberAllProducts}
+            />
           </div>
         )}
       </div>

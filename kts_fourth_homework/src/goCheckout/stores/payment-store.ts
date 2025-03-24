@@ -1,89 +1,54 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable } from "mobx";
+import { getCalculateValues } from "src/common/function/getCalculateValues";
 import { IProduct } from "src/product/interface/IProduct";
 
-export interface IProductBasket extends IProduct {
-  isSelected: boolean;
-}
 export interface IProductPayment extends IProduct {
   count: number;
 }
 
 class PaymentStore {
-  selectedProductsPayment: IProductPayment[] = []; //продукты выбранные для оплаты *убрать в другой store
+  productsPayment: IProductPayment[] = []; //продукты выбранные для оплаты
   isLoading: boolean = false;
 
   // Приватные свойства
-  private _countSelectedProducts: number = 0;
-  private _sumSelectedProducts: number = 0;
+  private _productsItemsCount: number = 0;
+  private _sumProducts: number = 0;
+  private _countAllProducts: number = 0;
 
   constructor() {
     makeAutoObservable(this);
   }
 
   /*Геттер о количестве выбранных продуктов*/
-  get countSelectedProducts() {
-    return this._countSelectedProducts;
+  get productsItemsCount() {
+    return this._productsItemsCount;
+  }
+  /*Геттер о количестве всех продуктов*/
+  get countAllProducts() {
+    return this._countAllProducts;
   }
   /*Геттер о сумме выбранных продуктов*/
-  get sumSelectedProducts() {
-    return this._sumSelectedProducts;
+  get sumProducts() {
+    return this._sumProducts;
   }
 
-
   //при нажатии на кнопку "быстрой покупки" или в момент оформления
-  updateProductsPayment = (product: IProduct extends IProductPayment| IProduct[]) => {
-    // Проверяем, является ли product массивом
-    if (Array.isArray(product)) {
-      // Обработка массива продуктов
-      this.selectedProductsPayment({...product, })
-    } else {
-
-    }
-  };
-//   updateProductsPayment = (product: IProduct | products: IProduct[]) => {
-//     if (product) {
-//       this.selectedProductsPayment = [];
-//       this.selectedProductsPayment.push({
-//         count: this.productIdsWithCounts.get(product.id)!,
-//         ...product,
-//       });
-//     } else {
-//       this.allProductsBasket.forEach((product) => {
-//         if (product.isSelected) {
-//           this.selectedProductsPayment.push({
-//             count: this.productIdsWithCounts.get(product.id)!,
-//             ...product,
-//           });
-//         }
-//       });
-//     }
-//   };
-
-  /*Обновляет количество нужных значений*/
-  updateSelectedProductsValues = () => {
-    this._countSelectedProducts = this.calculateSelectedProductsValue(
-      (count) => count
-    );
-    this._sumSelectedProducts = this.calculateSelectedProductsValue(
-      (count, price) => count * price
-    );
+  addProductsPayment = (product: IProductPayment[]) => {
+    this.isLoading=true;
+    this.productsPayment=[]
+    this.productsPayment.push(...product);
+    this.updateProductsValues();
+    setTimeout(()=>this.isLoading=false, 1000)
   };
 
-  /*Метод для подсчета количества значений*/
-  calculateSelectedProductsValue = (
-    callback: (count: number, price: number) => number
-  ) => {
-    const products: IProductBasket[] = this.allProductsBasket;
-    let total = 0;
-    products.forEach((product) => {
-      if (product.isSelected) {
-        const count = this.productIdsWithCounts.get(product.id);
-        if (count !== undefined) {
-          total += callback(count, product.price);
-        }
-      }
-    });
-    return total;
+  addProductPayment = (product: IProductPayment) =>
+    this.addProductsPayment([product]);
+
+  /*Обновляет количество необходимых значений*/
+  updateProductsValues = () => {
+    const results = getCalculateValues(this.productsPayment);
+    this._productsItemsCount = results.totalCount;
+    this._sumProducts = results.totalSum;
   };
 }
 

@@ -9,17 +9,16 @@ import {
 class ProductStore {
   private readonly _relatesProducts: IRelatesProducts;
 
-  product: IProduct | undefined = undefined;
+  product: IProduct = null!;
   relatesProducts: IProduct[] = [];
   isLoading: boolean = false;
-  // error: string | null = null; Добавляем состояние ошибки, в будущем юзать в popup
 
   constructor(relatesProducts: IRelatesProducts) {
     this._relatesProducts = relatesProducts;
     makeAutoObservable(this);
   }
 
-  getProductAction = async (id: string) => {
+  getProductAction = async (id: number) => {
     this.isLoading = true;
     try {
       const response = await getProduct(id);
@@ -29,9 +28,8 @@ class ProductStore {
       });
     } catch (error) {
       console.error("Ошибка в получении продукта:", error);
-      throw new Error("Ошибка в получении продукта");
     } finally {
-      this.isLoading = false;
+      setTimeout(()=>this.isLoading = false, 500)
     }
   };
 
@@ -51,7 +49,6 @@ class ProductStore {
       });
     } catch (error) {
       console.error("Ошибка в получении рекомендуемых продуктов:", error);
-      throw new Error("Ошибка в получении рекомендуемых продуктов");
     }
   };
 }

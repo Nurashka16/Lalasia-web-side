@@ -8,3 +8,16 @@
 .search_btn {
    font-size: 18px;
 }
+@keyframes colorChange {
+   0% {
+     background-color: var(--dark_gray); /* начальный цвет */
+   }
+   100% {
+     background-color: var(--light_gray); /* цвет при нажатии */
+   }
+ }
+ 
+ .colorChange {
+   animation: colorChange 0.3s forwards;
+ }
+ 

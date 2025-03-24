@@ -22,7 +22,6 @@ import EmptyPage from "./empty/components/EmptyPage/EmptyPage";
 import SignUp from "./auth/components/SignUp";
 import Product from "./product/components/Product";
 import GoCheckout from "./goCheckout/components/GoCheckoutPage/GoCheckout";
-import Payment from "./payment/components/Payment";
 import basketStore from "./basket/stores/basket-store";
 import Categories from "./categories/components";
 
@@ -56,7 +55,6 @@ const App = observer(() => {
 
             <Route path="/checkout" element={<GoCheckout />} />
             {/*Проверить используются ли эти стр*/}
-            <Route path="/payment" element={<Payment />} />
             {/*Проверить используются ли эти стр*/}
           </Routes>
         ) : (

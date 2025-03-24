@@ -4,17 +4,28 @@ import Button from "src/common/components/Button";
 import Text from "src/common/components/Text";
 import { observer } from "mobx-react-lite";
 import basketStore from "src/basket/stores/basket-store";
+import paymentStore, {
+  IProductPayment,
+} from "src/goCheckout/stores/payment-store";
 
 const NavbarBasket = observer(() => {
-  const { updateProductsPayment } = basketStore;
+  const { addProductsPayment } = paymentStore;
+  const { allProductsBasket } = basketStore;
+
+  const selectedProductsHandler = (): IProductPayment[] => {
+    return allProductsBasket
+      .filter((product) => product.isSelected)
+      .map((product) => ({ ...product }));
+  };
 
   const isDisabledButton =
-    basketStore.countSelectedProducts === 0 || basketStore.sumSelectedProducts === 0;
+    basketStore.countSelectedProducts === 0 ||
+    basketStore.sumSelectedProducts === 0;
   return (
     <nav className={style.navbar}>
       <div className={style.content}>
         <Link
-          onClick={() => updateProductsPayment()}
+          onClick={() => addProductsPayment(selectedProductsHandler())}
           className={style.link}
           to="/checkout"
         >

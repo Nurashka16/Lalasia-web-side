@@ -5,17 +5,18 @@ import Text from "src/common/components/Text";
 import Counter from "src/common/components/Counter/Counter";
 import DeleteIcon from "../../icons/DeleteIcon";
 import BuyNowIcon from "../../icons/BuyNowIcon";
-import { IBasketProduct } from "src/basket/interface/IBasketProduct";
-import { IProduct } from "src/product/interface/IProduct";
+import { IProductPayment } from "src/goCheckout/stores/payment-store";
+import { IProductBasket } from "src/basket/stores/basket-store";
+import { useState } from "react";
 
 interface ISelectedProductProps {
-  product: IProduct;
+  product: IProductBasket;
   updateCountProduct: (id: number, count: number) => void;
   defaultCount: number;
   deleteProduct: (id: number) => void;
   toggleSelectedProduct: (id: number, isActive: boolean) => void;
   isActive: boolean;
-  updateProductsPayment: (product?: IProduct) => void;
+  addProductPayment: (product: IProductPayment) => void;
 }
 const SelectedProduct = ({
   product,
@@ -23,11 +24,21 @@ const SelectedProduct = ({
   defaultCount,
   deleteProduct,
   toggleSelectedProduct,
-  updateProductsPayment,
+  addProductPayment,
   isActive,
 }: ISelectedProductProps) => {
+  const [isRemoving, setIsRemoving] = useState(false);
+
+  const handleDelete = () => {
+    setIsRemoving(true);
+    setTimeout(() => {
+      deleteProduct(product.id);
+    }, 500); // время анимации
+  };
   return (
-    <article className={style.product}>
+    <article
+      className={`${style.product} ${isRemoving ? style["productLeave"] : ""}`}
+    >
       <div className={style.main}>
         <CheckBox
           className={style.checkbox}
@@ -60,13 +71,15 @@ const SelectedProduct = ({
               <button
                 className={style.delete}
                 aria-label={`Delete ${product.title}`}
-                onClick={() => deleteProduct(product.id)}
+                onClick={() => handleDelete()}
               >
                 <DeleteIcon />
               </button>
               <Link
                 to={"/checkout"}
-                onClick={() => updateProductsPayment(product)}
+                onClick={() =>
+                  addProductPayment({ ...product, count: defaultCount })
+                }
               >
                 <button
                   className={style.buy}

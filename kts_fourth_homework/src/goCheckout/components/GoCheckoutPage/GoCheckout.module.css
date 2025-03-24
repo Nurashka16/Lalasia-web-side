@@ -4,10 +4,17 @@
 .main {
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
 }
 .content {
   width: 65%;
   display: flex;
   flex-direction: column;
   gap: 48px;
+}
+
+.additional{
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
 }

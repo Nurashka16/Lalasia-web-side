@@ -411,6 +411,15 @@
 .delete:hover {
   box-shadow: var(--shadows);
 }
+.product {
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.productLeave {
+  opacity: 0;
+}
+
 .buy {
   border: 1px solid var(--dark_white);
   color: black;

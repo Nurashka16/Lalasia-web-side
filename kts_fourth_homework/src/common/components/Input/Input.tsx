@@ -13,10 +13,19 @@ export type InputProps = Omit<
   /** Слот для иконки справа */
   afterSlot?: React.ReactNode;
   isActive?: boolean;
+  classNameIcon?: string;
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ value, onChange, afterSlot, disabled, isActive, ...props }) => {
+  ({
+    value,
+    onChange,
+    afterSlot,
+    disabled,
+    isActive,
+    classNameIcon,
+    ...props
+  }) => {
     return (
       <form className="input_form">
         <input
@@ -32,7 +41,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           placeholder={props.placeholder}
           value={value}
         />
-        {afterSlot && <div className="wrap_icon"> {afterSlot}</div>}
+        {afterSlot && (
+          <div className={classNames("wrap_icon", classNameIcon)}>
+            {afterSlot}
+          </div>
+        )}
       </form>
     );
   }

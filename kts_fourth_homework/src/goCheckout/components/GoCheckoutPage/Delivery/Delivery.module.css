@@ -2,34 +2,52 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 0 1 70%;
+  position: relative;
 }
-.delivery_title {
+.deliveryTitle {
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  top: -20px;
 }
 .address {
   margin-top: 14px;
   border-radius: 7px;
-  padding: 8px 12px;
+  padding: 24px;
   display: flex;
   background-color: #ffffff;
   border-radius: 5px;
   width: 100%;
   flex-direction: row;
 }
-.address_input {
-  width: 50%;
-  /* border: 1px solid black; */
-  padding-right: 24px;
+.addressInput {
+  display: flex;
+  flex: 0 1 70%;
+  position: relative;
+  outline: 2px solid var(--dark_gray);
+  height: 46px;
+  top: +2px;
 }
-
-.address_icon {
-  margin-top: 12px;
-  color: #787878;
-  border-radius: 7px;
-  margin-right: 10px;
-  margin-left: 14px;
+.addressInput:hover {
+  outline: 2px solid var(--accent_hover);
 }
-
-.input {
+.addressInput:focus {
+  outline: 2px solid var(--accent);
 }
-.delivery_button {
+.deliveryInvalid {
+  position: absolute;
+  bottom: -20px;
+  left: 12px;
+  font-family: cursive;
+  font-size: 14px;
+  font-weight: 400;
+}
+.deliveryButton {
+  display: flex;
+  flex: 0 1 30%;
+}
+.buttonDisabled {
+  background-color: var(--dark_gray);
+  padding: 16px 20px;
 }

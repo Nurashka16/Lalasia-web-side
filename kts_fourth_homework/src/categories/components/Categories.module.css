@@ -90,6 +90,10 @@
   border-radius: 2%;
   border: 0.5px solid var(--light_gray);
   max-width: 400px;
+  transition: transform 0.3s ease;
+}
+.category:hover {
+  transform: scale(1.05);
 }
 .main {
   display: grid;
@@ -113,10 +117,4 @@
   margin-top: 23px;
   height: 50px;
 }
-.category:hover {
-  box-shadow: var(--shadows);
-  border-bottom: 2px solid rgb(0, 0, 0, 0.2);
-  outline: none;
-  margin-top: -1px;
-  margin-right: -1px;
-}
+
