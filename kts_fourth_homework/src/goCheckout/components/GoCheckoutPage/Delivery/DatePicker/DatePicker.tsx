@@ -1,71 +1,86 @@
-import React, { useState } from "react";
-import style from "./DatePicker.module.css"; // Импорт вашего CSS модуля
+import React, { useEffect, useState } from "react";
+import style from "./DatePicker.module.css";
 import Text from "src/common/components/Text";
 import ValidationInput from "src/common/components/ValidationInput/ValidationInput";
+import classNames from "classnames";
+import { useClickOutside } from "src/common/hooks/useClickOutside";
+import CalendarDefaultIcon from "./icons/CalendarDefaultIcon";
+import CalendarSavedIcon from "./icons/CalendarSavedIcon";
+import { observer } from "mobx-react-lite";
+import paymentStore from "src/goCheckout/stores/payment-store";
+import Calendar from "src/common/components/Calendar/Calendar";
+import { RuleBuilder } from "../../RuleBuilder";
 
-const DeliveryDatePicker: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<string>("");
+const DeliveryDatePicker = observer(() => {
+  const { deliveryDate, setDeliveryDate } = paymentStore;
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedDate(event.target.value);
+  const { ref: menuRef, isShow, onShow } = useClickOutside<HTMLDivElement>();
+  const [isDateValid, setIsDateValid] = useState<boolean>(false);
+  const [changeableDate, setChangeableDate] = useState<string>(deliveryDate); //хранить временный date
+
+  const builder = new RuleBuilder<string>();
+  const myRules = builder
+    .required("Select a date.")
+    .dateInFuture()
+    .dateWithinOneMonth()
+    .build();
+
+  //срабатывает при нажатии на выбранную дату из календаря
+  const handleDateChange = (value: string) => {
+    setChangeableDate(value);
+    onShow();
   };
-    const [isDateValid, setIsDateValid] = useState<boolean>(false);
 
-  // const isDateValid = (dateString: string): boolean => {
-  //   const date = new Date(dateString);
-  //   return date >= new Date(); // Проверка, что дата не в прошлом
-  // };
+  useEffect(() => {
+    setDeliveryDate("");
+    isDateValid == true && setDeliveryDate(changeableDate);
+  }, [changeableDate, isDateValid]);
 
-  const rules: IRule<string>[] = [
-    // {
-    //   errorMessage: "Address cannot be empty.",
-    //   validate: (value) => !!value,
-    // },
-    {
-      errorMessage: "Please select a valid date.",
-      validate: (value) => {
-        const details = value.split(" ");
-        return (
-          details.length === 3 &&
-          details.every((part) => part.trim() !== "") && // Проверка, что все части не пустые
-          !isNaN(Number(details[2])) // Проверка, что третья часть - число
-        );
-      },
-    },
-  ];
   return (
-    <div className={style.deliveryDatePicker}>
-      <Text view="p-18" weight="bold" color="primary" className={style.title}>
-        Select Delivery Date:
+    <section ref={menuRef} className={style.datePicker}>
+      <Text
+        view="p-18"
+        weight="bold"
+        color="primary"
+        className={style.datePicker_title}
+      >
+        When should delivered?
       </Text>
-      <div className={style.content}>
-      <ValidationInput
-          className={style.addressInput}
-          placeholder="example: Moscow Puskina 1"
-          value={selectedDate}
+      <div className={style.datePicker_field}>
+        <ValidationInput
+          isValid={isDateValid}
+          className={classNames(style.datePicker_input, {
+            [style.input_error]: !isDateValid,
+          })}
+          value={changeableDate}
           onChange={(e) => {
-            setSelectedDate(e);
-            // if (isSavedAddress) setIsSavedAddress(false);
+            setChangeableDate(e);
           }}
-          rules={rules}
-          setIsValid={setAddressIsValid}
-          afterSlot={<GeoIcon />}
-          classNameError={style.deliveryInvalid}
-        />
-        {/* <input
-          type="date"
-          value={selectedDate}
-          onChange={handleDateChange}
-          className={style.dateInput}
+          isHandleFocus={isShow}
+          afterSlot={
+            <div onClick={onShow}>
+              {!(changeableDate && isDateValid) ? (
+                <CalendarDefaultIcon />
+              ) : (
+                <CalendarSavedIcon />
+              )}
+            </div>
+          }
           min={new Date().toISOString().split("T")[0]}
-          // Запрет выбора прошлых дат
+          max={
+            new Date(new Date().setFullYear(new Date().getFullYear() + 100))
+              .toISOString()
+              .split("T")[0]
+          }
+          type="date"
+          rules={myRules}
+          setIsValid={setIsDateValid}
+          classNameError={style.input_errorText}
         />
-        {!isDateValid(selectedDate) && selectedDate && (
-          <div className={style.errorMessage}>Please select a valid date.</div>
-        )} */}
       </div>
-    </div>
+      {isShow && <Calendar onClick={handleDateChange} />}
+    </section>
   );
-};
+});
 
 export default DeliveryDatePicker;

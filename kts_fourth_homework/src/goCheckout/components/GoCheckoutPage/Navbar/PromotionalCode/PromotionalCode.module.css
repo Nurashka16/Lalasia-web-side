@@ -1,0 +1,25 @@
+.input {
+  outline: 2px solid var(--dark_gray);
+  height: 52px;
+  font-family: var(--font-family);
+  margin-top: 4px;
+}
+.input:hover {
+  outline: 2px solid var(--accent_hover);
+}
+.btn {
+  padding: 30px 36px;
+  padding-bottom: 30px;
+}
+.b {
+  margin-bottom: 30px;
+}
+.errorText {
+  position: absolute;
+  color: var(--danger);
+  top: 86px;
+  left: 52px;
+  font-family: cursive;
+  font-size: 14px;
+  font-weight: 400;
+}

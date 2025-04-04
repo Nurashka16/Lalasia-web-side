@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Profile= () => {
+const Profile = () => {
   return (
-    <div>Basket</div>
+    <div>Profile</div>
   )
 }
 

@@ -31,7 +31,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   onClick,
   ...props
 }: MultiDropdownProps) => {
-  const { ref: menuRef, isShow, onShow } = useClickOutside();
+  const { ref: menuRef, isShow, onShow } = useClickOutside<HTMLFormElement>();
   const [value, setValue] = useState("");
   const [allVariants, setAllVariants] = useState(variants);
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./GoCheckout.module.css";
 import ButtonBack from "src/common/components/ButtonBack/ButtonBack";
 import { observer } from "mobx-react-lite";
@@ -13,7 +13,6 @@ import Loader from "src/common/components/Loader";
 import DeliveryDatePicker from "./Delivery/DatePicker/DatePicker";
 
 const GoCheckout: React.FC = observer(() => {
-
   const navigate = useNavigate();
 
   const { productsPayment, isLoading } = paymentStore;
@@ -37,11 +36,11 @@ const GoCheckout: React.FC = observer(() => {
       <ButtonBack aria-label="Назад к корзине" link={BASKET} />
       <div className={style.main}>
         <div className={style.content}>
+          <Delivery />
           <div className={style.additional}>
-            <Delivery />
             <DeliveryDatePicker />
+            <Payment />
           </div>
-          <Payment />
           <ProductsCheckout />
         </div>
         <Navbar />

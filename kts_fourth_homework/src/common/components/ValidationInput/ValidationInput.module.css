@@ -5,8 +5,6 @@
    position: relative;
 }
 .errorMessage {
-   color: red;
+   color: var(--danger);
    position: absolute;
-   /* top: 60px;
-   left: 5px; */
 }

@@ -2,40 +2,40 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex: 0 1 70%;
   position: relative;
 }
-.deliveryTitle {
+.delivery_title {
   position: absolute;
   z-index: 10;
   right: 0;
-  top: -20px;
+  top: -34px;
 }
-.address {
-  margin-top: 14px;
+.delivery_input {
   border-radius: 7px;
-  padding: 24px;
+  padding: 30px 36px;
   display: flex;
   background-color: #ffffff;
   border-radius: 5px;
   width: 100%;
   flex-direction: row;
 }
-.addressInput {
+.delivery_field {
   display: flex;
   flex: 0 1 70%;
   position: relative;
   outline: 2px solid var(--dark_gray);
-  height: 46px;
+  height: 52px;
   top: +2px;
+  padding-top: 16px;
+  font-family: var(--font-family);
 }
-.addressInput:hover {
+.delivery_field:hover {
   outline: 2px solid var(--accent_hover);
 }
-.addressInput:focus {
+.delivery_field:focus {
   outline: 2px solid var(--accent);
 }
-.deliveryInvalid {
+.delivery_errorText {
   position: absolute;
   bottom: -20px;
   left: 12px;
@@ -43,11 +43,24 @@
   font-size: 14px;
   font-weight: 400;
 }
-.deliveryButton {
+.delivery_button {
   display: flex;
   flex: 0 1 30%;
+  height: 56px;
+  font-family: var(--font-family);
 }
-.buttonDisabled {
+.delivery_button__disabled {
   background-color: var(--dark_gray);
   padding: 16px 20px;
+}
+.delivery_button__isActive {
+  background-color: var(--dark_gray);
+}
+.delivery_button__isActive:hover {
+  background-color: var(--dark_gray);
+}
+.delivery_icon {
+  color: var(--accent);
+  width: 26px;
+  height: 26px;
 }

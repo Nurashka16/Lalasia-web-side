@@ -14,6 +14,7 @@ export type InputProps = Omit<
   afterSlot?: React.ReactNode;
   isActive?: boolean;
   classNameIcon?: string;
+  type?: string;
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -24,11 +25,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     disabled,
     isActive,
     classNameIcon,
+    type = "text",
     ...props
   }) => {
     return (
       <form className="input_form">
         <input
+          type={type}
           {...props}
           disabled={disabled}
           className={classNames(
@@ -37,7 +40,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             isActive && "isActiveInput"
           )}
           onChange={(e) => onChange(e.target.value)}
-          type="text"
           placeholder={props.placeholder}
           value={value}
         />

@@ -1,6 +1,5 @@
 .productsCheckout {
   position: relative;
-  /* flex: 0 1 70%; */
 }
 .content_title {
   /* position: absolute;
@@ -15,7 +14,7 @@
   width: 100%;
   background-color: #ffffff;
   border-radius: 7px;
-  padding: 24px 24px 0 0;
+  padding: 30px 36px 0 16px;
   position: relative;
   min-width: 100%;
 }

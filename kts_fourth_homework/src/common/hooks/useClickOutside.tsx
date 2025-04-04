@@ -1,25 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
-export const useClickOutside = () => {
-  const ref = useRef<HTMLFormElement>(null!);
+export const useClickOutside = <T extends HTMLElement>() => {
+  const ref = useRef<T | null>(null);
   const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
     if (!isShow) {
       return;
     }
-    document.addEventListener('mousedown', handler);
+
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setIsShow(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
 
     return () => {
-      document.removeEventListener('mousedown', handler);
+      document.removeEventListener("mousedown", handler);
     };
   }, [isShow]);
 
-  const handler = (e: any) => {
-    if (!ref.current?.contains(e.target)) {
-      setIsShow(false);
-    }
-  };
   const onShow = () => setIsShow((prev) => !prev);
+
   return { ref, isShow, onShow };
 };

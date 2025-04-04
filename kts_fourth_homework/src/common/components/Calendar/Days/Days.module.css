@@ -1,0 +1,31 @@
+.calendar_day {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: var(--font-family);
+}
+.calendar_day:hover {
+  background-color: var(--dark_white);
+  box-shadow: var(--shadows);
+}
+.calendar_day:active {
+  background-color: var(--light_gray);
+}
+.calendar_dayCurrent {
+  color: white;
+  background-color: var(--accent);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.calendar_dayCurrent:hover {
+  background-color: var(--accent);
+}
+.calendar_dayDisabled {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--light_gray);
+}

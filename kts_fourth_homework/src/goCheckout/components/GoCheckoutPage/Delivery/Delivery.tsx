@@ -5,29 +5,22 @@ import GeoIcon from "../icons/GeoIcon";
 import Button from "src/common/components/Button";
 import ValidationInput from "src/common/components/ValidationInput/ValidationInput";
 import classNames from "classnames";
+import { RuleBuilder } from "../RuleBuilder";
+import paymentStore from "src/goCheckout/stores/payment-store";
 
-const Delivery: React.FC = () => {
-  const [address, setAddress] = useState<string>("");
+const Delivery = () => {
+  const { deliveryAddress, setDeliveryAddress } = paymentStore;
+
+  const [changeableAddress, setChangeableAddress] =
+    useState<string>(deliveryAddress);
   const [isSavedAddress, setIsSavedAddress] = useState<boolean>(false);
-  const [addressIsValid, setAddressIsValid] = useState<boolean>(false);
+  const [isValid, setIsValid] = useState<boolean>(false);
 
-  const rules: IRule<string>[] = [
-    {
-      errorMessage: "Address cannot be empty.",
-      validate: (value) => !!value,
-    },
-    {
-      errorMessage: "Address format should be: City Street Number.",
-      validate: (value) => {
-        const details = value.split(" ");
-        return (
-          details.length === 3 &&
-          details.every((part) => part.trim() !== "") && // Проверка, что все части не пустые
-          !isNaN(Number(details[2])) // Проверка, что третья часть - число
-        );
-      },
-    },
-  ];
+  const builder = new RuleBuilder<string>();
+  const myRules = builder
+    .required("Address cannot be empty.")
+    .fieldIsNotEmpty()
+    .build();
 
   return (
     <section className={style.delivery}>
@@ -36,33 +29,41 @@ const Delivery: React.FC = () => {
         weight="bold"
         color="primary"
         view="p-18"
-        className={style.deliveryTitle}
+        className={style.delivery_title}
       >
         Where should the order be delivered?
       </Text>
-      <div className={style.address}>
+      <div className={style.delivery_input}>
         <ValidationInput
-          className={style.addressInput}
+          isValid={isValid}
+          className={style.delivery_field}
           placeholder="example: Moscow Puskina 1"
-          value={address}
+          value={changeableAddress}
           onChange={(e) => {
-            setAddress(e);
+            setChangeableAddress(e);
+            setDeliveryAddress("");
             if (isSavedAddress) setIsSavedAddress(false);
           }}
-          rules={rules}
-          setIsValid={setAddressIsValid}
-          afterSlot={<GeoIcon />}
-          classNameError={style.deliveryInvalid}
+          rules={myRules}
+          setIsValid={setIsValid}
+          afterSlot={
+            <GeoIcon className={isSavedAddress ? style.delivery_icon : ""} />
+          }
+          classNameError={style.delivery_errorText}
         />
         <Button
           className={classNames(
-            style.deliveryButton,
-            isSavedAddress && style.buttonDisabled
+            style.delivery_button,
+            !isValid && style.delivery_button__disabled,
+            isSavedAddress && style.delivery_button__isActive
           )}
           onClick={() => {
-            if (addressIsValid) setIsSavedAddress(true);
+            if (isValid) {
+              setDeliveryAddress(changeableAddress);
+              setIsSavedAddress(true);
+            }
           }}
-          disabled={!addressIsValid || isSavedAddress}
+          disabled={!isValid}
         >
           {isSavedAddress ? "Address Saved" : "Come Here"}
         </Button>
