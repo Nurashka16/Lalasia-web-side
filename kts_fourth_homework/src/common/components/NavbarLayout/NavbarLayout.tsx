@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./Navbar.module.css";
+import style from "./NavbarLayout.module.css";
 import classNames from "classnames";
 
 interface INavbarLayoutProps {
@@ -7,7 +7,7 @@ interface INavbarLayoutProps {
   actionSlot: React.ReactNode /** Слот для действия */;
   titleSlot?: React.ReactNode /** Слот над заголовком */;
   subtitle?: React.ReactNode /** текст*/;
-  contentSlot: React.ReactNode /** Содержимое карточки (футер/боковая часть), может быть пустым */;
+  contentSlot: React.ReactNode /**/;
   onClick?: (id: number) => void /** Клик на карточку */;
 }
 
@@ -21,6 +21,7 @@ const NavbarLayout = ({
 }: INavbarLayoutProps) => {
   return (
     <nav className={style.navbar}>
+      {titleSlot}
       <div className={classNames(style.content, className)}>
         {actionSlot}
         {subtitle}

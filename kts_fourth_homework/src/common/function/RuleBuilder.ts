@@ -1,4 +1,5 @@
 import { IRule } from "src/common/interfaces/IValidation";
+import { search } from "./../../home/api/ProductsApi";
 
 export class RuleBuilder<T> {
   private readonly _rules: IRule<T>[] = [];
@@ -8,14 +9,14 @@ export class RuleBuilder<T> {
       errorMessage: errorMessage ?? "value is required",
       validate: (value) => !!value,
     });
-    return this;   
+    return this;
   }
 
   public moreThen(otherValue: T, errorMessage?: string) {
     this._rules.push({
       errorMessage: errorMessage ?? "",
-      validate: (value) => value > otherValue
-    })
+      validate: (value) => value > otherValue,
+    });
   }
 
   public dateInFuture(errorMessage?: string): RuleBuilder<T> {
@@ -63,12 +64,7 @@ export class RuleBuilder<T> {
     });
     return this;
   }
-
   public build(): IRule<T>[] {
     return this._rules;
   }
 }
-
-
-
-

@@ -10,7 +10,9 @@ import Payment from "./Payment/Payment";
 import Delivery from "./Delivery/Delivery";
 import paymentStore from "src/goCheckout/stores/payment-store";
 import Loader from "src/common/components/Loader";
-import DeliveryDatePicker from "./Delivery/DatePicker/DatePicker";
+import DeliveryDatePicker from "./DatePicker/DatePicker";
+import Text from "src/common/components/Text";
+import classNames from "classnames";
 
 const GoCheckout: React.FC = observer(() => {
   const navigate = useNavigate();
@@ -19,31 +21,46 @@ const GoCheckout: React.FC = observer(() => {
 
   const isEmptyProductsPayment = productsPayment.length === 0;
 
-  // useEffect(() => {
-  //   if (isEmptyProductsPayment) {
-  //     navigate(HOME); // Перенаправление на главную страницу, если корзина пуста
-  //   }
-  // }, [isEmptyProductsPayment, navigate]);
+  useEffect(() => {
+    if (isEmptyProductsPayment) {
+      navigate(HOME); // Перенаправление на главную страницу, если корзина пуста
+    }
+  }, [isEmptyProductsPayment, navigate]);
 
-  // if (isEmptyProductsPayment) {
-  //   return null; // Если корзина пуста, ничего не рендерим
-  // }
-
+  if (isEmptyProductsPayment) {
+    return null; // Если корзина пуста, ничего не рендерим
+  }
+  const [isShowLoading, setIsShowLoading] = useState(false);
   return isLoading ? (
     <Loader />
   ) : (
     <div className={style.checkout}>
-      <ButtonBack aria-label="Назад к корзине" link={BASKET} />
-      <div className={style.main}>
-        <div className={style.content}>
-          <Delivery />
-          <div className={style.additional}>
-            <DeliveryDatePicker />
-            <Payment />
-          </div>
-          <ProductsCheckout />
+      {isShowLoading && (
+        <div className={style.loader}>
+          <Loader />
+          <Text className={style.loader_text} weight="normal" tag="h2">
+            The order is placed
+          </Text>
         </div>
-        <Navbar />
+      )}
+      <div
+        className={classNames(
+          style.container,
+          isShowLoading && style.container_disabled
+        )}
+      >
+        <ButtonBack aria-label="Назад к корзине" link={BASKET} />
+        <div className={style.main}>
+          <div className={style.content}>
+            <Delivery />
+            <div className={style.additional}>
+              <DeliveryDatePicker />
+              <Payment />
+            </div>
+            <ProductsCheckout />
+          </div>
+          <Navbar setIsLoading={setIsShowLoading} />
+        </div>
       </div>
     </div>
   );

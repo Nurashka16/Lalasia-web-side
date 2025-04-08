@@ -1,4 +1,10 @@
 .checkout {
+  position: relative;
+}
+.container_disabled {
+  opacity: 0.3;
+}
+.container {
   padding: 60px 100px 100px;
 }
 .main {
@@ -12,10 +18,23 @@
   flex-direction: column;
   gap: 30px;
 }
-
-.additional{
+.additional {
   display: flex;
   justify-content: space-between;
   flex-direction: row-reverse;
   position: relative;
+}
+.loader {
+  position: absolute;
+  width: 400px;
+  height: 250px;
+  border-radius: 7px;
+  background-color: rgba(255, 255, 255);
+  border: 1px solid gray;
+  z-index: 30;
+  top: 31%;
+  left: 37%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

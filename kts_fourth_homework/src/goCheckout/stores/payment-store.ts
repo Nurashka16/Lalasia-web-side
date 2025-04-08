@@ -7,10 +7,10 @@ export type PaymentType = "Cash" | "Card" | "QR";
 export interface IProductPayment extends IProduct {
   count: number;
 }
-const coupons = [
+export const coupons = [
   {
     name: "1",
-    sale: "1000$",
+    sale: "100$",
   },
   {
     name: "2",
@@ -32,6 +32,7 @@ class PaymentStore {
   private _productsItemsCount: number = 0;
   private _sumProducts: number = 0;
   private _countAllProducts: number = 0;
+  private _discountValue: number = 0;
 
   constructor() {
     makeAutoObservable(this);
@@ -49,7 +50,9 @@ class PaymentStore {
   get sumProducts() {
     return this._sumProducts;
   }
-
+  get discountValue() {
+    return this._discountValue;
+  }
   setDeliveryDate = (date: string) => {
     this.deliveryDate = date;
   };
@@ -77,12 +80,11 @@ class PaymentStore {
     this._productsItemsCount = results.totalCount;
     this._sumProducts = results.totalSum;
   };
-  /*    name: "First Order",
-    name: "Second Order", */
+    /*Применение купонов*/
   applyCoupon = (value: string) => {
     const coupon = coupons.find((c) => c.name === value);
     if (!coupon) {
-      this.couponError = "Coupon not found"; // Устанавливаем сообщение об ошибке
+      this.couponError = "Coupon not found";
       return;
     }
     if (this.appliedCoupon === coupon.name) {
@@ -91,18 +93,20 @@ class PaymentStore {
     }
     if (this.appliedCoupon) {
       this.updateProductsValues();
-      console.log(this._sumProducts);
     }
     const discountValue = coupon.sale.endsWith("%")
       ? (this._sumProducts * parseFloat(coupon.sale)) / 100
       : parseFloat(coupon.sale.replace("$", ""));
-
-    this._sumProducts -= discountValue;
+    this._sumProducts - discountValue > 0
+      ? (this._sumProducts -= discountValue)
+      : (this._sumProducts = 0);
+      // get = discountValue
+      this._discountValue=discountValue;
     this.appliedCoupon = coupon.name;
     this.couponError = null;
   };
 
-  // Метод для сброса купона, если это необходимо
+  // Метод для сброса купона
   resetCoupon = () => {
     this.appliedCoupon = null;
     this.couponError = null;

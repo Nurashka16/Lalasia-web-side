@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./Basket.module.css";
 import basketStore from "../../stores/basket-store";
-import Navbar from "./Navbar/NavbarBasket";
+import Navbar from "./Navbarbasket/NavbarBasket";
 import SelectedProducts from "./SelectedProducts/SelectedProducts";
 import { observer } from "mobx-react-lite";
 import Text from "src/common/components/Text";

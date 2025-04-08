@@ -7,7 +7,7 @@ import basketStore from "src/basket/stores/basket-store";
 import paymentStore, {
   IProductPayment,
 } from "src/goCheckout/stores/payment-store";
-import NavbarLayout from "./NavbarLayout";
+import NavbarLayout from "../../../../common/components/NavbarLayout/NavbarLayout";
 
 const NavbarBasket = observer(() => {
   const { addProductsPayment } = paymentStore;

@@ -17,23 +17,28 @@
   background-color: #ffffff;
   border-radius: 5px;
   width: 100%;
-  flex-direction: row;
+  flex-direction: row-reverse;
+  position: relative;
 }
 .delivery_field {
   display: flex;
   flex: 0 1 70%;
   position: relative;
-  outline: 2px solid var(--dark_gray);
-  height: 52px;
-  top: +2px;
+  border: 2px solid var(--dark_gray);
+  border-right: none;
+  height: 54px;
+  top: 0px;
   padding-top: 16px;
   font-family: var(--font-family);
 }
 .delivery_field:hover {
-  outline: 2px solid var(--accent_hover);
+  border: 2px solid var(--accent_hover);
+  border-right: none;
 }
 .delivery_field:focus {
-  outline: 2px solid var(--accent);
+  border: 2px solid var(--accent);
+  border-right: none;
+  outline: none;
 }
 .delivery_errorText {
   position: absolute;
@@ -43,11 +48,19 @@
   font-size: 14px;
   font-weight: 400;
 }
-.delivery_button {
+.delivery_buttons{
   display: flex;
   flex: 0 1 30%;
-  height: 56px;
+  height: 54px;
+  position: relative;
+}
+.delivery_button {
+  width: 100%;
+  position: absolute;
+  z-index: 15;
+  left: -1px;
   font-family: var(--font-family);
+  background-color: var(--accent);
 }
 .delivery_button__disabled {
   background-color: var(--dark_gray);

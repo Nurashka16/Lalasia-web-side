@@ -1,20 +1,30 @@
-.input {
+.promotionalCode_navbar {
+  padding: 30px 36px;
+  padding-bottom: 30px;
+}
+.promotionalCode {
+  margin-top: 2px;
+  position: relative;
+}
+.promotionalCode_title {
+  margin-bottom: 12px;
+  position: absolute;
+  right: 0;
+  top: -34px;
+}
+.promotionalCode_input {
   outline: 2px solid var(--dark_gray);
   height: 52px;
   font-family: var(--font-family);
   margin-top: 4px;
 }
-.input:hover {
+.promotionalCode_input:hover {
   outline: 2px solid var(--accent_hover);
 }
-.btn {
-  padding: 30px 36px;
-  padding-bottom: 30px;
-}
-.b {
+.promotionalCode_btn {
   margin-bottom: 30px;
 }
-.errorText {
+.promotionalCode_errorText {
   position: absolute;
   color: var(--danger);
   top: 86px;
@@ -22,4 +32,6 @@
   font-family: cursive;
   font-size: 14px;
   font-weight: 400;
+  z-index: 15;
 }
+

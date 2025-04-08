@@ -1,7 +1,7 @@
 import React from "react";
 
 interface IGeoIconProps {
-  className:string
+  className?:string
 }
 
 const GeoIcon = ({className}:IGeoIconProps) => {

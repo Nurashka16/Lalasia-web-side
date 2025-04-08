@@ -33,7 +33,7 @@
   font-family: var(--font-family);
 }
 .payment_button__isActive {
-  border: var(--accent_hover) solid 3px;
+  border: var(--accent_hover) solid 2px;
   border-radius: 5px;
 }
 .payment_button__isNotActive:hover {

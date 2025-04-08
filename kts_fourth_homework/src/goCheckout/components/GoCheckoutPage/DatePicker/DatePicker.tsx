@@ -9,7 +9,7 @@ import CalendarSavedIcon from "./icons/CalendarSavedIcon";
 import { observer } from "mobx-react-lite";
 import paymentStore from "src/goCheckout/stores/payment-store";
 import Calendar from "src/common/components/Calendar/Calendar";
-import { RuleBuilder } from "../../RuleBuilder";
+import { RuleBuilder } from "src/common/function/RuleBuilder";
 
 const DeliveryDatePicker = observer(() => {
   const { deliveryDate, setDeliveryDate } = paymentStore;
