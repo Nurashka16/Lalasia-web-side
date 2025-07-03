@@ -1,30 +1,29 @@
-# React + TypeScript + Vite
+# Lalasia Web Side
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание проекта
+Lalasia Web Side — это TypeScript проект на React с использованием MobX для управления состоянием. Проект представляет собой полнофункциональный маркетплейс для миллионов товаров, включающий все основные функции, характерные для обычного маркетплейса:
+- Поиск и фильтрация товаров.
+- Детальная страница товара.
+- Корзина и оформление заказа.
 
-Currently, two official plugins are available:
+## Технологии и зависимости
+- **React**: Библиотека для построения пользовательских интерфейсов.
+- **MobX**: Легковесная библиотека для управления состоянием.
+- **TypeScript**: Язык программирования, который добавляет типы к JavaScript.
+- **CSS Modules**: Для локального применения стилей.
+- **ESLint**: Инструмент для проверки и анализа кода.
+- **Axios**: HTTP клиента для взаимодействия с API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Установка и запуск
+1. Клонируйте репозиторий.
 
-## Expanding the ESLint configuration
+2. Установите зависимости:
+`npm install`
+# или
+`yarn install`
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Запустите проект:
+`npm start`
+# или
+`yarn start`
+Проект запустится на `http://localhost:3000`.

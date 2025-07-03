@@ -9,6 +9,8 @@ interface ICardsProps {
 }
 const Cards = ({ onClick, products }: ICardsProps) => {
   const cards = products.map((item: ICard) => {
+
+    console.log(products[0]);
     
     return (
       <Card className={style.card}

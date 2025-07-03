@@ -7,13 +7,13 @@ import PaymentCashIcon from "./icons/PaymentCashIcon";
 import PaymentQRIcon from "./icons/PaymentQRIcon";
 import paymentStore, { PaymentType } from "src/goCheckout/stores/payment-store";
 import { observer } from "mobx-react-lite";
-import Button from "src/common/components/Button";
 
 const typesData = new Map<PaymentType, React.ReactNode>([
   ["Card", <PaymentCardIcon />],
   ["Cash", <PaymentCashIcon />],
   ["QR", <PaymentQRIcon />],
 ]);
+
 
 const Payment = observer(() => {
   const { paymentType, setPaymentType } = paymentStore;

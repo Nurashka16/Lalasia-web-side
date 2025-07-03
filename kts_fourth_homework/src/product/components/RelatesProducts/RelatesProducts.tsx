@@ -9,10 +9,10 @@ import NotFound from "src/common/components/NotFound";
 const RelatesProducts = observer(() => {
   const { relatesProducts } = productStore;
   const { addProduct } = basketStore;
-
+  
   return (
     <div className={style.relatesProducts}>
-      {relatesProducts.length ? (
+      {!!relatesProducts.length ? (
         <CatalogLayout
           className={style.relatesProducts_main}
           title="Relates Items"

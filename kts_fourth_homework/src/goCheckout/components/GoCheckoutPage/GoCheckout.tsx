@@ -13,6 +13,7 @@ import Loader from "src/common/components/Loader";
 import DeliveryDatePicker from "./DatePicker/DatePicker";
 import Text from "src/common/components/Text";
 import classNames from "classnames";
+import DeliveryTabs from "./Delivery/DeliveryTabs";
 
 const GoCheckout: React.FC = observer(() => {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ const GoCheckout: React.FC = observer(() => {
         <ButtonBack aria-label="Назад к корзине" link={BASKET} />
         <div className={style.main}>
           <div className={style.content}>
-            <Delivery />
+            <DeliveryTabs />
             <div className={style.additional}>
               <DeliveryDatePicker />
               <Payment />

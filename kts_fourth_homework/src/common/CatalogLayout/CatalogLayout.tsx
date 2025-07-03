@@ -18,13 +18,12 @@ interface ICatalogLayoutProps {
 const CatalogLayout = ({
   onClick,
   products = [],
-  countAllProducts = 0,
   title,
   className,
   children,
 }: ICatalogLayoutProps) => {
-  const hasProducts = products.length > 0 && onClick;
-
+const hasProducts = products.length > 0 && !!onClick;
+  const countAllProducts = products.length;
   return (
     <div className={classNames(style.catalog, className)}>
       {title && (
@@ -45,7 +44,7 @@ const CatalogLayout = ({
         </div>
       )}
       {countAllProducts > 0 ? (
-        hasProducts ? (
+        !!hasProducts ? (
           <Cards onClick={onClick} products={products} />
         ) : (
           children

@@ -26,6 +26,7 @@ class PaymentStore {
   paymentType: PaymentType | undefined = undefined;
   appliedCoupon: string | null = null; // Для отслеживания применённого купона
   couponError: string | null = null;
+  selectedDeliveryPointId: number | null = null;
   // Для хранения сообщений об ошибках
 
   // Приватные свойства

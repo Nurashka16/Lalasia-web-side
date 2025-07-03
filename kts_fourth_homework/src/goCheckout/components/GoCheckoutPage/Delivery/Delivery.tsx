@@ -1,65 +1,62 @@
-import React, { useEffect, useState } from "react";
-import style from "./Delivery.module.css";
-import Text from "src/common/components/Text";
-import GeoIcon from "./icons/GeoIcon";
-import Button from "src/common/components/Button";
-import ValidationInput from "src/common/components/ValidationInput/ValidationInput";
-import classNames from "classnames";
-import paymentStore from "src/goCheckout/stores/payment-store";
-import { RuleBuilder } from "src/common/function/RuleBuilder";
+import React, { useState } from 'react';
+import style from './Delivery.module.css';
+import Text from 'src/common/components/Text';
+import Button from 'src/common/components/Button';
+import DeliveryTabs, { DeliveryType } from './DeliveryTabs';
+import PickupPointsList, { DeliveryPoint } from './PickupPointsList';
+import paymentStore from 'src/goCheckout/stores/payment-store';
 
-const Delivery = () => {
-  const { deliveryAddress, setDeliveryAddress } = paymentStore;
+// Пример данных ПВЗ
+import { pickupPoints } from 'src/utils/pickupPoints';
 
-  const [changeableAddress, setChangeableAddress] =
-    useState<string>(deliveryAddress);
-  const [isValid, setIsValid] = useState<boolean>(false);
-
-  const builder = new RuleBuilder<string>();
-  const myRules = builder
-    .required("Address cannot be empty.")
-    .fieldIsNotEmpty()
-    .build();
-
-  useEffect(() => {
-    setDeliveryAddress("");
-    isValid == true && setDeliveryAddress(changeableAddress);
-  }, [changeableAddress, isValid]);
+const Delivery: React.FC = () => {
+  const [deliveryType, setDeliveryType] = useState<DeliveryType>('delivery');
+  const [selectedPointId, setSelectedPointId] = useState<number | null>(null);
 
   return (
-    <section className={style.delivery}>
-      <Text
-        tag="h2"
-        weight="bold"
-        color="primary"
-        view="p-18"
-        className={style.delivery_title}
-      >
-        Where should the order be delivered?
+    <section className={style.wrapper}>
+      <Text tag="h2" weight="bold" color="primary" view="p-18">
+        Выберите способ получения
       </Text>
-      <div className={style.delivery_input}>
-        <div className={style.delivery_buttons}>
-          <Button
-            className={classNames(style.delivery_button)}
-            disabled={!isValid}
-          >
-            Address Saved
-          </Button>
+
+      <DeliveryTabs
+        selected={deliveryType}
+        onChange={(type) => {
+          setDeliveryType(type);
+          if (type === 'delivery') {
+            setSelectedPointId(null); // Очищаем при переключении на доставку
+          }
+        }}
+      />
+
+      {deliveryType === 'delivery' && (
+        <div className={style.delivery_form}>
+          {/* Здесь будет форма доставки */}
+          <p>Введите адрес для доставки</p>
+          {/* <DeliveryForm /> */}
         </div>
-        <ValidationInput
-          isValid={isValid}
-          className={style.delivery_field}
-          placeholder="example: Moscow Puskina 1"
-          value={changeableAddress}
-          onChange={(e) => {
-            setChangeableAddress(e);
-          }}
-          rules={myRules}
-          setIsValid={setIsValid}
-          afterSlot={<GeoIcon />}
-          classNameError={style.delivery_errorText}
+      )}
+
+      {deliveryType === 'pickup' && (
+        <PickupPointsList
+          points={pickupPoints}
+          selectedPointId={selectedPointId}
+          onSelect={setSelectedPointId}
         />
-      </div>
+      )}
+
+      <Button
+        disabled={!selectedPointId && deliveryType === 'pickup'}
+        onClick={() => {
+          if (deliveryType === 'pickup' && selectedPointId) {
+            // paymentStore.setSelectedDeliveryPointId(selectedPointId);
+            console.log(1)
+          }
+          // Логика продолжения заказа
+        }}
+      >
+        Продолжить
+      </Button>
     </section>
   );
 };
